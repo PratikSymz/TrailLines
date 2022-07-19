@@ -1,12 +1,18 @@
 package com.neu.madcourse.mad_team4_finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
      * This is the button login method
      */
     public void loginButton(View v){
+        // TODO ****** Need to set this method to onClick method on the login method******
        //email =  mbinding.id.getText().toString().trim()
         // password =  mbinding.id.getText().toString().trim()
         if (email.equals("")){
@@ -49,7 +56,19 @@ public class LoginActivity extends AppCompatActivity {
         else if (password.equals("")){
             //mbinding.id.setError(getString(R.string.empty_password)
         } else{
-
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(mContext, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(mContext, "Login Failed : " + task.getException(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 }

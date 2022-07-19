@@ -32,10 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         mBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         // Set the layout root view
         setContentView(mBinding.getRoot());
-        mBinding.someText.setText("Hey!");
-        /**
-         * need to do mbinding to initialize the text input
-         */
     }
 
 

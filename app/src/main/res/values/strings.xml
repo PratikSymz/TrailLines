@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MAD_Team4_FinalProject</string>
+
+    <!-- LoginActivity resources -->
+    <string name="hint_login_email">Enter Email</string>
+    <string name="hint_login_password">Enter Password</string>
 </resources>

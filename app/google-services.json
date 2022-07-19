@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "707222154198",
+    "firebase_url": "https://trail-lines-default-rtdb.firebaseio.com",
+    "project_id": "trail-lines",
+    "storage_bucket": "trail-lines.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707222154198:android:e38d2deff941163fb91277",
+        "android_client_info": {
+          "package_name": "com.neu.madcourse.mad_team4_finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707222154198-m85icr2h621ua247la74njk96ftm723r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.neu.madcourse.mad_team4_finalproject",
+            "certificate_hash": "0da5680f8e0b9b2b1c05843e3c917d656ed281c0"
+          }
+        },
+        {
+          "client_id": "707222154198-91kiu1cmlqufdnco3fuqmocu5ticrtqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy87ZeFt-N4VRxz0InXqcDIv2hRO3MIBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707222154198-91kiu1cmlqufdnco3fuqmocu5ticrtqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

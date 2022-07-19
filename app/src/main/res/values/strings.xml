@@ -4,4 +4,6 @@
     <!-- LoginActivity resources -->
     <string name="hint_login_email">Enter Email</string>
     <string name="hint_login_password">Enter Password</string>
+    <string name="empty_email">Invalid Email</string>
+    <string name="empty_password">Invalid Password</string>
 </resources>

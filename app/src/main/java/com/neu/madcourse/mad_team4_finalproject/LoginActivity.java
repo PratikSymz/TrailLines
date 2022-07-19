@@ -15,6 +15,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
     /* The Activity Log Tag */
     private final String LOG_TAG = LoginActivity.class.getSimpleName();
@@ -44,17 +46,17 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * @return none
      * @param v
-     * This is the button login method
+     * This is the button login method.
+     * When the login button on the activity is clicked this method is called
      */
     public void loginButton(View v){
-        // TODO ****** Need to set this method to onClick method on the login method******
-       //email =  mbinding.id.getText().toString().trim()
-        // password =  mbinding.id.getText().toString().trim()
+       email =  Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim();
+       password =  Objects.requireNonNull(mBinding.viewInputPassword.getText()).toString().trim();
         if (email.equals("")){
-            //mbinding.id.setError(getString(R.string.empty_email)
+            mBinding.viewInputEmail.setError(getString(R.string.empty_email));
         }
         else if (password.equals("")){
-            //mbinding.id.setError(getString(R.string.empty_password)
+            mBinding.viewInputPassword.setError(getString(R.string.empty_password));
         } else{
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -42,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
 
         // Instantiate the Base utils reference
         mBaseUtils = new BaseUtils(mContext);
+
+        /* FACEBOOK Login */
+        // Initialize the Facebook login button
     }
 
 

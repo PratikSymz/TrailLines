@@ -45,12 +45,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Android Firebase dependencies
-    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+    implementation platform('com.google.firebase:firebase-bom:30.3.0')
     implementation 'com.google.firebase:firebase-database:20.0.5'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging:23.0.6'
     implementation 'com.google.firebase:firebase-firestore:24.2.1'
-    implementation 'com.google.firebase:firebase-auth:21.0.6'
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Facebook SDK
+    // implementation 'com.facebook.android:facebook-login:4.42.0'
 
     // Picasso Image loading library
     implementation 'com.squareup.picasso:picasso:2.71828'

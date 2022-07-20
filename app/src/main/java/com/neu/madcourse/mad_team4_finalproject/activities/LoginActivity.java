@@ -1,6 +1,7 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -78,5 +79,15 @@ public class LoginActivity extends AppCompatActivity {
         if (password.equals("")) {
             mBinding.viewInputPassword.setError(getString(R.string.login_empty_password));
         }
+    }
+
+    /**
+     * The onClick method to take users to the sign up page
+     *
+     * @param view The login button view
+     */
+
+    public void signUp(View view){
+        startActivity(new Intent(mContext, SignUpActivity.class));
     }
 }

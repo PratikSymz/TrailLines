@@ -16,4 +16,11 @@
     <string name="signup_empty_email">Invalid Email</string>
     <string name="signup_empty_password">Invalid Password</string>
     <string name="signup_button_text">Signup</string>
+    <string name="invalid_name">Invalid Name</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="password_not_match">Passwords do not match!</string>
+    <string name="sign_up_success">Sign Up Successful!</string>
+    <string name="signup_fail">Sign Up Failed: %1$s</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

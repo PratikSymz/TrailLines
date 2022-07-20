@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/art_login"
@@ -74,19 +74,21 @@
             android:id="@+id/view_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:password="true" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/view_button_login"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:onClick="loginButton"
-        android:text="Login"
+        android:background="@color/hike_accent"
+        android:onClick="initiateUserLogin"
+        android:text="@string/login_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -4,6 +4,16 @@
     <!-- LoginActivity resources -->
     <string name="hint_login_email">Enter Email</string>
     <string name="hint_login_password">Enter Password</string>
-    <string name="empty_email">Invalid Email</string>
-    <string name="empty_password">Invalid Password</string>
+    <string name="login_empty_email">Invalid Email</string>
+    <string name="login_empty_password">Invalid Password</string>
+    <string name="login_button_text">Login</string>
+
+    <!-- SignUpActivity resources -->
+    <string name="hint_signup_name">Enter Name</string>
+    <string name="hint_signup_email">Enter Email</string>
+    <string name="hint_signup_password">Enter Password</string>
+    <string name="hint_signup_confirm_password">Confirm Password</string>
+    <string name="signup_empty_email">Invalid Email</string>
+    <string name="signup_empty_password">Invalid Password</string>
+    <string name="signup_button_text">Signup</string>
 </resources>

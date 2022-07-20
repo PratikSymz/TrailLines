@@ -23,4 +23,5 @@
     <string name="sign_up_success">Sign Up Successful!</string>
     <string name="signup_fail">Sign Up Failed: %1$s</string>
     <string name="sign_up">Sign Up</string>
+    <string name="update_failed">Failed to update profile</string>
 </resources>

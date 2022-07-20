@@ -66,8 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     mBaseUtils.showToast(
                             String.format("Login Failed: %s", task.getException()),
-                            Toast.LENGTH_SHORT
-                    );
+                            Toast.LENGTH_SHORT);
                 }
             });
         }

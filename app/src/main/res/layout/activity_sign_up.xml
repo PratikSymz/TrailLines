@@ -134,7 +134,7 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:counterEnabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/view_button_login"
+        app:layout_constraintBottom_toTopOf="@+id/view_button_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +151,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/view_button_login"
+        android:id="@+id/view_button_signup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -159,6 +159,7 @@
         android:layout_marginBottom="24dp"
         android:background="@color/hike_accent"
         android:fontFamily="@font/lato_black"
+        android:onClick="signUpButton"
         android:text="@string/signup_button_text"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

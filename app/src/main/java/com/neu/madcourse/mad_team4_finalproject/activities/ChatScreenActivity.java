@@ -6,12 +6,15 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.neu.madcourse.mad_team4_finalproject.Chat.ChatAdapter;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityChatScreenBinding;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
+import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 
 public class ChatScreenActivity extends AppCompatActivity {
     /* The Activity layout view binding reference */
@@ -19,6 +22,8 @@ public class ChatScreenActivity extends AppCompatActivity {
     private ChatAdapter chatAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private boolean pressAgain = false;
+    private BaseUtils mBaseUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class ChatScreenActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
         tabLayout = mBinding.mainTab;
         viewPager = mBinding.mainViewPage;
+        mBaseUtils = new BaseUtils(this);
         setViewPage();
     }
 
@@ -63,5 +69,31 @@ public class ChatScreenActivity extends AppCompatActivity {
         });
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    /**
+     * on back press method to handle the logistics of the app structure.
+     * We want to exit the chat but not the app altogether
+     */
+    @Override
+    public void onBackPressed() {
+        if (tabLayout.getSelectedTabPosition() > 0){
+            tabLayout.selectTab(tabLayout.getTabAt(0));
+        } else {
+            if (pressAgain){
+                // TODO this needs to be updated once the explore screen is done
+                finish();
+            } else {
+                pressAgain = true;
+                mBaseUtils.showToast(getString(R.string.press_again_exit), Toast.LENGTH_SHORT);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pressAgain = false;
+                    }
+                }, 2000);
+            }
+        }
     }
 }

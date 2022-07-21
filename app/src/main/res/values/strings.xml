@@ -32,4 +32,5 @@
     <string name="friend_requests">Friend Requests</string>
     <string name="request_list">Friend Request List</string>
     <string name="find_friends">Friend Lists</string>
+    <string name="press_again_exit">Press the back button again to exit</string>
 </resources>

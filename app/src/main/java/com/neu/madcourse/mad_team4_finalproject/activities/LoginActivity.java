@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     mBaseUtils.showToast("Login Successful!", Toast.LENGTH_SHORT);
+                    // subject to change to main app screen (explore tab)
                     Intent intent = new Intent(mContext, ChatScreenActivity.class);
                     startActivity(intent);
                 } else {

@@ -1,5 +1,4 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     mBaseUtils.showToast("Login Successful!", Toast.LENGTH_SHORT);
+                    Intent intent = new Intent(mContext, ChatScreenActivity.class);
+                    startActivity(intent);
                 } else {
                     mBaseUtils.showToast(
                             String.format("Login Failed: %s", task.getException()),

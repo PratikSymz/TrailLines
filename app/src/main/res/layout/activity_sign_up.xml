@@ -12,6 +12,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="32dp"
+        android:onClick="imageUpload"
         android:src="@drawable/login_screen_art"
         app:civ_border_color="@color/black"
         app:civ_border_width="1dp"

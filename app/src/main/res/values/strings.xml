@@ -25,4 +25,11 @@
     <string name="sign_up">Sign Up</string>
     <string name="update_failed">Failed to update profile</string>
     <string name="permission_required">Permission Required!</string>
+    <string name="traillines_messenger">TrailLines Messenger</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="chat_appear">Chats will appear here</string>
+    <string name="friend_requests">Friend Requests</string>
+    <string name="request_list">Friend Request List</string>
+    <string name="find_friends">Friend Lists</string>
 </resources>

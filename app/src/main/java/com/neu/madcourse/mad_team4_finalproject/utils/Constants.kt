@@ -15,7 +15,16 @@ object Constants {
             const val KEY_PROFILE_URL = "profile_picture_url"
             const val KEY_PRIVATE_PROFILE = "private_profile"
         }
+        object FriendRequests{
+            const val KEY_TLO = "friend_request"
+
+            const val KEY_REQUEST_STATUS = "request_status"
+        }
     }
+
+    /* Friend Request Status's */
+    const val REQUEST_STATUS_SENT = "sent"
+    const val REQUEST_STATUS_RECEIVED = "received"
 
     /* The ProfileActivity tags */
     const val PROFILE_TAG_ACCOUNT = "Account"

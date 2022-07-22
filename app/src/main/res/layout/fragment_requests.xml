@@ -6,6 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Chat.RequestsFragment">
 
+    <include
+        layout="@layout/default_progress_bar"
+        android:id="@+id/progressbar"
+        android:visibility="invisible"/>
+
     <TextView
         android:id="@+id/friend_request_appearence"
         android:layout_width="wrap_content"

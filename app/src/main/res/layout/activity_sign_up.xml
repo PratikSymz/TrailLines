@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".activities.SignUpActivity">
 
+    <include
+        layout="@layout/default_progress_bar"
+        android:id="@+id/progressbar"
+        android:visibility="invisible"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/view_profile_picture"
         android:layout_width="120dp"

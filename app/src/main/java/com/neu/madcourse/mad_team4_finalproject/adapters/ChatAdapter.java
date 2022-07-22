@@ -1,4 +1,4 @@
-package com.neu.madcourse.mad_team4_finalproject.Chat;
+package com.neu.madcourse.mad_team4_finalproject.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -6,7 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
+import com.neu.madcourse.mad_team4_finalproject.Chat.ChatFragment;
+import com.neu.madcourse.mad_team4_finalproject.Chat.FindFragment;
+import com.neu.madcourse.mad_team4_finalproject.Chat.RequestsFragment;
 import com.neu.madcourse.mad_team4_finalproject.R;
+import com.neu.madcourse.mad_team4_finalproject.models.FriendRequest;
 
 /**
  * This class is created to show the contents of the tab when clicked

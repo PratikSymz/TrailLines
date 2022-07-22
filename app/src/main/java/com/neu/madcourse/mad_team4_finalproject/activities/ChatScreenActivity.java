@@ -3,17 +3,15 @@ package com.neu.madcourse.mad_team4_finalproject.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
-import com.neu.madcourse.mad_team4_finalproject.Chat.ChatAdapter;
+import com.neu.madcourse.mad_team4_finalproject.adapters.ChatAdapter;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityChatScreenBinding;
-import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 
 public class ChatScreenActivity extends AppCompatActivity {

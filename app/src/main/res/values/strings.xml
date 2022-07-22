@@ -37,8 +37,8 @@
     <string name="change_picture">Change picture</string>
     <string name="remove_picture">Remove picture</string>
     <string name="remove_picture_successful">Profile picture removed successfully</string>
-    <string name="change_picture">Change picture</string>
-    <string name="remove_picture">Remove picture</string>
-    <string name="remove_picture_successful">Profile picture removed successfully</string>
     <string name="press_again_exit">Press the back button again to exit</string>
+    <string name="loading">Loading...</string>
+    <string name="accept_request">Accept</string>
+    <string name="deny">Deny</string>
 </resources>

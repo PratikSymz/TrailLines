@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.neu.madcourse.mad_team4_finalproject.R;
-import com.neu.madcourse.mad_team4_finalproject.databinding.AltLoginBinding;
+import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 
 import java.util.Objects;
@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private Context mContext;
 
     /* The Activity layout view binding reference */
-    private AltLoginBinding mBinding;
+    private ActivityLoginBinding mBinding;
 
     /* The Base utils reference */
     private BaseUtils mBaseUtils;
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         mContext = this;
 
         // Instantiate the activity layout view binding
-        mBinding = AltLoginBinding.inflate(getLayoutInflater());
+        mBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         // Set the layout root view
         setContentView(mBinding.getRoot());
 
@@ -64,9 +64,11 @@ public class LoginActivity extends AppCompatActivity {
 
         // Connect to the Firebase Auth server
         if (!mBaseUtils.isEmpty(email) && !mBaseUtils.isEmpty(password)) {
+            mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
                     mBaseUtils.showToast("Login Successful!", Toast.LENGTH_SHORT);
                     // subject to change to main app screen (explore tab)
                     Intent intent = new Intent(mContext, ChatScreenActivity.class);

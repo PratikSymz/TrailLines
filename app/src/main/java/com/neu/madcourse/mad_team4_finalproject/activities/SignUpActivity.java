@@ -141,7 +141,9 @@ public class SignUpActivity extends AppCompatActivity {
     private void picAndNameUpdate() {
         String file = firebaseUser.getUid() + ".jpg";
         final StorageReference reference = fileStorage.child("images/" + file);
+        mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
         reference.putFile(localUri).addOnCompleteListener(task -> {
+            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
             if (task.isSuccessful()) {
                 reference.getDownloadUrl().addOnSuccessListener(uri -> {
                     serverUri = uri;
@@ -186,10 +188,12 @@ public class SignUpActivity extends AppCompatActivity {
      * The Firebase console will have the userID which will have children as: Name, email, profile picture
      */
     private void updateUserName() {
+        mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                 .setDisplayName(Objects.requireNonNull(mBinding.viewInputName.getText()).toString()
                         .trim()).build();
         firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
+            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
             if (task.isSuccessful()) {
                 String userID = firebaseUser.getUid();
 
@@ -204,10 +208,11 @@ public class SignUpActivity extends AppCompatActivity {
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, " ");
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
-
+                mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
                 mUsersDatabaseRef.child(userID)
                         .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
                         .setValue(personalInfoMap).addOnCompleteListener(task1 -> {
+                            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
                             mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
                             startActivity(new Intent(mContext, LoginActivity.class));
                         });
@@ -236,9 +241,11 @@ public class SignUpActivity extends AppCompatActivity {
         if (!mBaseUtils.isEmpty(name) && !mBaseUtils.isEmpty(email) && mBaseUtils.validateEmail(email)
                 && !mBaseUtils.isEmpty(password) && !mBaseUtils.isEmpty(confirmPassword)
                 && password.equals(confirmPassword)) {
+            mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
                     /* creating a user profile */
                     firebaseUser = firebaseAuth.getCurrentUser();
                     if (localUri != null) {

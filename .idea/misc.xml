@@ -3,17 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.1755" />
+        <entry key="app/src/main/res/layout/activity_account.xml" value="0.29832580566406247" />
         <entry key="../../../../../../layout/custom_preview.xml" value="0.1308876811594203" />
         <entry key="app/src/main/res/layout/activity_chat_screen.xml" value="0.2942708333333333" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.32312404640004416" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3762252807617188" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/alt_login.xml" value="0.2958820179996329" />
         <entry key="app/src/main/res/layout/chat_tab.xml" value="0.335" />
         <entry key="app/src/main/res/layout/find_tab.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat2.xml" value="0.19701086956521738" />
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/fragment_requests.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_profile_tag.xml" value="0.1" />
         <entry key="app/src/main/res/layout/request_tab.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/segment_sign_up.xml" value="0.21611633300781258" />
+        <entry key="app/src/main/res/menu/menu_image.xml" value="0.27735042735042736" />
       </map>
     </option>
   </component>

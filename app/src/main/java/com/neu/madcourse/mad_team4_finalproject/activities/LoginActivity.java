@@ -3,13 +3,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.neu.madcourse.mad_team4_finalproject.R;
-import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
+import com.neu.madcourse.mad_team4_finalproject.databinding.AltLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 
 import java.util.Objects;
@@ -22,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private Context mContext;
 
     /* The Activity layout view binding reference */
-    private ActivityLoginBinding mBinding;
+    private AltLoginBinding mBinding;
 
     /* The Base utils reference */
     private BaseUtils mBaseUtils;
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         mContext = this;
 
         // Instantiate the activity layout view binding
-        mBinding = ActivityLoginBinding.inflate(getLayoutInflater());
+        mBinding = AltLoginBinding.inflate(getLayoutInflater());
         // Set the layout root view
         setContentView(mBinding.getRoot());
 
@@ -44,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
 
         /* FACEBOOK Login */
         // Initialize the Facebook login button
+
+        applyListener(mBinding.viewSegmentLogin.viewLinkSignup, childView -> signUp());
     }
 
 
@@ -55,9 +58,9 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void initiateUserLogin(View view) {
         // Extract the input email
-        String email = Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim();
+        String email = Objects.requireNonNull(mBinding.viewSegmentLogin.viewInputEmail.getText()).toString().trim();
         // Extract the input password
-        String password = Objects.requireNonNull(mBinding.viewInputPassword.getText()).toString().trim();
+        String password = Objects.requireNonNull(mBinding.viewSegmentLogin.viewInputPassword.getText()).toString().trim();
 
         // Connect to the Firebase Auth server
         if (!mBaseUtils.isEmpty(email) && !mBaseUtils.isEmpty(password)) {
@@ -77,21 +80,40 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (email.equals("")) {
-            mBinding.viewInputEmail.setError(getString(R.string.login_empty_email));
+            mBinding.viewSegmentLogin.viewInputEmail.setError(getString(R.string.login_empty_email));
         }
 
         if (password.equals("")) {
-            mBinding.viewInputPassword.setError(getString(R.string.login_empty_password));
+            mBinding.viewSegmentLogin.viewInputPassword.setError(getString(R.string.login_empty_password));
         }
     }
 
     /**
      * The onClick method to take users to the sign up page
-     *
-     * @param view The login button view
      */
-
-    public void signUp(View view){
+    public void signUp() {
         startActivity(new Intent(mContext, SignUpActivity.class));
+    }
+
+    private static void applyListener(View child, View.OnClickListener listener) {
+        if (child == null)
+            return;
+
+        if (child instanceof ViewGroup) {
+            applyListener((ViewGroup) child, listener);
+        } else {
+            child.setOnClickListener(listener);
+        }
+    }
+
+    private static void applyListener(ViewGroup parent, View.OnClickListener listener) {
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            View child = parent.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                applyListener((ViewGroup) child, listener);
+            } else {
+                applyListener(child, listener);
+            }
+        }
     }
 }

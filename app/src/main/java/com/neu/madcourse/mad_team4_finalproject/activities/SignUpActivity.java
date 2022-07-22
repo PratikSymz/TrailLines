@@ -12,12 +12,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,13 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.neu.madcourse.mad_team4_finalproject.FirebaseConsole.ConsoleOutlook;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivitySignUpBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
+import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -47,11 +46,17 @@ public class SignUpActivity extends AppCompatActivity {
 
     /* The Base utils reference */
     private BaseUtils mBaseUtils;
-    /* create new firebase users and store the data */
+
+    /* The Firebase user reference create new firebase users and store the data */
     private FirebaseUser firebaseUser;
-    /* creating an object for database reference class */
-    private DatabaseReference databaseReference;
+
+    /* The USERS database reference creating an object for database reference class */
+    private DatabaseReference mUsersDatabaseRef;
+
+    /* The Firebase storage reference */
     private StorageReference fileStorage;
+
+
     private Uri localUri, serverUri;
 
     @Override
@@ -68,6 +73,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Instantiate the Base utils reference
         mBaseUtils = new BaseUtils(mContext);
+
+        // Instantiate the Firebase storage reference
         fileStorage = FirebaseStorage.getInstance().getReference();
     }
 
@@ -75,9 +82,9 @@ public class SignUpActivity extends AppCompatActivity {
      * Method to update the user profile picture from the phone storage during the sign up process
      * This method also will ask user permission to access local image storage for image upload
      *
-     * @param v
+     * @param view
      */
-    public void imageUpload(View v) {
+    public void imageUpload(View view) {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -90,6 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     /**
      * Method to seek permissions
+     *
      * @param requestCode
      * @param permissions
      * @param grantResults
@@ -98,8 +106,8 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 2){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 2) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 1);
             } else {
@@ -121,7 +129,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                localUri = data.getData();
+                localUri = Objects.requireNonNull(data).getData();
                 mBinding.viewProfilePicture.setImageURI(localUri);
             }
         }
@@ -133,51 +141,42 @@ public class SignUpActivity extends AppCompatActivity {
     private void picAndNameUpdate() {
         String file = firebaseUser.getUid() + ".jpg";
         final StorageReference reference = fileStorage.child("images/" + file);
-        reference.putFile(localUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            serverUri = uri;
-                            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(Objects.requireNonNull(mBinding.viewInputName.getText()).toString()
-                                            .trim()).setPhotoUri(serverUri).build();
-                            firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        String userID = firebaseUser.getUid();
-                                        /* initializing the database reference class here */
-                                        databaseReference = FirebaseDatabase.getInstance().getReference().
-                                                child(ConsoleOutlook.userProfile);
-                                        // initializing a new hashmap to update the console outlook accordingly
-                                        HashMap<String, String> stringHashMap = new HashMap<>();
-                                        stringHashMap.put(ConsoleOutlook.firstName, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
-                                        stringHashMap.put(ConsoleOutlook.userEmail, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
-                                        stringHashMap.put(ConsoleOutlook.onlineStatus, String.valueOf(true));
-                                        stringHashMap.put(ConsoleOutlook.userPhoto, serverUri.getPath());
-                                        stringHashMap.put(ConsoleOutlook.privateProfile, String.valueOf(false));
+        reference.putFile(localUri).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                reference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    serverUri = uri;
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(Objects.requireNonNull(mBinding.viewInputName.getText()).toString()
+                                    .trim()).setPhotoUri(serverUri).build();
+                    firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            String userID = firebaseUser.getUid();
 
-                                        databaseReference.child(userID).child("personal_info").setValue(stringHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
-                                                startActivity(new Intent(mContext, LoginActivity.class));
-                                            }
-                                        });
+                            // Initializing the database reference class
+                            mUsersDatabaseRef = FirebaseDatabase.getInstance().getReference().
+                                    child(Constants.UserKeys.KEY_TLO);
 
-                                    } else {
-                                        mBaseUtils.showToast(
-                                                String.format("Update Failed! : %s", task.getException()),
-                                                Toast.LENGTH_SHORT);
-                                    }
-                                }
-                            });
+                            // Initializing a new hashmap to update the database reference accordingly
+                            Map<String, String> personalInfoMap = new HashMap<>();
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, serverUri.getPath());
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
+
+                            mUsersDatabaseRef.child(userID)
+                                    .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
+                                    .setValue(personalInfoMap).addOnCompleteListener(task2 -> {
+                                        mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
+                                        startActivity(new Intent(mContext, LoginActivity.class));
+                                    });
+                        } else {
+                            mBaseUtils.showToast(
+                                    String.format("Update Failed! : %s", task1.getException()),
+                                    Toast.LENGTH_SHORT);
                         }
                     });
-                }
+                });
             }
         });
     }
@@ -186,40 +185,37 @@ public class SignUpActivity extends AppCompatActivity {
      * Method to update the name of user after signing up in the firebase console
      * The Firebase console will have the userID which will have children as: Name, email, profile picture
      */
-
     private void updateUserName() {
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                 .setDisplayName(Objects.requireNonNull(mBinding.viewInputName.getText()).toString()
                         .trim()).build();
-        firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    String userID = firebaseUser.getUid();
-                    /* initializing the database reference class here */
-                    databaseReference = FirebaseDatabase.getInstance().getReference().
-                            child(ConsoleOutlook.userProfile);
-                    // initializing a new hashmap to update the console outlook accordingly
-                    HashMap<String, String> stringHashMap = new HashMap<>();
-                    stringHashMap.put(ConsoleOutlook.firstName, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
-                    stringHashMap.put(ConsoleOutlook.userEmail, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
-                    stringHashMap.put(ConsoleOutlook.onlineStatus, String.valueOf(true));
-                    stringHashMap.put(ConsoleOutlook.userPhoto, " ");
-                    stringHashMap.put(ConsoleOutlook.privateProfile, String.valueOf(false));
+        firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                String userID = firebaseUser.getUid();
 
-                    databaseReference.child(userID).child("personal_info").setValue(stringHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                // Initializing the database reference class
+                mUsersDatabaseRef = FirebaseDatabase.getInstance().getReference().
+                        child(Constants.UserKeys.KEY_TLO);
+
+                // Initializing a new hashmap to update the database reference accordingly
+                Map<String, String> personalInfoMap = new HashMap<>();
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, " ");
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
+
+                mUsersDatabaseRef.child(userID)
+                        .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
+                        .setValue(personalInfoMap).addOnCompleteListener(task1 -> {
                             mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
                             startActivity(new Intent(mContext, LoginActivity.class));
-                        }
-                    });
+                        });
 
-                } else {
-                    mBaseUtils.showToast(
-                            String.format("Update Failed! : %s", task.getException()),
-                            Toast.LENGTH_SHORT);
-                }
+            } else {
+                mBaseUtils.showToast(
+                        String.format("Update Failed! : %s", task.getException()),
+                        Toast.LENGTH_SHORT);
             }
         });
     }
@@ -228,10 +224,9 @@ public class SignUpActivity extends AppCompatActivity {
      * The onClick method to initiate the signup procedure to the Firebase Auth
      * server and verifying the user credentials for new user accounts creations
      *
-     * @param v The login button view
+     * @param view The login button view
      */
-
-    public void signUpButton(View v) {
+    public void signUpButton(View view) {
         String name = Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim();
         String email = Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim();
         String password = Objects.requireNonNull(mBinding.viewInputPassword.getText()).toString().trim();

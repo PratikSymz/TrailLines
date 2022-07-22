@@ -83,28 +83,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
         android:background="@color/hike_accent"
         android:onClick="initiateUserLogin"
         android:text="@string/login_button_text"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/holder_input_password"
-        app:layout_constraintVertical_bias="0.248" />
+        app:layout_constraintTop_toBottomOf="@+id/holder_input_password" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_button_signup">
+        app:layout_constraintEnd_toEndOf="@+id/view_button_login"
+        app:layout_constraintStart_toStartOf="@+id/view_button_login"
+        app:layout_constraintTop_toBottomOf="@+id/view_button_login">
 
         <TextView
             android:id="@+id/no_account"
@@ -113,7 +110,7 @@
             android:layout_weight="1"
             android:paddingHorizontal="10dp"
             android:paddingVertical="10dp"
-            android:text="Dont have an Account?"
+            android:text="Don't have an Account?"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -123,13 +120,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="signUp"
             android:paddingHorizontal="2dp"
             android:paddingVertical="10dp"
             android:text="@string/sign_up"
             android:textColor="#F9BC60"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:onClick="signUp"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

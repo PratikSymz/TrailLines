@@ -20,11 +20,18 @@ object Constants {
 
             const val KEY_REQUEST_STATUS = "request_status"
         }
+
+        object Chats {
+            const val KEY_TLO = "chats"
+            const val TIME_STAMP = "time_stamp"
+        }
     }
+
 
     /* Friend Request Status's */
     const val REQUEST_STATUS_SENT = "sent"
     const val REQUEST_STATUS_RECEIVED = "received"
+    const val ACCEPT_FRIEND_REQUEST = "accepted"
 
     /* The ProfileActivity tags */
     const val PROFILE_TAG_ACCOUNT = "Account"

@@ -4,24 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.1308876811594203" />
-        <entry key="../../../../../../layout/custom_preview.xml" value="0.1308876811594203" />
         <entry key="app/src/main/res/drawable/ic_arrow_right.xml" value="0.1925" />
         <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.1755" />
         <entry key="app/src/main/res/layout/activity_account.xml" value="0.29832580566406247" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.3964376465887086" />
         <entry key="app/src/main/res/layout/activity_chat_screen.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.27735042735042736" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.32312404640004416" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.32172546386718753" />
-        <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.4700552002996461" />
-        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2942708333333333" />
-        <entry key="app/src/main/res/layout/alt_login.xml" value="0.2958820179996329" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.44791259765625" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3762252807617188" />
+        <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.4700552002996461" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="app/src/main/res/layout/alt_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/chat_tab.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/default_progress_bar.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/default_progress_bar.xml" value="0.23552917480468752" />
         <entry key="app/src/main/res/layout/find_tab.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat2.xml" value="0.19701086956521738" />
@@ -29,6 +24,7 @@
         <entry key="app/src/main/res/layout/fragment_requests.xml" value="0.25" />
         <entry key="app/src/main/res/layout/friend_request_layout_file.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_profile_tag.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/layout_progress_bar.xml" value="0.21529388427734375" />
         <entry key="app/src/main/res/layout/request_tab.xml" value="0.335" />
         <entry key="app/src/main/res/layout/segment_sign_up.xml" value="0.21611633300781258" />
         <entry key="app/src/main/res/menu/menu_image.xml" value="0.27735042735042736" />

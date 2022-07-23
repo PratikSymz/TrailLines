@@ -9,11 +9,6 @@
     android:backgroundTintMode="multiply"
     tools:context=".activities.LoginActivity">
 
-    <include
-        layout="@layout/default_progress_bar"
-        android:id="@+id/progressbar"
-        android:visibility="invisible"/>
-
     <TextView
         android:id="@+id/label_welcome"
         android:layout_width="wrap_content"
@@ -55,5 +50,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_sign_in"
         app:layout_constraintVertical_bias="1.0" />
+
+    <include
+        android:id="@+id/view_progress_bar"
+        layout="@layout/layout_progress_bar"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

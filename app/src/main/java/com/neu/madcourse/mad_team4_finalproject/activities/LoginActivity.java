@@ -93,13 +93,15 @@ public class LoginActivity extends AppCompatActivity {
 
         // Connect to the Firebase Auth server
         if (!mBaseUtils.isEmpty(email) && !mBaseUtils.isEmpty(password)) {
-            mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            // Show the progress bar while signing in
+            mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
+            // Sign in the user with Firebase auth
+            mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
+                    // Hide the progress bar
+                    mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     mBaseUtils.showToast("Login Successful!", Toast.LENGTH_SHORT);
-                    // subject to change to main app screen (explore tab)
+                    // TODO: subject to change to main app screen (explore tab)
                     Intent intent = new Intent(mContext, ChatScreenActivity.class);
                     startActivity(intent);
                 } else {

@@ -1,10 +1,5 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,10 +8,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.neu.madcourse.mad_team4_finalproject.R;
-import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityAccountBinding;
+import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityEditProfileBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
@@ -35,15 +34,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class AccountActivity extends AppCompatActivity {
+/** This activity is launched when the user clicks on the Edit button on the profile activity
+ * in order to edit their name, email and profile picture
+ */
+public class EditProfileActivity extends AppCompatActivity {
     /* The Activity Log Tag */
-    private final String LOG_TAG = AccountActivity.class.getSimpleName();
+    private final String LOG_TAG = EditProfileActivity.class.getSimpleName();
 
     /* The Activity context */
     private Context mContext;
 
     /* The Activity layout view binding reference */
-    private ActivityAccountBinding mBinding;
+    private ActivityEditProfileBinding mBinding;
 
     /* The Base utils reference */
     private BaseUtils mBaseUtils;
@@ -71,7 +73,7 @@ public class AccountActivity extends AppCompatActivity {
         mContext = this;
 
         // Instantiate the activity layout view binding
-        mBinding = ActivityAccountBinding.inflate(getLayoutInflater());
+        mBinding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         // Set the layout root view
         setContentView(mBinding.getRoot());
 
@@ -107,6 +109,43 @@ public class AccountActivity extends AppCompatActivity {
                         .into(mBinding.viewProfileImage);
             }
         }
+
+        // Set the profile image onClick menu popup action
+        mBinding.viewProfileImage.setOnClickListener(this::updateImage);
+
+        // Set the save button onClick action
+        mBinding.viewButtonSaveChanges.setOnClickListener(view -> {
+            // Extract the updated information
+            String updatedName = Objects.requireNonNull(mBinding.viewUpdateName.getText()).toString();
+            String updatedEmail = Objects.requireNonNull(mBinding.viewUpdateEmail.getText()).toString();
+            String updatePrivacyStatus = Objects.requireNonNull(mBinding.viewPrivateSwitch.getText()).toString();
+
+            // Update firebase server information
+            if (!mBaseUtils.isEmpty(updatedName) && !mBaseUtils.isEmpty(updatedEmail) &&
+                    mBaseUtils.isValidEmail(updatedEmail) && !mBaseUtils.isEmpty(updatePrivacyStatus)) {
+                if ((mLocalUri != null)) {
+                    updateLoginAndImageInfo(updatedName, updatedEmail, updatePrivacyStatus);
+                } else {
+                    updateLoginInfo(updatedName, updatedEmail, updatePrivacyStatus);
+                }
+            }
+
+            if (mBaseUtils.isEmpty(updatedName)) {
+                mBinding.viewUpdateName.setError(getString(R.string.invalid_name));
+            }
+
+            if (mBaseUtils.isEmpty(updatedEmail)) {
+                mBinding.viewUpdateEmail.setError(getString(R.string.invalid_email));
+            }
+        });
+
+        // TODO: MOVE Logout button inside the "Profile Activity"
+        // Set the logout button onClick action
+        mBinding.viewButtonLogout.setOnClickListener(view -> {
+            mFirebaseAuth.signOut();
+            startActivity(new Intent(mContext, LoginActivity.class));
+            finish();
+        });
     }
 
     /**
@@ -115,7 +154,7 @@ public class AccountActivity extends AppCompatActivity {
      * @param name  The user's updated full name
      * @param email The user's updated email address
      */
-    private void updateLoginInfo(String name, String email) {
+    private void updateLoginInfo(String name, String email, String privacyStatus) {
         // Get the profile change request reference
         final UserProfileChangeRequest profileChangeRequest =
                 new UserProfileChangeRequest.Builder()
@@ -132,14 +171,13 @@ public class AccountActivity extends AppCompatActivity {
                 Map<String, String> personalInfoMap = new HashMap<>();
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, name);
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, email);
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, privacyStatus);
 
                 // Update the database reference JSON
                 mUsersDatabaseRef.child(userID)
                         .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
                         .setValue(personalInfoMap).addOnCompleteListener(task -> {
-                            mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
-                            startActivity(new Intent(mContext, LoginActivity.class));
+                            finish();
                         });
             } else {
                 mBaseUtils.showToast(
@@ -157,7 +195,7 @@ public class AccountActivity extends AppCompatActivity {
      * @param name  The user's updated full name
      * @param email The user's updated email address
      */
-    private void updateLoginAndImageInfo(String name, String email) {
+    private void updateLoginAndImageInfo(String name, String email, String privacyStatus) {
         // Get the filename
         String fileName = String.format("%s.jpg", mFirebaseUser.getUid());
 
@@ -189,14 +227,13 @@ public class AccountActivity extends AppCompatActivity {
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, name);
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, email);
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, mServerUri.getPath());
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, privacyStatus);
 
                             // Update the database reference JSON
                             mUsersDatabaseRef.child(userID)
                                     .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
                                     .setValue(personalInfoMap).addOnCompleteListener(task -> {
-                                        mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
-                                        startActivity(new Intent(mContext, LoginActivity.class));
+                                        finish();
                                     });
                         } else {
                             mBaseUtils.showToast(
@@ -210,6 +247,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
+    /* Helper method to launch the image selector options popup for the user to update their profile picture */
     @SuppressLint("NonConstantResourceId")
     public void updateImage(View view) {
         // If there is no image on the server
@@ -233,6 +271,8 @@ public class AccountActivity extends AppCompatActivity {
 
                 return false;
             });
+
+            popupMenu.show();
         }
     }
 

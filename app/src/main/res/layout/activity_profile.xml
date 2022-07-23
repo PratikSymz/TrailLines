@@ -9,7 +9,7 @@
     <View
         android:id="@+id/holder_profile"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -121,5 +121,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
         app:layout_constraintTop_toBottomOf="@+id/include4" />
+
+    <Button
+        android:id="@+id/view_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/lato_bold"
+        android:includeFontPadding="false"
+        android:text="Edit"
+        android:textAllCaps="false"
+        android:textColor="@color/hike_dark_green"
+        app:layout_constraintBottom_toBottomOf="@+id/holder_profile"
+        app:layout_constraintEnd_toEndOf="@+id/holder_profile"
+        app:layout_constraintStart_toStartOf="@+id/holder_profile"
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

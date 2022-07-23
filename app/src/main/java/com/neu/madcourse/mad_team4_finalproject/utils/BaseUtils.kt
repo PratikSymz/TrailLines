@@ -6,7 +6,6 @@ import android.util.Patterns
 import android.widget.Toast
 import com.neu.madcourse.mad_team4_finalproject.R
 import com.neu.madcourse.mad_team4_finalproject.models.ProfileTag
-import java.util.*
 
 class BaseUtils(context: Context) {
     companion object {
@@ -66,7 +65,7 @@ class BaseUtils(context: Context) {
     }
 
     /* Helper method to validate email pattern */
-    fun validateEmail(email: String): Boolean {
+    fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 

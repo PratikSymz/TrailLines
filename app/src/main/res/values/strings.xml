@@ -27,6 +27,8 @@
     <string name="update_failed">Failed to update profile</string>
     <string name="permission_required">Permission Required!</string>
     <string name="traillines_messenger">TrailLines Messenger</string>
+    <string name="password_change_successful">Password changed successfully!</string>
+    <string name="something_wrong">Something went wrong!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -43,4 +45,8 @@
     <string name="deny">Deny</string>
     <string name="failed_friend_request">No Friend Request Found %1$s</string>
     <string name="deny_request">Request Deny Failed : %1$s</string>
+    <string name="reset_instructions">Reset password instructions have been sent on email: %1$s</string>
+    <string name="email_sent_failed">Failed to send to email: %1$s</string>
+    <string name="resend_timer">Resend in: %1$s</string>
+    <string name="retry">Retry</string>
 </resources>

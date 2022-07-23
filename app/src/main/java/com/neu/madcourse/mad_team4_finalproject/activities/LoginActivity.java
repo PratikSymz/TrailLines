@@ -1,4 +1,5 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,7 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         /* FACEBOOK Login */
         // Initialize the Facebook login button
 
+        // Set the sign up button onClick action
         applyListener(mBinding.viewSegmentLogin.viewLinkSignup, childView -> signUp());
+
+        // Set the forgot password onClick action
+        applyListener(mBinding.viewSegmentLogin.viewLinkForgotPassword, childView -> resetPassword());
     }
 
 
@@ -93,8 +98,13 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The onClick method to take users to the sign up page
      */
-    public void signUp() {
+    private void signUp() {
         startActivity(new Intent(mContext, SignUpActivity.class));
+    }
+
+    /* The onClick method to take users to the reset password page */
+    private void resetPassword() {
+        startActivity(new Intent(mContext, ResetPasswordActivity.class));
     }
 
     private static void applyListener(View child, View.OnClickListener listener) {

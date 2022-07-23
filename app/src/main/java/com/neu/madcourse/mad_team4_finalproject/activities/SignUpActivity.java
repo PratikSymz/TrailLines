@@ -15,8 +15,6 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -24,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.neu.madcourse.mad_team4_finalproject.FirebaseConsole.ConsoleOutlook;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivitySignUpBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
@@ -238,7 +235,7 @@ public class SignUpActivity extends AppCompatActivity {
         String confirmPassword = Objects.requireNonNull(mBinding.viewInputConfirmPassword.getText())
                 .toString().trim();
 
-        if (!mBaseUtils.isEmpty(name) && !mBaseUtils.isEmpty(email) && mBaseUtils.validateEmail(email)
+        if (!mBaseUtils.isEmpty(name) && !mBaseUtils.isEmpty(email) && mBaseUtils.isValidEmail(email)
                 && !mBaseUtils.isEmpty(password) && !mBaseUtils.isEmpty(confirmPassword)
                 && password.equals(confirmPassword)) {
             mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
@@ -274,7 +271,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (mBaseUtils.isEmpty(confirmPassword)) {
             mBinding.viewInputConfirmPassword.setError(getString(R.string.invalid_password));
         }
-        if (!mBaseUtils.validateEmail(email)) {
+        if (!mBaseUtils.isValidEmail(email)) {
             mBinding.viewInputEmail.setError(getString(R.string.invalid_email));
         }
         if (!password.equals(confirmPassword)) {

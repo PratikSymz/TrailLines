@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
@@ -29,6 +30,12 @@ public class LoginActivity extends AppCompatActivity {
     /* The Base utils reference */
     private BaseUtils mBaseUtils;
 
+    /* The Firebase Auth service reference */
+    private FirebaseAuth mFirebaseAuth;
+
+    /* The Firebase User reference */
+    private FirebaseUser mFirebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +51,14 @@ public class LoginActivity extends AppCompatActivity {
         // Instantiate the Base utils reference
         mBaseUtils = new BaseUtils(mContext);
 
+        // Instantiate the firebase auth service reference
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
+        // Get the currently logged in user
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
         /* FACEBOOK Login */
-        // Initialize the Facebook login button
+        // TODO: Initialize the Facebook login button
 
         // Set the sign up button onClick action
         applyListener(mBinding.viewSegmentLogin.viewLinkSignup, childView -> signUp());
@@ -54,6 +67,17 @@ public class LoginActivity extends AppCompatActivity {
         applyListener(mBinding.viewSegmentLogin.viewLinkForgotPassword, childView -> resetPassword());
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Check if the user is currently logged in to the app
+        // This piece of code will not be executed if the user has already logged out
+        if (mFirebaseUser != null) {
+            startActivity(new Intent(mContext, ChatScreenActivity.class));
+            finish();
+        }
+    }
 
     /**
      * The onClick method to initiate the user login procedure by connecting to the Firebase Auth

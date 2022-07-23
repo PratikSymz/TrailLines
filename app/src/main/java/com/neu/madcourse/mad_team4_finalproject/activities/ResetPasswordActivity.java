@@ -105,7 +105,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                 mBinding.viewGroupResetMessage.setVisibility(View.INVISIBLE);
                             });
                         }
-                    };
+                    }.start();
                 } else {
                     mBinding.viewResetInstructions.setText(getString(R.string.email_sent_failed, task.getException()));
                     // Exception encountered, restore the Retry button action

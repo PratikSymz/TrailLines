@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Chat.ChatFragment" >
 
+    <include
+        android:id="@+id/chat_progress_bar"
+        layout="@layout/layout_progress_bar"
+        android:visibility="invisible"/>
+
     <TextView
         android:id="@+id/empty_chat_appearence"
         android:layout_width="wrap_content"

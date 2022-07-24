@@ -67,17 +67,17 @@ public class LoginActivity extends AppCompatActivity {
         applyListener(mBinding.viewSegmentLogin.viewLinkForgotPassword, childView -> resetPassword());
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Check if the user is currently logged in to the app
-        // This piece of code will not be executed if the user has already logged out
-        if (mFirebaseUser != null) {
-            startActivity(new Intent(mContext, ChatScreenActivity.class));
-            finish();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        // Check if the user is currently logged in to the app
+//        // This piece of code will not be executed if the user has already logged out
+//        if (mFirebaseUser != null) {
+//            startActivity(new Intent(mContext, ChatScreenActivity.class));
+//            finish();
+//        }
+//    }
 
     /**
      * The onClick method to initiate the user login procedure by connecting to the Firebase Auth

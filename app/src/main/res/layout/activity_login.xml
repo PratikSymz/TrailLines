@@ -54,7 +54,7 @@
     <include
         android:id="@+id/view_progress_bar"
         layout="@layout/layout_progress_bar"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

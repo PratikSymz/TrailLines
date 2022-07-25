@@ -6,11 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
-import com.neu.madcourse.mad_team4_finalproject.Chat.ChatFragment;
-import com.neu.madcourse.mad_team4_finalproject.Chat.FindFragment;
-import com.neu.madcourse.mad_team4_finalproject.Chat.RequestsFragment;
-import com.neu.madcourse.mad_team4_finalproject.R;
-import com.neu.madcourse.mad_team4_finalproject.models.FriendRequest;
+import com.neu.madcourse.mad_team4_finalproject.fragments.ChatFragment;
+import com.neu.madcourse.mad_team4_finalproject.fragments.FindFriendsFragment;
+import com.neu.madcourse.mad_team4_finalproject.fragments.ConnectionRequestsFragment;
 
 /**
  * This class is created to show the contents of the tab when clicked
@@ -32,9 +30,9 @@ public class ChatAdapter extends FragmentPagerAdapter {
             case 0:
                 return new ChatFragment();
             case 1:
-                return new RequestsFragment();
+                return new ConnectionRequestsFragment();
             case 2:
-                return new FindFragment();
+                return new FindFriendsFragment();
         }
         return null;
     }

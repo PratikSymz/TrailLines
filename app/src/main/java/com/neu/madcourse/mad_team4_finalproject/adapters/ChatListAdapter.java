@@ -1,7 +1,6 @@
 package com.neu.madcourse.mad_team4_finalproject.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.models.ChatModel;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 import com.neu.madcourse.mad_team4_finalproject.view_holders.ChatListViewHolder;
-import com.neu.madcourse.mad_team4_finalproject.view_holders.FriendRequestViewHolder;
 
 import java.util.List;
 
@@ -45,13 +42,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {
         holder.bindData(chatModel);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL + "/" + chatModel.getProfileUrl());
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(mContext).load(uri).placeholder(R.drawable.blank_profile_picture)
-                        .error(R.drawable.blank_profile_picture).into((ImageView) holder.itemView.findViewById(R.id.profile_pic_imageview));
-            }
-        });
+        storageReference.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(mContext).load(uri).placeholder(R.drawable.blank_profile_picture)
+                .error(R.drawable.blank_profile_picture).into((ImageView) holder.itemView.findViewById(R.id.chat_profile_picture)));
 
     }
 

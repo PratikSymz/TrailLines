@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
+import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils;
 
 import java.util.Objects;
 
@@ -29,6 +30,9 @@ public class LoginActivity extends AppCompatActivity {
 
     /* The Base utils reference */
     private BaseUtils mBaseUtils;
+
+    /* The Network utils reference */
+    private NetworkUtils mNetworkUtils;
 
     /* The Firebase Auth service reference */
     private FirebaseAuth mFirebaseAuth;
@@ -51,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
         // Instantiate the Base utils reference
         mBaseUtils = new BaseUtils(mContext);
 
+        // Instantiate the Network utils reference
+        mNetworkUtils = new NetworkUtils(mContext);
+
         // Instantiate the firebase auth service reference
         mFirebaseAuth = FirebaseAuth.getInstance();
 
@@ -59,6 +66,16 @@ public class LoginActivity extends AppCompatActivity {
 
         /* FACEBOOK Login */
         // TODO: Initialize the Facebook login button
+
+        // Set the login button onClick action
+        applyListener(mBinding.viewSegmentLogin.viewButtonLogin, childView -> {
+            if (mNetworkUtils.isConnected()) {
+                initiateUserLogin();
+            } else {
+                // Launch the no active connection screen
+                startActivity(new Intent(mContext, ConnectionActivity.class));
+            }
+        });
 
         // Set the sign up button onClick action
         applyListener(mBinding.viewSegmentLogin.viewLinkSignup, childView -> signUp());
@@ -82,10 +99,8 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The onClick method to initiate the user login procedure by connecting to the Firebase Auth
      * server and verifying the user credentials
-     *
-     * @param view The login button view
      */
-    public void initiateUserLogin(View view) {
+    public void initiateUserLogin() {
         // Extract the input email
         String email = Objects.requireNonNull(mBinding.viewSegmentLogin.viewInputEmail.getText()).toString().trim();
         // Extract the input password

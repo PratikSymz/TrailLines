@@ -1,20 +1,18 @@
-package com.neu.madcourse.mad_team4_finalproject.Chat;
+package com.neu.madcourse.mad_team4_finalproject.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -127,8 +125,8 @@ public class ChatFragment extends Fragment {
         mBinding.chatRecyclerview.setAdapter(chatListAdapter);
         // connecting firebase
         userDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.UserKeys.KEY_TLO);
-        chatDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.UserKeys.Chats.KEY_TLO);
-        query = chatDatabaseReference.orderByChild(Constants.UserKeys.Chats.TIME_STAMP);
+        chatDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.ChatKeys.KEY_TLO);
+        query = chatDatabaseReference.orderByChild(Constants.ChatKeys.KEY_TIMESTAMP);
         // declaring child listener to make sure fragment is destroyed when we are not using
         // and reopened when we use it
         childEventListener = new ChildEventListener() {
@@ -187,8 +185,7 @@ public class ChatFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME +
-                        Constants.UserKeys.PersonalInfoKeys.KEY_LAST_NAME).getValue()).toString();
+                String name = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
                 String photo = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL)
                         .getValue()).toString();
                 // adding these data to the chatModelList

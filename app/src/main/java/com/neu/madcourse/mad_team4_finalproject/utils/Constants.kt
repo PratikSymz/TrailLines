@@ -1,37 +1,45 @@
 package com.neu.madcourse.mad_team4_finalproject.utils
 
 object Constants {
-    /* Firebase Realtime database server key labels */
+    /* The User directory keys -> "users" */
     object UserKeys {
         const val KEY_TLO = "users"
 
+        /* The Personal Info sub-directory keys -> "users" */
         object PersonalInfoKeys {
             const val KEY_TLO = "personal_info"
 
-            const val KEY_FIRST_NAME = "first_name"
-            const val KEY_LAST_NAME = "last_name"
+            const val KEY_NAME = "name"
             const val KEY_EMAIL_ID = "email_id"
             const val KEY_ONLINE_STATUS = "online_status"
             const val KEY_PROFILE_URL = "profile_picture_url"
             const val KEY_PRIVATE_PROFILE = "private_profile"
         }
-        object FriendRequests{
-            const val KEY_TLO = "friend_request"
+
+        /* The Friend Requests sub-directory keys -> "users" */
+        object FriendRequestKeys {
+            const val KEY_TLO = "friend_requests"
 
             const val KEY_REQUEST_STATUS = "request_status"
-        }
 
-        object Chats {
-            const val KEY_TLO = "chats"
-            const val TIME_STAMP = "time_stamp"
+            // Friend Request Status's
+            const val REQUEST_STATUS_SENT = "sent"
+            const val REQUEST_STATUS_RECEIVED = "received"
+            const val REQUEST_STATUS_ACCEPTED = "accepted"
+            const val REQUEST_STATUS_DENIED = "denied"
         }
     }
 
+    /* The Chat directory keys -> "chats" */
+    object ChatKeys {
+        const val KEY_TLO = "chats"
 
-    /* Friend Request Status's */
-    const val REQUEST_STATUS_SENT = "sent"
-    const val REQUEST_STATUS_RECEIVED = "received"
-    const val ACCEPT_FRIEND_REQUEST = "accepted"
+        const val KEY_TIMESTAMP = "timestamp"
+    }
+
+    object FirebaseStorageKeys {
+        const val KEY_IMAGES = "images"
+    }
 
     /* The ProfileActivity tags */
     const val PROFILE_TAG_ACCOUNT = "Account"

@@ -169,7 +169,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 // Initializing a new hashmap to update the database reference accordingly
                 Map<String, String> personalInfoMap = new HashMap<>();
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, name);
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, name);
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, email);
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, privacyStatus);
 
@@ -224,7 +224,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             // Initializing a new hashmap to update the database reference accordingly
                             Map<String, String> personalInfoMap = new HashMap<>();
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, name);
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, name);
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, email);
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, mServerUri.getPath());
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, privacyStatus);

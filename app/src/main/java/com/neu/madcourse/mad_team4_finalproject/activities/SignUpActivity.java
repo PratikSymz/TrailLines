@@ -1,10 +1,5 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +9,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -157,7 +157,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             // Initializing a new hashmap to update the database reference accordingly
                             Map<String, String> personalInfoMap = new HashMap<>();
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, serverUri.getPath());
@@ -200,7 +200,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 // Initializing a new hashmap to update the database reference accordingly
                 Map<String, String> personalInfoMap = new HashMap<>();
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_FIRST_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, " ");

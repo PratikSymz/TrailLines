@@ -51,4 +51,8 @@
     <string name="resend_timer">Resend in: %1$s</string>
     <string name="retry">Retry</string>
     <string name="failed_chat_list">"Chat List Failed : %1$s "</string>
+    <string name="request_sent_successfully">Request sent successfully</string>
+    <string name="failed_to_send_request">Failed to send friend request: %1$s</string>
+    <string name="request_cancelled_successfully">Request cancelled successfully</string>
+    <string name="failed_to_cancel_request">Failed to cancel request: %1$s</string>
 </resources>

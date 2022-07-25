@@ -43,7 +43,7 @@ class ProfileTagViewHolder (
         // Set the profile item label
         mBinding.viewSectionLabel.text = profileTag.profileLabel
 
-        // Set the onTouch animation
+        // Set the onClick action
         mBinding.root.setOnClickListener(this)
     }
 

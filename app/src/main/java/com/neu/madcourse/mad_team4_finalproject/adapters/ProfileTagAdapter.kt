@@ -9,7 +9,7 @@ import com.neu.madcourse.mad_team4_finalproject.databinding.ItemProfileTagBindin
 import com.neu.madcourse.mad_team4_finalproject.models.ProfileTag
 import com.neu.madcourse.mad_team4_finalproject.view_holders.ProfileTagViewHolder
 
-class ProfileTagAdapter (
+class ProfileTagAdapter(
     @NonNull context: Context,
     @NonNull profileTags: List<ProfileTag>
 ) : RecyclerView.Adapter<ProfileTagViewHolder>() {
@@ -21,6 +21,7 @@ class ProfileTagAdapter (
     private val mProfileTags: List<ProfileTag> = profileTags
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileTagViewHolder {
+        // Inflate the item view
         val mItemBinding: ItemProfileTagBinding = ItemProfileTagBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return ProfileTagViewHolder(parent.context, mItemBinding)

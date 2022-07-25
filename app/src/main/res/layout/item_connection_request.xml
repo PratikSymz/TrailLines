@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_pic_imageview"
+            android:id="@+id/view_conn_profile_image"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:src="@drawable/blank_profile_picture" />
@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/full_name_textview"
+                android:id="@+id/view_conn_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -39,13 +39,13 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/accept_request_button"
+                    android:id="@+id/view_conn_button_accept"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/accept_request" />
 
                 <Button
-                    android:id="@+id/deny_request_button"
+                    android:id="@+id/view_conn_button_deny"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -53,7 +53,7 @@
                     android:text="@string/deny" />
 
                 <ProgressBar
-                    android:id="@+id/request_progress_bar"
+                    android:id="@+id/view_conn_progress_bar"
                     style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

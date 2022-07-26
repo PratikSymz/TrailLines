@@ -40,18 +40,19 @@
         android:text="Send request"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/view_request_profile_image"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/view_request_button_cancel"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/view_request_profile_image"
         app:layout_constraintStart_toStartOf="@+id/view_request_user_name"
         app:layout_constraintTop_toBottomOf="@+id/view_request_user_name"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/view_request_button_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#DC0303"
         android:fontFamily="@font/lato_bold"
@@ -61,11 +62,10 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/view_request_button_send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/view_request_button_send"
-        app:layout_constraintTop_toTopOf="@+id/view_request_button_send"
+        app:layout_constraintTop_toBottomOf="@+id/view_request_user_name"
         tools:visibility="visible" />
 
     <androidx.core.widget.ContentLoadingProgressBar

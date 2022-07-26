@@ -15,10 +15,10 @@ import com.neu.madcourse.mad_team4_finalproject.fragments.ConnectionRequestsFrag
  * the recycler view will be shown using the adapter class
  * the tabs will be the direct source to show the recycler view contents
  */
-public class ChatAdapter extends FragmentPagerAdapter {
+public class CommunitiesPagerAdapter extends FragmentPagerAdapter {
     private TabLayout tabLayout;
 
-    public ChatAdapter(@NonNull FragmentManager fm, int behavior, TabLayout tabLayout) {
+    public CommunitiesPagerAdapter(@NonNull FragmentManager fm, int behavior, TabLayout tabLayout) {
         super(fm, behavior);
         this.tabLayout = tabLayout;
     }
@@ -33,13 +33,29 @@ public class ChatAdapter extends FragmentPagerAdapter {
                 return new ConnectionRequestsFragment();
             case 2:
                 return new FindFriendsFragment();
+            default:
+                return new Fragment();
         }
-        return null;
     }
 
     @Override
     public int getCount() {
-        return tabLayout.getTabCount();
+        return 3;
     }
 
+    @NonNull
+    @Override
+    public CharSequence getPageTitle(int position) {
+        // Set the titles of the tabs for the TabLayout
+        switch (position) {
+            case 0:
+                return "Chats";
+            case 1:
+                return "Requests";
+            case 2:
+                return "Find";
+            default:
+                return "";
+        }
+    }
 }

@@ -117,8 +117,6 @@ public class FindFriendsFragment extends Fragment {
         mBinding.viewRequestRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         // Instantiate the recycler view adapter
         mAdapter = new FindFriendAdapter(mContext, mFindFriendsList);
-        // Set the adapter to the recycler view
-        mBinding.viewRequestRecyclerView.setAdapter(mAdapter);
 
         // Hide the find friends label
         mBinding.labelFindFriends.setVisibility(View.INVISIBLE);
@@ -145,21 +143,27 @@ public class FindFriendsFragment extends Fragment {
                     String userID = userSnapshot.getKey();
                     assert userID != null;
 
+                    // The PersonalInfo snapshot
+                    DataSnapshot personalInfoSnapshot = userSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO);
+
                     // If userID is the same as the currently logged on user's ID
                     if (userID.equals(mFirebaseUser.getUid())) {
                         continue;
                     }
 
                     // Check if the name field is not null
-                    if (userSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue() != null) {
+                    if (personalInfoSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue() != null) {
                         // Extract the user's fields
-                        String name = Objects.requireNonNull(userSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
-                        String profileImageUrl = Objects.requireNonNull(userSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue()).toString();
+                        String name = Objects.requireNonNull(personalInfoSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
+                        String profileImageUrl = Objects.requireNonNull(personalInfoSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue()).toString();
 
                         // Check the currently existing friend request to extract their request status
                         mFriendRequestsDatabaseRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                // A find friend instance
+                                FindFriend findFriend;
+
                                 if (snapshot.exists()) {
                                     String requestStatus = Objects.requireNonNull(
                                             snapshot.child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS).getValue()
@@ -168,16 +172,26 @@ public class FindFriendsFragment extends Fragment {
                                     // Check if the request status is "sent"
                                     if (requestStatus.equals(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_SENT)) {
                                         // Create the new FindFriend model reference
-                                        FindFriend findFriend = new FindFriend(name, profileImageUrl, userID, true);
-                                        // Add to the list
-                                        mFindFriendsList.add(findFriend);
+                                        findFriend = new FindFriend(name, profileImageUrl, userID, true);
                                     } else {
                                         // Create the new FindFriend model reference
-                                        FindFriend findFriend = new FindFriend(name, profileImageUrl, userID, false);
-                                        // Add to the list
-                                        mFindFriendsList.add(findFriend);
+                                        findFriend = new FindFriend(name, profileImageUrl, userID, false);
                                     }
+                                } else {
+                                    /* There is not FriendRequest directory under the userID, so
+                                    create a new model instance with "isRequestSent" as False */
+                                    findFriend = new FindFriend(name, profileImageUrl, userID, false);
                                 }
+
+                                // Add to the list
+                                mFindFriendsList.add(findFriend);
+
+                                // Update the adapter
+                                mAdapter.notifyItemRangeChanged(0, mFindFriendsList.size());
+
+                                // TODO: Fix this
+                                // Set the adapter to the recycler view
+                                mBinding.viewRequestRecyclerView.setAdapter(mAdapter);
                             }
 
                             @Override
@@ -186,14 +200,11 @@ public class FindFriendsFragment extends Fragment {
                                 mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
                             }
                         });
+
+                        // Hide the progress screen
+                        mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     }
                 }
-
-                // Update the adapter
-                mAdapter.notifyItemRangeChanged(0, mFindFriendsList.size());
-
-                // Hide the progress screen
-                mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
             }
 
             @Override

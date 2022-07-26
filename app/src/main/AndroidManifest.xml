@@ -34,7 +34,7 @@
             android:name=".activities.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ChatScreenActivity"
+            android:name=".activities.CommunityScreenActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ProfileActivity"

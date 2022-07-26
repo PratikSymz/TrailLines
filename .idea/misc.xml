@@ -3,10 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.15896739130434784" />
         <entry key="../../../../../../layout/custom_preview.xml" value="0.1308876811594203" />
         <entry key="app/src/main/res/drawable/chat_bubble_sender.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/ic_arrow_right.xml" value="0.1925" />
-        <entry key="app/src/main/res/drawable/message_count_shape.xml" value="0.1445" />
         <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.1755" />
         <entry key="app/src/main/res/layout/activity_account.xml" value="0.29832580566406247" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.3964376465887086" />
@@ -18,7 +18,7 @@
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.4700552002996461" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.29676666259765627" />
         <entry key="app/src/main/res/layout/alt_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/chat_list_layout_file.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/chat_list_layout_file.xml" value="0.13504273504273503" />
         <entry key="app/src/main/res/layout/chat_tab.xml" value="0.335" />
         <entry key="app/src/main/res/layout/default_progress_bar.xml" value="0.23552917480468752" />
         <entry key="app/src/main/res/layout/find_tab.xml" value="0.25" />
@@ -30,7 +30,7 @@
         <entry key="app/src/main/res/layout/friend_request_layout_file.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_chat_request.xml" value="0.4406148926824587" />
         <entry key="app/src/main/res/layout/item_connection_request.xml" value="0.27735042735042736" />
-        <entry key="app/src/main/res/layout/item_friend_request.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/item_friend_request.xml" value="0.4717971801757813" />
         <entry key="app/src/main/res/layout/item_profile_tag.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_progress_bar.xml" value="0.21529388427734375" />
         <entry key="app/src/main/res/layout/request_tab.xml" value="0.335" />

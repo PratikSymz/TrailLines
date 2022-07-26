@@ -38,7 +38,7 @@ public class ConnectionRequestsFragment extends Fragment {
     private ConnectionRequestAdapter friendRequestAdapter;
     private List<ConnectionRequest> friendRequestList;
     // creating an object to get user friend request from firebase and profile picture
-    private DatabaseReference databaseReferenceRequest, databaseReferenceUsersPhoto;
+    private DatabaseReference databaseReferenceRequest, databaseReferenceUsers;
     // created a firebase user object to get the current user
     private FirebaseUser currentUser;
     // creating a base utils object for toast
@@ -67,11 +67,14 @@ public class ConnectionRequestsFragment extends Fragment {
 
         // getting the current user using the application through firebase
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        //TODO: Run this code by Pratik
+
         databaseReferenceRequest = FirebaseDatabase.getInstance().getReference()
                 .child(Constants.UserKeys.KEY_TLO)
                 .child(currentUser.getUid())
                 .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO);
+
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.UserKeys.KEY_TLO);
 
         mBinding.friendRequestAppearenceTextview.setVisibility(View.VISIBLE);
         mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
@@ -83,12 +86,14 @@ public class ConnectionRequestsFragment extends Fragment {
                 friendRequestList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot.exists()) {
+                        String userID = dataSnapshot.getKey();
+                        assert (userID != null);
+
                         String requestStatus = Objects.requireNonNull(dataSnapshot
                                 .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS).getValue()).toString();
 
                         if (requestStatus.equals(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_SENT)) {
-                            String userID = dataSnapshot.getKey();
-                            databaseReferenceRequest.child(Objects.requireNonNull(userID)).addListenerForSingleValueEvent(new ValueEventListener() {
+                            databaseReferenceUsers.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @SuppressLint("NotifyDataSetChanged")
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot datasnapshot) {
@@ -97,7 +102,7 @@ public class ConnectionRequestsFragment extends Fragment {
                                     if (dataSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue() != null) {
                                         ConnectionRequest friendRequest = new ConnectionRequest(userID, currentUserName, profilePicture);
                                         friendRequestList.add(friendRequest);
-                                        friendRequestAdapter.notifyDataSetChanged();
+                                        friendRequestAdapter.notifyItemRangeChanged(0, friendRequestList.size());
                                         mBinding.friendRequestAppearenceTextview.setVisibility(View.INVISIBLE);
                                     }
                                 }
@@ -110,6 +115,9 @@ public class ConnectionRequestsFragment extends Fragment {
                                 }
                             });
                         }
+                    } else {
+                        /* There is not FriendRequest directory. Pass an empty list */
+                        mBinding.friendRequestAppearenceTextview.setVisibility(View.INVISIBLE);
                     }
                 }
 

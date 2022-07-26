@@ -15,11 +15,11 @@ import java.util.List;
 
 public class ConnectionRequestAdapter extends RecyclerView.Adapter<ConnectionRequestViewHolder> {
     private Context mContext;
-    private List<ConnectionRequest> friendRequestList;
+    private List<ConnectionRequest> connectionRequestList;
 
     public ConnectionRequestAdapter(Context mContext, List<ConnectionRequest> friendRequestList) {
         this.mContext = mContext;
-        this.friendRequestList = friendRequestList;
+        this.connectionRequestList = friendRequestList;
     }
 
     @NonNull
@@ -32,12 +32,12 @@ public class ConnectionRequestAdapter extends RecyclerView.Adapter<ConnectionReq
 
     @Override
     public void onBindViewHolder(@NonNull ConnectionRequestViewHolder holder, int position) {
-        ConnectionRequest friendRequest = friendRequestList.get(position);
+        ConnectionRequest friendRequest = connectionRequestList.get(position);
         holder.bindData(friendRequest);
     }
 
     @Override
     public int getItemCount() {
-        return friendRequestList.size();
+        return connectionRequestList.size();
     }
 }

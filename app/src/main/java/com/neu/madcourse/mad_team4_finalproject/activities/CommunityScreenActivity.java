@@ -1,23 +1,23 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
-import com.neu.madcourse.mad_team4_finalproject.adapters.ChatAdapter;
 import com.neu.madcourse.mad_team4_finalproject.R;
-import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityChatScreenBinding;
+import com.neu.madcourse.mad_team4_finalproject.adapters.CommunitiesPagerAdapter;
+import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityCommunityScreenBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 
-public class ChatScreenActivity extends AppCompatActivity {
+public class CommunityScreenActivity extends AppCompatActivity {
     /* The Activity layout view binding reference */
-    private ActivityChatScreenBinding mBinding;
-    private ChatAdapter chatAdapter;
+    private ActivityCommunityScreenBinding mBinding;
+    private CommunitiesPagerAdapter chatAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private boolean pressAgain = false;
@@ -27,11 +27,11 @@ public class ChatScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Instantiate the activity layout view binding
-        mBinding = ActivityChatScreenBinding.inflate(getLayoutInflater());
+        mBinding = ActivityCommunityScreenBinding.inflate(getLayoutInflater());
         // Set the layout root view
         setContentView(mBinding.getRoot());
-        tabLayout = mBinding.mainTab;
-        viewPager = mBinding.mainViewPage;
+        tabLayout = mBinding.viewChatTabs;
+        viewPager = mBinding.viewChatPages;
         mBaseUtils = new BaseUtils(this);
         setViewPage();
     }
@@ -46,10 +46,10 @@ public class ChatScreenActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.find_tab));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         // initialize chat adapter to call the adapter and create the fragment with the tabs
-        chatAdapter = new ChatAdapter(getSupportFragmentManager(),
-                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mBinding.mainTab);
+        chatAdapter = new CommunitiesPagerAdapter(getSupportFragmentManager(),
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, mBinding.viewChatTabs);
         viewPager.setAdapter(chatAdapter);
-        mBinding.mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mBinding.viewChatTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -85,12 +85,7 @@ public class ChatScreenActivity extends AppCompatActivity {
                 pressAgain = true;
                 mBaseUtils.showToast(getString(R.string.press_again_exit), Toast.LENGTH_SHORT);
                 Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pressAgain = false;
-                    }
-                }, 2000);
+                handler.postDelayed(() -> pressAgain = false, 2000);
             }
         }
     }

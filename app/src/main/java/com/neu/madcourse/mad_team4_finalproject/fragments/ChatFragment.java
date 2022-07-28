@@ -171,6 +171,7 @@ public class ChatFragment extends Fragment {
      * @param newRecord
      * @param userID
      */
+    @SuppressLint("NotifyDataSetChanged")
     private void updateChatList(DataSnapshot ds, boolean newRecord, String userID) {
         mBinding.emptyChatAppearence.setVisibility(View.INVISIBLE);
         mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
@@ -182,7 +183,6 @@ public class ChatFragment extends Fragment {
         unreadMessageCount = "";
 
         userDatabaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();

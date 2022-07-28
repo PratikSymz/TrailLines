@@ -1,5 +1,6 @@
 package com.neu.madcourse.mad_team4_finalproject.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -115,8 +116,12 @@ public class FindFriendsFragment extends Fragment {
 
         // Set the recycler view parameters
         mBinding.viewRequestRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mBinding.viewRequestRecyclerView.setEmptyView(mBinding.labelFindFriends);
         // Instantiate the recycler view adapter
         mAdapter = new FindFriendAdapter(mContext, mFindFriendsList);
+        // TODO: Fix this
+        // Set the adapter to the recycler view
+        mBinding.viewRequestRecyclerView.setAdapter(mAdapter);
 
         // Hide the find friends label
         mBinding.labelFindFriends.setVisibility(View.INVISIBLE);
@@ -128,6 +133,7 @@ public class FindFriendsFragment extends Fragment {
         initFindFriendsList();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void initFindFriendsList() {
         // Query the list of publicly available users on the firebase server
         Query userQuery = mUsersDatabaseRef.orderByChild(Constants.UserKeys.PersonalInfoKeys.KEY_NAME);
@@ -187,11 +193,7 @@ public class FindFriendsFragment extends Fragment {
                                 mFindFriendsList.add(findFriend);
 
                                 // Update the adapter
-                                mAdapter.notifyItemRangeChanged(0, mFindFriendsList.size());
-
-                                // TODO: Fix this
-                                // Set the adapter to the recycler view
-                                mBinding.viewRequestRecyclerView.setAdapter(mAdapter);
+                                mAdapter.notifyDataSetChanged();
                             }
 
                             @Override

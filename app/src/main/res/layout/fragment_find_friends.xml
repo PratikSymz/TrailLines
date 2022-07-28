@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FindFriendsFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_find_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.neu.madcourse.mad_team4_finalproject.utils.RecyclerViewEmptySupport
         android:id="@+id/view_request_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** TODO: CHECK WITH AMIT
+/**
+ * TODO: CHECK WITH AMIT
  */
 public class ConnectionRequestsFragment extends Fragment {
     // creating a binding view variable
@@ -58,6 +59,7 @@ public class ConnectionRequestsFragment extends Fragment {
     }
 
     @Override
+    @SuppressLint("NotifyDataSetChanged")
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.requestRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -94,17 +96,21 @@ public class ConnectionRequestsFragment extends Fragment {
 
                         if (requestStatus.equals(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_SENT)) {
                             databaseReferenceUsers.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @SuppressLint("NotifyDataSetChanged")
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                                     String currentUserName = Objects.requireNonNull(datasnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
-                                    String profilePicture = "";
-                                    if (dataSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue() != null) {
-                                        ConnectionRequest friendRequest = new ConnectionRequest(userID, currentUserName, profilePicture);
-                                        friendRequestList.add(friendRequest);
-                                        friendRequestAdapter.notifyItemRangeChanged(0, friendRequestList.size());
-                                        mBinding.friendRequestAppearenceTextview.setVisibility(View.INVISIBLE);
+                                    String profilePicture = Objects.requireNonNull(dataSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue()).toString();
+                                    ConnectionRequest friendRequest;
+                                    if (!mBaseUtils.isEmpty(profilePicture)) {
+                                        friendRequest = new ConnectionRequest(userID, currentUserName, profilePicture);
+
+                                    } else {
+                                        friendRequest = new ConnectionRequest(userID, currentUserName, "");
                                     }
+
+                                    friendRequestList.add(friendRequest);
+                                    friendRequestAdapter.notifyDataSetChanged();
+                                    mBinding.friendRequestAppearenceTextview.setVisibility(View.INVISIBLE);
                                 }
 
                                 @Override

@@ -22,6 +22,9 @@
             android:name=".activities.ConnectionActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.SendMessages"
+            android:exported="false" />
+        <activity
             android:name=".activities.ResetPasswordActivity"
             android:exported="false" />
         <activity

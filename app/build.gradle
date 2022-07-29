@@ -67,4 +67,10 @@ dependencies {
 
     // Circular Imageview Third-party library
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Retrofit Library
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    //Gson library
+    implementation 'com.google.code.gson:gson:2.9.0'
 }

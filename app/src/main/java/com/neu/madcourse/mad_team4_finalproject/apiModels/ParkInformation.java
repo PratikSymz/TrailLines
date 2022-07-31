@@ -5,6 +5,7 @@ public class ParkInformation {
     public String latLong;
     public String latitude;
     public String longitude;
+    // TODO address, activities, description, directionUrl, parkID,
 
     public String getFullName() {
         return fullName;

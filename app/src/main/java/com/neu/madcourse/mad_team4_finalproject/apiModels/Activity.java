@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Activity {
     @SerializedName("id")
-    public String recordId;
+    public String activityId;
     public String name;
 
     public String getRecordId() {
-        return recordId;
+        return activityId;
     }
 
     public String getName() {

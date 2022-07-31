@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    tools:context=".Explore.ExploreScreenFragment">
+
+    <LinearLayout
+        android:id="@+id/explore_screen_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/linear_layout_shape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_view_search_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/explore_screen_search_bar"
+            android:padding="8dp" />
+
+        <EditText
+            android:id="@+id/explore_search_bar_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:hint="@string/hi_where_to_next"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/filter_image_view"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/search_filter" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/horizontal_trail_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explore_screen_linearlayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_trail_recycler_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>

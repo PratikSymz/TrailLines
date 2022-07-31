@@ -5,8 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ThingsToDo {
+    @SerializedName("title")
+    public String activityTitle;
     public String location;
     public String shortDescription;
+    public String longDescription;
     public String locationDescription;
     public String petsDescription;
     public String arePetsPermitted;
@@ -15,7 +18,7 @@ public class ThingsToDo {
     public String trailDescription;
     @SerializedName("url")
     public String parkActivityUrl;
-    public String duration;
+    public String duration; // this more of an estimation!
     @SerializedName("tags")
     public List<String> otherActivities;
 
@@ -57,5 +60,13 @@ public class ThingsToDo {
 
     public List<String> getOtherActivities() {
         return otherActivities;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public String getActivityTitle() {
+        return activityTitle;
     }
 }

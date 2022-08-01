@@ -12,11 +12,6 @@
         android:titleCondensed="Community"
         android:title="@string/community" />
     <item
-        android:id="@+id/add_post"
-        android:titleCondensed="Add"
-        android:title="@string/add_post"
-        android:icon="@drawable/plus"/>
-    <item
         android:id="@+id/saved_trails"
         android:title="@string/saved_trails"
         android:titleCondensed="Saved"

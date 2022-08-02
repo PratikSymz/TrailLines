@@ -6,9 +6,11 @@
         <entry key="app/src/main/res/drawable/add_symbol.xml" value="0.283" />
         <entry key="app/src/main/res/drawable/explore_screen_search_bar.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/linear_layout_shape.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_information.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.335" />
-        <entry key="app/src/main/res/menu/explore_screen_bottom_navigation.xml" value="0.335" />
+        <entry key="app/src/main/res/menu/explore_screen_bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/menu/explore_screen_bttom.xml" value="0.12314814814814815" />
       </map>
     </option>

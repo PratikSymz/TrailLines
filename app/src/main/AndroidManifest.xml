@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.neu.madcourse.mad_team4_finalproject">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,7 +17,7 @@
         android:theme="@style/Theme.MAD_Team4_FinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".MainScreen"
+            android:name=".AppMainScreen.MainScreen"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

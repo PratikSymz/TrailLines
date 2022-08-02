@@ -5,7 +5,7 @@
     <item
         android:id="@+id/explore"
         android:title="@string/explore"
-        android:icon="@drawable/search" />
+        android:icon="@drawable/search_bar" />
     <item
         android:id="@+id/community"
         android:icon="@drawable/community"

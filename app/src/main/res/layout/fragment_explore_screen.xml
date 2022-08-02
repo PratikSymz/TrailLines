@@ -24,11 +24,11 @@
 
         <ImageView
             android:id="@+id/image_view_search_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center|center_vertical"
             android:layout_marginStart="2dp"
-            android:background="@drawable/explore_screen_search_bar"
+            android:background="@drawable/search_bar"
             android:padding="8dp" />
 
         <EditText
@@ -45,11 +45,11 @@
 
         <ImageView
             android:id="@+id/filter_image_view"
-            android:layout_width="32dp"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:src="@drawable/search_filter" />
+            android:src="@drawable/filter" />
 
     </LinearLayout>
 
@@ -64,6 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/explore_screen_linearlayout" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vertical_trail_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParkContactList {
+public class ParkContact {
     @SerializedName("phoneNumbers")
     public List<ParkContactInfo> phoneNumbersList;
     @SerializedName("emailAddresses")

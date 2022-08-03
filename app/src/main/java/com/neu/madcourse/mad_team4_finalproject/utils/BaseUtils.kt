@@ -3,6 +3,8 @@ package com.neu.madcourse.mad_team4_finalproject.utils
 import android.content.Context
 import android.content.res.Resources
 import android.util.Patterns
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import com.neu.madcourse.mad_team4_finalproject.R
 import com.neu.madcourse.mad_team4_finalproject.models.ProfileTag
@@ -14,6 +16,28 @@ class BaseUtils(context: Context) {
 
     /* The Activity context using the utilities */
     private val mContext: Context = context
+
+    /* Helper methods to apply onClick listeners to child views inside ViewGroups */
+    fun applyListener(child: View?, listener: View.OnClickListener) {
+        if (child == null) return
+
+        if (child is ViewGroup) {
+            applyListener(child, listener)
+        } else {
+            child.setOnClickListener(listener)
+        }
+    }
+
+    private fun applyListener(parent: ViewGroup, listener: View.OnClickListener) {
+        for (i in 0 until parent.childCount) {
+            val child = parent.getChildAt(i)
+            if (child is ViewGroup) {
+                applyListener(child, listener)
+            } else {
+                applyListener(child, listener)
+            }
+        }
+    }
 
     /* Helper method to set and retrieve the profile tags */
     fun getProfileTags(): List<ProfileTag> {

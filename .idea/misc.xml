@@ -5,41 +5,55 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.15896739130434784" />
         <entry key="../../../../../../layout/custom_preview.xml" value="0.1308876811594203" />
+        <entry key="app/src/main/res/drawable-xxxhdpi/conversation_sender.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/chat_bubble_sender.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/attachment_bubble.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/chat_bubble_sender.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/conversation_receiver.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/ic_arrow_right.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/message_count_shape.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.1755" />
         <entry key="app/src/main/res/drawable/round_stroke_corner_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_account.xml" value="0.29832580566406247" />
         <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.3964376465887086" />
-        <entry key="app/src/main/res/layout/activity_chat_screen.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/activity_chat_screen.xml" value="0.36270192464192713" />
         <entry key="app/src/main/res/layout/activity_connection.xml" value="0.28163051768245856" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.27735042735042736" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.44791259765625" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.21668701171875002" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3762252807617188" />
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.4700552002996461" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.29676666259765627" />
         <entry key="app/src/main/res/layout/activity_send_messages.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.28518524169921877" />
         <entry key="app/src/main/res/layout/alt_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/chat_list_layout_file.xml" value="0.13504273504273503" />
+        <entry key="app/src/main/res/layout/alt_signup.xml" value="0.2764957264957265" />
+        <entry key="app/src/main/res/layout/chat_list_layout_file.xml" value="0.37093445867554753" />
         <entry key="app/src/main/res/layout/chat_tab.xml" value="0.335" />
         <entry key="app/src/main/res/layout/default_progress_bar.xml" value="0.23552917480468752" />
         <entry key="app/src/main/res/layout/find_tab.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat2.xml" value="0.19701086956521738" />
+        <entry key="app/src/main/res/layout/fragment_chat_history.xml" value="0.26741390391292735" />
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/fragment_find_friends.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/fragment_requests.xml" value="0.25" />
         <entry key="app/src/main/res/layout/friend_request_layout_file.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/ich_alt.xml" value="0.5179263905582265" />
+        <entry key="app/src/main/res/layout/item_chat_history.xml" value="0.2738396624472574" />
+        <entry key="app/src/main/res/layout/item_chat_history_alt.xml" value="0.68450927734375" />
         <entry key="app/src/main/res/layout/item_chat_request.xml" value="0.4406148926824587" />
         <entry key="app/src/main/res/layout/item_connection_request.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/item_conversation.xml" value="0.5326034061492435" />
         <entry key="app/src/main/res/layout/item_friend_request.xml" value="0.4717971801757813" />
         <entry key="app/src/main/res/layout/item_profile_tag.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_progress_bar.xml" value="0.21529388427734375" />
         <entry key="app/src/main/res/layout/request_tab.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/segment_sign_up.xml" value="0.21611633300781258" />
+        <entry key="app/src/main/res/layout/segment_log_in.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/segment_message.xml" value="0.35170288085937507" />
+        <entry key="app/src/main/res/layout/segment_sign_up.xml" value="0.3828887939453126" />
         <entry key="app/src/main/res/menu/menu_image.xml" value="0.27735042735042736" />
       </map>
     </option>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         // TODO: Initialize the Facebook login button
 
         // Set the login button onClick action
-        applyListener(mBinding.viewSegmentLogin.viewButtonLogin, childView -> {
+        mBaseUtils.applyListener(mBinding.viewSegmentLogin.viewButtonLogin, childView -> {
             if (mNetworkUtils.isConnected()) {
                 initiateUserLogin();
             } else {
@@ -78,10 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Set the sign up button onClick action
-        applyListener(mBinding.viewSegmentLogin.viewLinkSignup, childView -> signUp());
+        mBaseUtils.applyListener(mBinding.viewSegmentLogin.viewLinkSignup, childView -> signUp());
 
         // Set the forgot password onClick action
-        applyListener(mBinding.viewSegmentLogin.viewLinkForgotPassword, childView -> resetPassword());
+        mBaseUtils.applyListener(mBinding.viewSegmentLogin.viewLinkForgotPassword, childView -> resetPassword());
     }
 
     @Override
@@ -146,27 +145,5 @@ public class LoginActivity extends AppCompatActivity {
     /* The onClick method to take users to the reset password page */
     private void resetPassword() {
         startActivity(new Intent(mContext, ResetPasswordActivity.class));
-    }
-
-    private static void applyListener(View child, View.OnClickListener listener) {
-        if (child == null)
-            return;
-
-        if (child instanceof ViewGroup) {
-            applyListener((ViewGroup) child, listener);
-        } else {
-            child.setOnClickListener(listener);
-        }
-    }
-
-    private static void applyListener(ViewGroup parent, View.OnClickListener listener) {
-        for (int i = 0; i < parent.getChildCount(); i++) {
-            View child = parent.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                applyListener((ViewGroup) child, listener);
-            } else {
-                applyListener(child, listener);
-            }
-        }
     }
 }

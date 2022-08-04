@@ -6,13 +6,17 @@
         <entry key="app/src/main/res/drawable/add_symbol.xml" value="0.283" />
         <entry key="app/src/main/res/drawable/explore_screen_search_bar.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/horizontal_trail_views.xml" value="0.23" />
+        <entry key="app/src/main/res/drawable/ic_right.xml" value="0.254" />
         <entry key="app/src/main/res/drawable/image.xml" value="0.23" />
         <entry key="app/src/main/res/drawable/linear_layout_shape.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/textbox_getstarted.xml" value="0.201" />
         <entry key="app/src/main/res/layout/activity_information.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_review_screen.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.335" />
         <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/segment_get_started.xml" value="0.55" />
         <entry key="app/src/main/res/layout/vertical_trail_views.xml" value="0.375" />
         <entry key="app/src/main/res/menu/explore_screen_bottom_navigation.xml" value="0.165" />
         <entry key="app/src/main/res/menu/explore_screen_bttom.xml" value="0.12314814814814815" />

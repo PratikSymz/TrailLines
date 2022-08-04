@@ -9,4 +9,9 @@
     <string name="add_post"><b>Add Post</b></string>
     <string name="saved_trails"><b>Saved</b></string>
     <string name="profile"><b>Profile</b></string>
+    <string name="write_review">Write a Review</string>
+    <string name="trailines">TrailLines</string>
+    <string name="discover_trail">Discover outdoor experiences with TrailLines</string>
+    <string name="get_started">Get Started</string>
+    <string name="thank_you_review">Thank you for writing a review for</string>
 </resources>

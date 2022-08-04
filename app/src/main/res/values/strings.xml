@@ -15,4 +15,11 @@
     <string name="get_started">Get Started</string>
     <string name="thank_you_review">Thank you for writing a review for</string>
     <string name="your_rating">Your Rating</string>
+    <string name="share_experience">Share Experience</string>
+    <string name="share_in_detail">Share in detail</string>
+    <string name="add_image">Add Images</string>
+    <string name="add_symbol">+</string>
+    <string name="would_you_recommend">Would you recommend?</string>
+    <string name="submit">Submit</string>
+    <string name="recommended">Recommended</string>
 </resources>

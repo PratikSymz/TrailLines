@@ -13,13 +13,15 @@
         <entry key="app/src/main/res/drawable/rating_empty.xml" value="0.301" />
         <entry key="app/src/main/res/drawable/rating_fill.xml" value="0.301" />
         <entry key="app/src/main/res/drawable/textbox_getstarted.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/textbox_recommended.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_information.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_review_screen.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_review_screen.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.335" />
         <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.375" />
         <entry key="app/src/main/res/layout/segment_get_started.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/segment_recommend.xml" value="0.335" />
         <entry key="app/src/main/res/layout/vertical_trail_views.xml" value="0.375" />
         <entry key="app/src/main/res/menu/explore_screen_bottom_navigation.xml" value="0.165" />
         <entry key="app/src/main/res/menu/explore_screen_bttom.xml" value="0.12314814814814815" />

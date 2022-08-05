@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/textbox_recommended"
+    android:background="@drawable/linear_layout_shape"
     android:paddingStart="2dp"
     android:paddingTop="4dp"
     android:paddingEnd="2dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    android:backgroundTint="#1F6AFF">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/label_recommend_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -20,23 +21,23 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/icon_recommend_status"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/icon_recommend_status"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/label_recommend_status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/label_recommend_status"
+        app:layout_constraintTop_toTopOf="@+id/label_recommend_status"
         app:srcCompat="@drawable/thumbs_up"
         app:tint="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

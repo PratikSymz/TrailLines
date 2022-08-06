@@ -5,20 +5,20 @@
     <item
         android:id="@+id/explore"
         android:title="@string/explore"
-        android:icon="@drawable/search_bar" />
+        android:icon="@drawable/ic_search" />
     <item
         android:id="@+id/community"
-        android:icon="@drawable/community"
+        android:icon="@drawable/ic_people"
         android:titleCondensed="Community"
         android:title="@string/community" />
     <item
         android:id="@+id/saved_trails"
         android:title="@string/saved_trails"
         android:titleCondensed="Saved"
-        android:icon="@drawable/saved_tag"/>
+        android:icon="@drawable/ic_bookmark"/>
     <item
         android:id="@+id/profile"
         android:title="@string/profile"
         android:titleCondensed="Profile"
-        android:icon="@drawable/profile"/>
+        android:icon="@drawable/ic_profile"/>
 </menu>

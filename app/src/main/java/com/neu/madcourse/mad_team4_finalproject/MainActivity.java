@@ -3,9 +3,6 @@ package com.neu.madcourse.mad_team4_finalproject;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,22 +18,35 @@ public class MainActivity extends AppCompatActivity {
         mBottton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showBottomSheetDialog();
+//                showBottomSheetDialog();
+                FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog();
+                bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
             }
         });
+
+
     }
 
     private void showBottomSheetDialog() {
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_filter_screen);
 
-        LinearLayout copy = bottomSheetDialog.findViewById(R.id.copyLinearLayout);
-        LinearLayout share = bottomSheetDialog.findViewById(R.id.shareLinearLayout);
-        LinearLayout upload = bottomSheetDialog.findViewById(R.id.uploadLinearLayout);
-        LinearLayout download = bottomSheetDialog.findViewById(R.id.download);
-        LinearLayout delete = bottomSheetDialog.findViewById(R.id.delete);
+//        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+//        View sheetView;
+//        sheetView = getLayoutInflater().inflate(R.layout.filter_screen,null);
+//
+//        bottomSheetDialog.setContentView(sheetView);
+//
+//        bottomSheetDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                BottomSheetDialog d = (BottomSheetDialog) dialog;
+//
+//                FrameLayout bottomSheet = (FrameLayout) d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+//                BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+//            }
+//        });
+//        bottomSheetDialog.show();
 
-        bottomSheetDialog.show();
+
     }
 }

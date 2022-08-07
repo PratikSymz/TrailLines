@@ -14,16 +14,17 @@
         android:theme="@style/Theme.MAD_Team4_FinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".ExploreScreen"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".ExploreStandy"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter></activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
+
         </activity>
 
         <meta-data

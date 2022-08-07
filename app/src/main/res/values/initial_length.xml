@@ -1,0 +1,6 @@
+<resources>
+    <array name="initial_length_values">
+        <item>0</item>
+        <item>80</item>
+    </array>
+</resources>

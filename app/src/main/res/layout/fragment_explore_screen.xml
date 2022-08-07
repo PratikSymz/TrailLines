@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingStart="15dp"
     android:paddingEnd="15dp"
-    tools:context=".Explore.ExploreScreenFragment">
+    tools:context=".fragments.ExploreScreenFragment">
 
     <LinearLayout
         android:id="@+id/explore_screen_linearlayout"

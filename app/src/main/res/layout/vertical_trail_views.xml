@@ -24,7 +24,7 @@
             android:layout_marginRight="16dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_nature"
-            app:shapeAppearanceOverlay="@style/RoundedSquare" />
+            app:shapeAppearanceOverlay="@style/image_rounded_corners" />
 
         <TextView
             android:id="@+id/view_trail_name"

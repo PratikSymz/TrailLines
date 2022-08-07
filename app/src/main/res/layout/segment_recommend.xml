@@ -4,40 +4,37 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/linear_layout_shape"
-    android:paddingStart="2dp"
-    android:paddingTop="4dp"
-    android:paddingEnd="2dp"
-    android:paddingBottom="8dp"
-    android:backgroundTint="#1F6AFF">
+    android:backgroundTint="#D9D9D9">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_recommend_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/recommended"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/icon_recommend_status"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon_recommend_status"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/label_recommend_status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/label_recommend_status"
         app:layout_constraintTop_toTopOf="@+id/label_recommend_status"
-        app:srcCompat="@drawable/thumbs_up"
-        app:tint="@color/white" />
+        app:srcCompat="@drawable/ic_thumbs_up"
+        app:tint="@color/black" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

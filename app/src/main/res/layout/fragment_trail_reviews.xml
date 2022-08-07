@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TrailReviewsFragment">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/segment_review_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/view_reviews_rating"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:numStars="5"
+        android:progressBackgroundTint="#858585"
+        android:progressTint="@color/hike_green"
+        android:rating="4.3"
+        android:secondaryProgressTint="@color/hike_green"
+        android:stepSize="0.1"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_rating_excellent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:fontFamily="@font/lato"
+        android:text="Excellent"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_progress_excellent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/include"
+        app:layout_constraintTop_toTopOf="@+id/include" />
+
+    <ProgressBar
+        android:id="@+id/view_progress_excellent"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="78"
+        android:progressDrawable="@drawable/progress_bar_custom"
+        app:layout_constraintBottom_toBottomOf="@+id/label_rating_excellent"
+        app:layout_constraintEnd_toStartOf="@+id/view_num_rating_excellent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/label_rating_excellent"
+        app:layout_constraintTop_toTopOf="@+id/label_rating_excellent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_num_rating_excellent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="2,379"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_progress_excellent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view_progress_excellent"
+        app:layout_constraintTop_toTopOf="@+id/view_progress_excellent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_rating_great"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato"
+        android:text="Great"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_progress_great"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_rating_excellent"
+        app:layout_constraintTop_toBottomOf="@+id/label_rating_excellent" />
+
+    <ProgressBar
+        android:id="@+id/view_progress_great"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="17"
+        android:progressDrawable="@drawable/progress_bar_custom"
+        app:layout_constraintBottom_toBottomOf="@+id/label_rating_great"
+        app:layout_constraintEnd_toEndOf="@+id/view_progress_excellent"
+        app:layout_constraintStart_toStartOf="@+id/view_progress_excellent"
+        app:layout_constraintTop_toTopOf="@+id/label_rating_great" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_num_rating_great"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="512"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_progress_great"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/view_progress_great"
+        app:layout_constraintTop_toTopOf="@+id/view_progress_great" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_rating_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato"
+        android:text="Average"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_progress_average"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_rating_great"
+        app:layout_constraintTop_toBottomOf="@+id/label_rating_great" />
+
+    <ProgressBar
+        android:id="@+id/view_progress_average"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="11"
+        android:progressDrawable="@drawable/progress_bar_custom"
+        app:layout_constraintBottom_toBottomOf="@+id/label_rating_average"
+        app:layout_constraintEnd_toEndOf="@+id/view_progress_great"
+        app:layout_constraintStart_toStartOf="@+id/view_progress_great"
+        app:layout_constraintTop_toTopOf="@+id/label_rating_average" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_num_rating_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="132"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_progress_average"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/view_progress_average"
+        app:layout_constraintTop_toTopOf="@+id/view_progress_average" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_rating_poor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato"
+        android:text="Poor"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_progress_poor"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_rating_average"
+        app:layout_constraintTop_toBottomOf="@+id/label_rating_average" />
+
+    <ProgressBar
+        android:id="@+id/view_progress_poor"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="4"
+        android:progressDrawable="@drawable/progress_bar_custom"
+        app:layout_constraintBottom_toBottomOf="@+id/label_rating_poor"
+        app:layout_constraintEnd_toEndOf="@+id/view_progress_average"
+        app:layout_constraintStart_toStartOf="@+id/view_progress_average"
+        app:layout_constraintTop_toTopOf="@+id/label_rating_poor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_num_rating_poor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="15"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_progress_poor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/view_progress_poor"
+        app:layout_constraintTop_toTopOf="@+id/view_progress_poor" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_rating_terrible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato"
+        android:text="Terrible"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_progress_terrible"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_rating_poor"
+        app:layout_constraintTop_toBottomOf="@+id/label_rating_poor" />
+
+    <ProgressBar
+        android:id="@+id/view_progress_terrible"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_bar_custom"
+        app:layout_constraintBottom_toBottomOf="@+id/label_rating_terrible"
+        app:layout_constraintEnd_toEndOf="@+id/view_progress_poor"
+        app:layout_constraintStart_toStartOf="@+id/view_progress_poor"
+        app:layout_constraintTop_toTopOf="@+id/label_rating_terrible" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_num_rating_terrible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_progress_terrible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/view_progress_terrible"
+        app:layout_constraintTop_toTopOf="@+id/view_progress_terrible" />
+
+    <View
+        android:id="@+id/placeholder_reviews_divider"
+        android:layout_width="0dp"
+        android:layout_height="1.5dp"
+        android:layout_marginTop="16dp"
+        android:background="#D9D9D9"
+        app:layout_constraintEnd_toEndOf="@+id/view_num_rating_terrible"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/view_reviews_rating"
+        app:layout_constraintTop_toBottomOf="@+id/view_add_review" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_reviews"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/placeholder_reviews_divider"
+        app:layout_constraintStart_toStartOf="@+id/placeholder_reviews_divider"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder_reviews_divider" />
+
+    <include
+        android:id="@+id/view_add_review"
+        layout="@layout/segment_button_add_review"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/linear_layout_shape"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_progress_terrible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

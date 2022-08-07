@@ -21,10 +21,10 @@
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal|top|center_vertical"
             android:layout_marginTop="8dp"
-            android:src="@drawable/ic_nature"
-            app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:padding="5dp"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_nature"
+            app:shapeAppearanceOverlay="@style/image_rounded_corners" />
 
         <TextView
             android:id="@+id/trail_type_textview"

@@ -1,8 +1,8 @@
 package com.neu.madcourse.mad_team4_finalproject.retrofit_interfaces;
 
-import com.neu.madcourse.mad_team4_finalproject.apiModels.ActivityResult;
-import com.neu.madcourse.mad_team4_finalproject.apiModels.ParkResult;
-import com.neu.madcourse.mad_team4_finalproject.apiModels.ThingsToDoResult;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.ActivityResult;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.ParkResult;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.ThingsToDoResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

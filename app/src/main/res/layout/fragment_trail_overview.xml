@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TrailOverviewFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_overview_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/view_overview_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:breakStrategy="high_quality"
+            android:ellipsize="end"
+            android:fontFamily="@font/lato"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:text="A permit is required for this hike. To attain the permit you must win it through the permit lottery. There is a maximum fine of $100,000 and/or jail time if you enter the permit area without a valid permit which is by lottery only. While dogs are currently allowed in this permit area, this is a harsh environment with no water and extreme heat"
+            android:textColor="#575757"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/label_overview_description"
+            app:layout_constraintTop_toBottomOf="@+id/label_overview_description" />
+
+        <View
+            android:id="@+id/placeholder_divider"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="16dp"
+            android:background="#D9D9D9"
+            app:layout_constraintEnd_toEndOf="@+id/view_overview_description"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/view_overview_description"
+            app:layout_constraintTop_toBottomOf="@+id/view_overview_description" />
+
+        <include
+            android:id="@+id/segment_overview_length"
+            layout="@layout/segment_overview_metric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/segment_overview_elevation"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/placeholder_divider"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder_divider" />
+
+        <include
+            android:id="@+id/segment_overview_elevation"
+            layout="@layout/segment_overview_metric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/segment_overview_length"
+            app:layout_constraintEnd_toEndOf="@+id/placeholder_divider"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/segment_overview_length"
+            app:layout_constraintTop_toTopOf="@+id/segment_overview_length" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_overview_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Map"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/placeholder_divider"
+            app:layout_constraintTop_toBottomOf="@+id/segment_overview_length" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/view_overview_map"
+            android:layout_width="0dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="16dp"
+            android:elevation="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_nature"
+            app:layout_constraintEnd_toEndOf="@+id/placeholder_divider"
+            app:layout_constraintStart_toStartOf="@+id/label_overview_map"
+            app:layout_constraintTop_toBottomOf="@+id/label_overview_map"
+            app:shapeAppearanceOverlay="@style/image_rounded_corners" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

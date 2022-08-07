@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.neu.madcourse.mad_team4_finalproject.R;
-import com.neu.madcourse.mad_team4_finalproject.apiModels.Activity;
-import com.neu.madcourse.mad_team4_finalproject.viewholders.ActivityViewHolder;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
+import com.neu.madcourse.mad_team4_finalproject.view_holders.ActivityViewHolder;
 
 import java.util.List;
 

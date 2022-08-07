@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SplashActivity"
+    tools:context=".activities.SplashActivity"
     android:background="@drawable/green_splash_screen_look"
     android:backgroundTint="#9C9C9C"
     android:backgroundTintMode="multiply">
 
 <!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:name="com.neu.madcourse.mad_team4_finalproject.Explore.ExploreScreenFragment"-->
+<!--        android:name="com.neu.madcourse.mad_team4_finalproject.fragments.ExploreScreenFragment"-->
 <!--        android:id="@+id/fragment_container_view_tag"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->

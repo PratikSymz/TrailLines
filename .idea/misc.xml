@@ -104,9 +104,11 @@
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.2535" />
         <entry key="app/src/main/res/drawable/ic_star.xml" value="0.2985" />
         <entry key="app/src/main/res/layout/activity_explore_screen.xml" value="0.14010416666666667" />
+        <entry key="app/src/main/res/layout/activity_explore_standy.xml" value="0.2543822146216332" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12604166666666666" />
         <entry key="app/src/main/res/layout/bottom_sheet_filter_screen.xml" value="0.577423095703125" />
         <entry key="app/src/main/res/layout/filter_screen.xml" value="0.29065040650406504" />
+        <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.22155453346386178" />
         <entry key="app/src/main/res/layout/fragment_filter_screen_dialog_list_dialog.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_filter_screen_dialog_list_dialog_item.xml" value="0.14010416666666667" />
 >>>>>>> 3a050b1 (Filter Screen layout)

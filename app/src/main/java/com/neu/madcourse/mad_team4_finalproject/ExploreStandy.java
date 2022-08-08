@@ -14,10 +14,10 @@ public class ExploreStandy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_standy);
 
-        Button mBottton = findViewById(R.id.button);
-        mBottton.setOnClickListener(v -> {
-            FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog();
-            bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
-        });
+//        Button mBottton = findViewById(R.id.button);
+//        mBottton.setOnClickListener(v -> {
+//            FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog();
+//            bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
+//        });
     }
 }

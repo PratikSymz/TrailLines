@@ -7,51 +7,76 @@
     android:layout_height="match_parent"
     android:paddingStart="15dp"
     android:paddingEnd="15dp"
+    android:paddingTop="15dp"
     tools:context=".fragments.ExploreScreenFragment">
 
-    <LinearLayout
-        android:id="@+id/explore_screen_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/linear_layout_shape"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/explore_screen_linearlayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/linear_layout_shape"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="4dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <ImageView
-            android:id="@+id/image_view_search_bar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center|center_vertical"
-            android:layout_marginStart="2dp"
-            android:background="@drawable/search_bar"
-            android:padding="8dp" />
+<!--        <ImageView-->
+<!--            android:id="@+id/image_view_search_bar"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_gravity="center|center_vertical"-->
+<!--            android:layout_marginStart="2dp"-->
+<!--            android:background="@drawable/search_bar"-->
+<!--            android:padding="8dp" />-->
 
-        <EditText
-            android:id="@+id/explore_search_bar_editText"
+<!--        <EditText-->
+<!--            android:id="@+id/explore_search_bar_editText"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@color/transparent"-->
+<!--            android:hint="@string/hi_where_to_next"-->
+<!--            android:inputType="text"-->
+<!--            android:padding="8dp"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--            tools:ignore="TouchTargetSizeCheck" />-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:hint="@string/hi_where_to_next"
-            android:inputType="text"
-            android:padding="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:layout_height="60dp"
+            app:placeholderText="Name"
+            android:drawablePadding="8dp"
+            app:startIconDrawable="@drawable/ic_search"
+            app:endIconTint="@color/black"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.rounded"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintEnd_toStartOf="@id/filterButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/filter_image_view"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:padding="5dp"
-            android:src="@drawable/filter" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-    </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/filterButton"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:padding="5dp"
+        android:src="@drawable/filter"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/horizontal_trail_recycler_view"
@@ -61,7 +86,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/explore_screen_linearlayout" />
+        app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vertical_trail_recycler_view"

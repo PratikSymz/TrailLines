@@ -43,6 +43,14 @@ public class ExploreScreenFragment extends Fragment {
         mBinding.verticalTrailRecyclerView.setLayoutManager(layoutManager);
         mBinding.verticalTrailRecyclerView.setAdapter(activityAdapter);
         NPSEndpoints npsEndpoints = getRetrofitClient();
+
+
+        mBinding.filterButton.setOnClickListener(v -> {
+            FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog();
+            bottomSheet.show(getActivity().getSupportFragmentManager(), bottomSheet.getTag());
+        });
+
+
         npsEndpoints.getActivityResults().enqueue(new Callback<ActivityResult>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

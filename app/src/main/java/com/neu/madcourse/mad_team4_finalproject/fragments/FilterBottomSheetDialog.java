@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FilterScreenBinding;
+import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -35,43 +36,43 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
         bottomSheetBehavior = BottomSheetBehavior.from((View) (view.getParent()));
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         sharedPreferences = getActivity().getSharedPreferences("FilterSharedPreferences", Context.MODE_PRIVATE);
-        switch (sharedPreferences.getString("sort", "")) {
-            case "Best Matched": mBinding.bestMatched.setChecked(true);
+        switch (sharedPreferences.getString(Constants.SORT, "")) {
+            case Constants.BEST_MATCHED: mBinding.bestMatched.setChecked(true);
             break;
 
-            case "Closest": mBinding.closest.setChecked(true);
+            case Constants.CLOSEST: mBinding.closest.setChecked(true);
             break;
 
             default: mBinding.topRated.setChecked(true);
         }
 
-        mBinding.lengthSlider.setValues(sharedPreferences.getFloat("lengthStart", 0),
-                sharedPreferences.getFloat("lengthEnd", 80));
+        mBinding.lengthSlider.setValues(sharedPreferences.getFloat(Constants.LENGTH_START, 0),
+                sharedPreferences.getFloat(Constants.LENGTH_END, 80));
 
-        mBinding.elevationSlider.setValues(sharedPreferences.getFloat("elevationStart", 0),
-                sharedPreferences.getFloat("elevationEnd", 1500));
+        mBinding.elevationSlider.setValues(sharedPreferences.getFloat(Constants.ELEVATION_START, 0),
+                sharedPreferences.getFloat(Constants.ELEVATION_END, 1500));
 
-        Set<String> difficultyPref = sharedPreferences.getStringSet("difficulty", new HashSet<>());
+        Set<String> difficultyPref = sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
         if (difficultyPref.isEmpty()) {
             mBinding.easyCheckBox.setChecked(true);
             mBinding.medCheckBox.setChecked(true);
             mBinding.hardCheckBox.setChecked(true);
         } else {
-            if (difficultyPref.contains("Easy")) {
+            if (difficultyPref.contains(Constants.EASY)) {
                 mBinding.easyCheckBox.setChecked(true);
             }
-            if (difficultyPref.contains("Medium")) {
+            if (difficultyPref.contains(Constants.MEDIUM)) {
                 mBinding.medCheckBox.setChecked(true);
             }
-            if (difficultyPref.contains("Hard")) {
+            if (difficultyPref.contains(Constants.HARD)) {
                 mBinding.hardCheckBox.setChecked(true);
             }
         }
 
-        mBinding.ratingSlider.setValues(sharedPreferences.getFloat("ratingStart", 0),
-                sharedPreferences.getFloat("ratingEnd", 5));
+        mBinding.ratingSlider.setValues(sharedPreferences.getFloat(Constants.RATING_START, 0),
+                sharedPreferences.getFloat(Constants.RATING_END, 5));
 
-        Set<String> preferencesPref = sharedPreferences.getStringSet("preferences", new HashSet<>());
+        Set<String> preferencesPref = sharedPreferences.getStringSet(Constants.PREFERENCES, new HashSet<>());
         if (preferencesPref.isEmpty()) {
             mBinding.dog.setChecked(true);
             mBinding.kid.setChecked(true);
@@ -79,19 +80,19 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
             mBinding.camping.setChecked(true);
             mBinding.biking.setChecked(true);
         } else {
-            if (preferencesPref.contains("Dog")) {
+            if (preferencesPref.contains(Constants.DOG)) {
                 mBinding.dog.setChecked(true);
             }
-            if (preferencesPref.contains("Kid")) {
+            if (preferencesPref.contains(Constants.KID)) {
                 mBinding.kid.setChecked(true);
             }
-            if (preferencesPref.contains("Wheelchair")) {
+            if (preferencesPref.contains(Constants.WHEELCHAIR)) {
                 mBinding.wheelchair.setChecked(true);
             }
-            if (preferencesPref.contains("Camping")) {
+            if (preferencesPref.contains(Constants.CAMPING)) {
                 mBinding.camping.setChecked(true);
             }
-            if (preferencesPref.contains("Biking")) {
+            if (preferencesPref.contains(Constants.BIKING)) {
                 mBinding.biking.setChecked(true);
             }
         }
@@ -107,50 +108,50 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
             int index = mBinding.radioGroup.indexOfChild( mBinding.radioGroup.findViewById(mBinding.radioGroup.getCheckedRadioButtonId()));
             RadioButton r = (RadioButton) mBinding.radioGroup.getChildAt(index);
             String sortValue = r.getText().toString();
-            myEditor.putString("sort", sortValue);
+            myEditor.putString(Constants.SORT, sortValue);
             //length
             List<Float> lengthSliderValues = mBinding.lengthSlider.getValues();
-            myEditor.putFloat("lengthStart", lengthSliderValues.get(0));
-            myEditor.putFloat("lengthEnd", lengthSliderValues.get(1));
+            myEditor.putFloat(Constants.LENGTH_START, lengthSliderValues.get(0));
+            myEditor.putFloat(Constants.LENGTH_END, lengthSliderValues.get(1));
             //elevation
             List<Float> elevationSliderValues = mBinding.elevationSlider.getValues();
-            myEditor.putFloat("elevationStart", elevationSliderValues.get(0));
-            myEditor.putFloat("elevationEnd", elevationSliderValues.get(1));
+            myEditor.putFloat(Constants.ELEVATION_START, elevationSliderValues.get(0));
+            myEditor.putFloat(Constants.ELEVATION_END, elevationSliderValues.get(1));
             //difficulty
             Set<String> selectedDifficulty = new HashSet<>();
             if(mBinding.easyCheckBox.isChecked()) {
-                selectedDifficulty.add("Easy");
+                selectedDifficulty.add(Constants.EASY);
             }
             if(mBinding.medCheckBox.isChecked()) {
-                selectedDifficulty.add("Medium");
+                selectedDifficulty.add(Constants.MEDIUM);
             }
             if(mBinding.hardCheckBox.isChecked()) {
-                selectedDifficulty.add("Hard");
+                selectedDifficulty.add(Constants.HARD);
             }
-            sharedPreferences.getStringSet("difficulty", new HashSet<>());
-            myEditor.putStringSet("difficulty", selectedDifficulty);
+            sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
+            myEditor.putStringSet(Constants.DIFFICULTY, selectedDifficulty);
             //rating
             List<Float> ratingSliderValues = mBinding.ratingSlider.getValues();
-            myEditor.putFloat("ratingStart", ratingSliderValues.get(0));
-            myEditor.putFloat("ratingEnd", ratingSliderValues.get(1));
+            myEditor.putFloat(Constants.RATING_START, ratingSliderValues.get(0));
+            myEditor.putFloat(Constants.RATING_END, ratingSliderValues.get(1));
             //preferences
             Set<String> selectedPreferences = new HashSet<>();
             if(mBinding.dog.isChecked()) {
-                selectedPreferences.add("Dog");
+                selectedPreferences.add(Constants.DOG);
             }
             if(mBinding.kid.isChecked()) {
-                selectedPreferences.add("Kid");
+                selectedPreferences.add(Constants.KID);
             }
             if(mBinding.wheelchair.isChecked()) {
-                selectedPreferences.add("Wheelchair");
+                selectedPreferences.add(Constants.WHEELCHAIR);
             }
             if(mBinding.camping.isChecked()) {
-                selectedPreferences.add("Camping");
+                selectedPreferences.add(Constants.CAMPING);
             }
             if(mBinding.biking.isChecked()) {
-                selectedPreferences.add("Biking");
+                selectedPreferences.add(Constants.BIKING);
             }
-            myEditor.putStringSet("preferences", selectedPreferences);
+            myEditor.putStringSet(Constants.PREFERENCES, selectedPreferences);
             myEditor.apply();
             dismiss();
         });
@@ -163,31 +164,31 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
                 mBinding.bestMatched.setChecked(false);
                 mBinding.closest.setChecked(false);
                 mBinding.topRated.setChecked(true);
-                myEditor.putString("sort", "Top Rated");
+                myEditor.putString(Constants.SORT, Constants.TOP_RATED);
                 //length
                 mBinding.lengthSlider.setValues(0f, 80f);
-                myEditor.putFloat("lengthStart", 0);
-                myEditor.putFloat("lengthEnd", 80);
+                myEditor.putFloat(Constants.LENGTH_START, 0);
+                myEditor.putFloat(Constants.LENGTH_END, 80);
                 //elevation
                 mBinding.lengthSlider.setValues(0f, 1500f);
-                myEditor.putFloat("elevationStart", 0);
-                myEditor.putFloat("elevationEnd", 1500);
+                myEditor.putFloat(Constants.ELEVATION_START, 0);
+                myEditor.putFloat(Constants.ELEVATION_END, 1500);
                 //difficulty
                 mBinding.easyCheckBox.setChecked(true);
                 mBinding.medCheckBox.setChecked(true);
                 mBinding.hardCheckBox.setChecked(true);
-                myEditor.putStringSet("difficulty", new HashSet<>(Arrays.asList("Easy", "Medium", "Hard")));
+                myEditor.putStringSet(Constants.DIFFICULTY, new HashSet<>(Arrays.asList(Constants.EASY, Constants.MEDIUM, Constants.HARD)));
                 //rating
                 mBinding.lengthSlider.setValues(0f, 5f);
-                myEditor.putFloat("ratingStart", 0);
-                myEditor.putFloat("ratingEnd", 5);
+                myEditor.putFloat(Constants.RATING_START, 0);
+                myEditor.putFloat(Constants.RATING_END, 5);
                 //preferences
                 mBinding.dog.setChecked(true);
                 mBinding.kid.setChecked(true);
                 mBinding.wheelchair.setChecked(true);
                 mBinding.biking.setChecked(true);
                 mBinding.camping.setChecked(true);
-                myEditor.putStringSet("preferences", new HashSet<>(Arrays.asList("Dog", "Kid", "Wheelchair", "Camping", "Biking")));
+                myEditor.putStringSet(Constants.PREFERENCES, new HashSet<>(Arrays.asList(Constants.DOG, Constants.KID, Constants.WHEELCHAIR, Constants.CAMPING, Constants.BIKING)));
                 myEditor.apply();
 
                 dismiss();

@@ -80,4 +80,32 @@ object Constants {
     const val ACTIVITY_SAVED_PLACES = "SavedPlacesActivity"
     const val ACTIVITY_SETTINGS = "SettingsActivity"
     const val ACTIVITY_COMPLIANCE = "ComplianceActivity"
+
+    /* Filter screen constants */
+    const val SORT = "Sort"
+    const val TOP_RATED = "Top Rated"
+    const val CLOSEST = "Closest"
+    const val BEST_MATCHED = "Best Matched"
+    const val DIFFICULTY = "Difficulty"
+    const val EASY = "Easy"
+    const val MEDIUM = "Medium"
+    const val HARD = "Hard"
+    const val LENGTH = "Length"
+    const val ELEVATION = "Elevation"
+    const val RATING = "Rating"
+    const val PREFERENCES = "Preferences"
+    const val DOG = "Dog"
+    const val KID = "Kid"
+    const val WHEELCHAIR = "Wheelchair"
+    const val CAMPING = "Camping"
+    const val BIKING = "Biking"
+    const val LENGTH_START = "lengthStart"
+    const val LENGTH_END = "lengthEnd"
+    const val ELEVATION_START = "elevationStart"
+    const val ELEVATION_END = "elevationEnd"
+    const val RATING_START = "ratingStart"
+    const val RATING_END = "ratingEnd"
+
+
+
 }

@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
-import com.neu.madcourse.mad_team4_finalproject.fragments.ChatFragment;
+import com.neu.madcourse.mad_team4_finalproject.fragments.ChatHistoryFragment;
 import com.neu.madcourse.mad_team4_finalproject.fragments.FindFriendsFragment;
 import com.neu.madcourse.mad_team4_finalproject.fragments.ConnectionRequestsFragment;
 
@@ -28,7 +28,7 @@ public class CommunitiesPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new ChatFragment();
+                return new ChatHistoryFragment();
             case 1:
                 return new ConnectionRequestsFragment();
             case 2:

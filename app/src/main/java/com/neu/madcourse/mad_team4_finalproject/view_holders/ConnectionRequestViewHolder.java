@@ -17,10 +17,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemConnectionRequestBinding;
+import com.neu.madcourse.mad_team4_finalproject.interfaces.ItemRemoveListener;
 import com.neu.madcourse.mad_team4_finalproject.models.ConnectionRequest;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
@@ -51,7 +54,12 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
     /* The Firebase Database reference -> "chats" */
     private DatabaseReference mChatsDatabaseRef;
 
-    public ConnectionRequestViewHolder(@NonNull Context context, @NonNull ItemConnectionRequestBinding itemBinding) {
+    /* The Recycler view item remove listener interface instance */
+    private ItemRemoveListener mListener;
+
+    public ConnectionRequestViewHolder(@NonNull Context context,
+                                       @NonNull ItemConnectionRequestBinding itemBinding,
+                                       @NonNull ItemRemoveListener listener) {
         super(itemBinding.getRoot());
 
         // Set the activity context
@@ -79,6 +87,9 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
         // Instantiate the Firebase "chats" user database reference
         mChatsDatabaseRef = FirebaseDatabase.getInstance().getReference()
                 .child(Constants.ChatKeys.KEY_TLO);
+
+        // Instantiate the item remove listener
+        mListener = listener;
     }
 
     /**
@@ -86,7 +97,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
      *
      * @param connectionRequest The connection request instance
      */
-    public void bindData(ConnectionRequest connectionRequest) {
+    public void bindData(ConnectionRequest connectionRequest, int position) {
         // Set the ConnectionRequest instance
         mConnRequest = connectionRequest;
 
@@ -118,22 +129,37 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
             // Extract the userID of the requester
             String userID = connectionRequest.getUserID();
 
+            // Create a message push request on the database reference
+            DatabaseReference messagePushRef = mChatsDatabaseRef
+                    .child(mFirebaseUser.getUid())
+                    .child(userID)
+                    .child(Constants.ChatKeys.MessageKeys.KEY_TLO)
+                    .push();
+
+            // Extract the message push ID
+            String pushID = messagePushRef.getKey();
+            assert pushID != null;
+
+            // The message
+
             // Create a chat reference between the two users when the user accepts the connection request
             // in FORWARD and REVERSE directions
             // [FORWARD]
             mChatsDatabaseRef
                     .child(mFirebaseUser.getUid())
                     .child(userID)
-                    .child(Constants.ChatKeys.KEY_TIMESTAMP)
-                        .setValue(ServerValue.TIMESTAMP)    // Set the chat timestamp
+                    .child(Constants.ChatKeys.MessageKeys.KEY_TLO)
+                    .child(pushID)
+                        .updateChildren(getDataMap(pushID, mFirebaseUser.getUid(), "", ""))     // TODO: Check this
                     .addOnCompleteListener(taskChat -> {
                         if (taskChat.isSuccessful()) {
                             // [REVERSE]
                             mChatsDatabaseRef
                                     .child(userID)
                                     .child(mFirebaseUser.getUid())
-                                    .child(Constants.ChatKeys.KEY_TIMESTAMP)
-                                        .setValue(ServerValue.TIMESTAMP)    // Set the chat timestamp
+                                    .child(Constants.ChatKeys.MessageKeys.KEY_TLO)
+                                    .child(pushID)
+                                        .updateChildren(getDataMap(pushID, mFirebaseUser.getUid(), "", ""))     // TODO: Check this
                                     .addOnCompleteListener(reverseTaskChat -> {
                                         if (reverseTaskChat.isSuccessful()) {
                                             // Now, set the request status of the requester and requestee
@@ -177,6 +203,9 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                             handleAcceptException(Objects.requireNonNull(taskChat.getException()));
                         }
                     });
+
+            // Remove item from the adapter
+            mListener.removeItem(position);
         });
 
         /* Set the Deny request button onClick action */
@@ -217,6 +246,9 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                             handleDenyException(Objects.requireNonNull(task.getException()));
                         }
                     });
+
+            // Remove item from the adapter
+            mListener.removeItem(position);
         });
     }
 
@@ -246,6 +278,24 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
         // Show the accept and deny buttons
         mBinding.viewConnButtonAccept.setVisibility(View.VISIBLE);
         mBinding.viewConnButtonDeny.setVisibility(View.VISIBLE);
+    }
+
+    /* Helper method to generate an empty message data map */
+    private Map<String, Object> getDataMap(String pushID, String from, String content, String dataType) {
+        // Create a hash map of data
+        Map<String, Object> dataMap = new HashMap<>();
+        // Add the message ID
+        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_MESSAGE_ID, pushID);
+        // Add the message "from" user ID
+        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_FROM, from);
+        // Add the message content
+        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_CONTENT, content);
+        // Add the message data type
+        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_DATA_TYPE, dataType);
+        // Add the message timestamp
+        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+        return dataMap;
     }
 
     /* Helper method to convert filename into "images" database reference */

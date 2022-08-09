@@ -15,13 +15,15 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.neu.madcourse.mad_team4_finalproject.R
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemFriendRequestBinding
+import com.neu.madcourse.mad_team4_finalproject.interfaces.ItemRemoveListener
 import com.neu.madcourse.mad_team4_finalproject.models.FindFriend
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
 
 class FindFriendViewHolder(
     @NonNull context: Context,
-    @NonNull itemBinding: ItemFriendRequestBinding
+    @NonNull itemBinding: ItemFriendRequestBinding,
+    @NonNull listener: ItemRemoveListener
 ) : RecyclerView.ViewHolder(itemBinding.root) {
 
     /* The activity context */
@@ -45,6 +47,9 @@ class FindFriendViewHolder(
     /* The Firebase User reference */
     private val mFirebaseUser: FirebaseUser? = mFirebaseAuth.currentUser
 
+    /* The Recycler view item remove listener interface instance */
+    private val mListener: ItemRemoveListener = listener
+
     /* The Firebase Database reference -> "users" */
     private val mUsersDatabaseRef: DatabaseReference =
         FirebaseDatabase.getInstance().reference
@@ -54,7 +59,7 @@ class FindFriendViewHolder(
      * @param findFriend The find friend instance
      */
     @SuppressLint("ClickableViewAccessibility")
-    fun bindFindFriendData(findFriend: FindFriend) {
+    fun bindFindFriendData(findFriend: FindFriend, position: Int) {
         // Set the FindFriend instance
         mFindFriend = findFriend
 
@@ -104,7 +109,7 @@ class FindFriendViewHolder(
                 .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                 .child(friendID)
                 .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                    .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_SENT)
+                .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_SENT)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Add the request in the opposite direction inside the other user's
@@ -114,7 +119,7 @@ class FindFriendViewHolder(
                             .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                             .child(mFirebaseUser.uid)
                             .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                                .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_RECEIVED)
+                            .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_RECEIVED)
                             .addOnCompleteListener { reverseTask ->
                                 if (reverseTask.isSuccessful) {
                                     // Show a toast message
@@ -131,7 +136,10 @@ class FindFriendViewHolder(
                                     mBinding.viewRequestButtonCancel.visibility = View.VISIBLE
                                 } else {
                                     mBaseUtils.showToast(
-                                        mContext.getString(R.string.failed_to_send_request, reverseTask.exception),
+                                        mContext.getString(
+                                            R.string.failed_to_send_request,
+                                            reverseTask.exception
+                                        ),
                                         Toast.LENGTH_SHORT
                                     )
 
@@ -147,6 +155,9 @@ class FindFriendViewHolder(
                         handleFailedSendRequest()
                     }
                 }
+
+            // Remove item from the adapter
+            mListener.removeItem(position)
         }
 
         // Set the cancel friend request button onClick action
@@ -165,7 +176,7 @@ class FindFriendViewHolder(
                 .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                 .child(friendID)
                 .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                    .setValue(null)     // Setting value to "null" deletes the record
+                .setValue(null)     // Setting value to "null" deletes the record
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Add the request in the opposite direction inside the other user's
@@ -175,7 +186,7 @@ class FindFriendViewHolder(
                             .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                             .child(mFirebaseUser.uid)
                             .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                                .setValue(null)     // Setting value to "null" deletes the record
+                            .setValue(null)     // Setting value to "null" deletes the record
                             .addOnCompleteListener { reverseTask ->
                                 if (reverseTask.isSuccessful) {
                                     // Show a toast message
@@ -192,7 +203,10 @@ class FindFriendViewHolder(
                                     mBinding.viewRequestButtonCancel.visibility = View.GONE
                                 } else {
                                     mBaseUtils.showToast(
-                                        mContext.getString(R.string.failed_to_cancel_request, reverseTask.exception),
+                                        mContext.getString(
+                                            R.string.failed_to_cancel_request,
+                                            reverseTask.exception
+                                        ),
                                         Toast.LENGTH_SHORT
                                     )
 

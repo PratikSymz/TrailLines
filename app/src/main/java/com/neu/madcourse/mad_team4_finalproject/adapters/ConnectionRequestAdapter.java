@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemConnectionRequestBinding;
+import com.neu.madcourse.mad_team4_finalproject.interfaces.ItemRemoveListener;
 import com.neu.madcourse.mad_team4_finalproject.models.ConnectionRequest;
 import com.neu.madcourse.mad_team4_finalproject.view_holders.ConnectionRequestViewHolder;
 
@@ -16,10 +17,13 @@ import java.util.List;
 public class ConnectionRequestAdapter extends RecyclerView.Adapter<ConnectionRequestViewHolder> {
     private Context mContext;
     private List<ConnectionRequest> connectionRequestList;
+    /* The Recycler view item remove listener interface instance */
+    private ItemRemoveListener mListener;
 
-    public ConnectionRequestAdapter(Context mContext, List<ConnectionRequest> friendRequestList) {
+    public ConnectionRequestAdapter(Context mContext, List<ConnectionRequest> friendRequestList, ItemRemoveListener listener) {
         this.mContext = mContext;
         this.connectionRequestList = friendRequestList;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -27,13 +31,13 @@ public class ConnectionRequestAdapter extends RecyclerView.Adapter<ConnectionReq
     public ConnectionRequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemConnectionRequestBinding itemBinding =
                 ItemConnectionRequestBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new ConnectionRequestViewHolder(mContext, itemBinding);
+        return new ConnectionRequestViewHolder(mContext, itemBinding, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ConnectionRequestViewHolder holder, int position) {
         ConnectionRequest friendRequest = connectionRequestList.get(position);
-        holder.bindData(friendRequest);
+        holder.bindData(friendRequest, position);
     }
 
     @Override

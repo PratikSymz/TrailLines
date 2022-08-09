@@ -15,7 +15,7 @@
     <string name="hint_signup_confirm_password">Confirm Password</string>
     <string name="signup_empty_email">Invalid Email</string>
     <string name="signup_empty_password">Invalid Password</string>
-    <string name="signup_button_text">Signup</string>
+    <string name="signup_button_text">Sign up</string>
     <string name="invalid_name">Invalid Name</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="invalid_password">Invalid Password</string>
@@ -62,4 +62,7 @@
     <string name="support_contact">Contact Us</string>
     <string name="log_out">Log Out</string>
     <string name="submit_text">Submit</string>
+    <string name="failed_to_send_message">Failed to send message: %1$s</string>
+    <string name="message_sent_successfully">Message sent successfully</string>
+    <string name="no_internet">No internet connection</string>
 </resources>

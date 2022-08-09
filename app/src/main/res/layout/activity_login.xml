@@ -42,7 +42,7 @@
 
     <include
         android:id="@+id/view_segment_login"
-        layout="@layout/segment_sign_up"
+        layout="@layout/segment_log_in"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

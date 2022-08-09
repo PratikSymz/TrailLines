@@ -64,8 +64,15 @@ public class ConnectionRequestsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mBinding.requestRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         friendRequestList = new ArrayList<>();
-        friendRequestAdapter = new ConnectionRequestAdapter(getActivity(), friendRequestList);
+        friendRequestAdapter = new ConnectionRequestAdapter(getActivity(), friendRequestList, position -> {
+            // Remove item from the friendRequestList and update the adapter
+            friendRequestList.remove(position);
+            friendRequestAdapter.notifyItemRemoved(position);
+        });
+
         mBinding.requestRecyclerview.setAdapter(friendRequestAdapter);
+
+        mBaseUtils = new BaseUtils(requireActivity());
 
         // getting the current user using the application through firebase
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -94,32 +101,33 @@ public class ConnectionRequestsFragment extends Fragment {
                         String requestStatus = Objects.requireNonNull(dataSnapshot
                                 .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS).getValue()).toString();
 
-                        if (requestStatus.equals(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_SENT)) {
-                            databaseReferenceUsers.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-                                    String currentUserName = Objects.requireNonNull(datasnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
-                                    String profilePicture = Objects.requireNonNull(dataSnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue()).toString();
-                                    ConnectionRequest friendRequest;
-                                    if (!mBaseUtils.isEmpty(profilePicture)) {
-                                        friendRequest = new ConnectionRequest(userID, currentUserName, profilePicture);
+                        if (requestStatus.equals(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_RECEIVED)) {
+                            databaseReferenceUsers.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                                            String currentUserName = datasnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue().toString();
+                                            String profilePicture = datasnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue().toString();
+                                            ConnectionRequest friendRequest;
+                                            if (!mBaseUtils.isEmpty(profilePicture)) {
+                                                friendRequest = new ConnectionRequest(userID, currentUserName, profilePicture);
 
-                                    } else {
-                                        friendRequest = new ConnectionRequest(userID, currentUserName, "");
-                                    }
+                                            } else {
+                                                friendRequest = new ConnectionRequest(userID, currentUserName, "");
+                                            }
 
-                                    friendRequestList.add(friendRequest);
-                                    friendRequestAdapter.notifyDataSetChanged();
-                                    mBinding.friendRequestAppearenceTextview.setVisibility(View.INVISIBLE);
-                                }
+                                            friendRequestList.add(friendRequest);
+                                            friendRequestAdapter.notifyItemInserted(friendRequestList.size() - 1);
+                                            mBinding.friendRequestAppearenceTextview.setVisibility(View.INVISIBLE);
+                                        }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
-                                    mBaseUtils.showToast(getString(R.string.failed_friend_request, error.getMessage()), Toast.LENGTH_SHORT);
-                                    mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
-                                }
-                            });
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
+                                            mBaseUtils.showToast(getString(R.string.failed_friend_request, error.getMessage()), Toast.LENGTH_SHORT);
+                                            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
+                                        }
+                                    });
                         }
                     } else {
                         /* There is not FriendRequest directory. Pass an empty list */

@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
     /* The Firebase storage reference */
     private StorageReference fileStorage;
 
-
+    /* The profile image server and local uri references */
     private Uri localUri, serverUri;
 
     @Override
@@ -73,15 +73,19 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Instantiate the Firebase storage reference
         fileStorage = FirebaseStorage.getInstance().getReference();
+
+        // Add the onClick action to the image upload button
+        mBaseUtils.applyListener(mBinding.viewSegmentSignup.viewInputSignupProfilePicture, view -> imageUpload());
+
+        // Add the onClick action to the sign up button
+        mBaseUtils.applyListener(mBinding.viewSegmentSignup.viewButtonSignup, view -> signUpButton());
     }
 
     /**
      * Method to update the user profile picture from the phone storage during the sign up process
      * This method also will ask user permission to access local image storage for image upload
-     *
-     * @param view
      */
-    public void imageUpload(View view) {
+    public void imageUpload() {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -127,7 +131,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 localUri = Objects.requireNonNull(data).getData();
-                mBinding.viewProfilePicture.setImageURI(localUri);
+                mBinding.viewSegmentSignup.viewInputSignupProfilePicture.setImageURI(localUri);
             }
         }
     }
@@ -138,14 +142,14 @@ public class SignUpActivity extends AppCompatActivity {
     private void picAndNameUpdate() {
         String file = firebaseUser.getUid() + ".jpg";
         final StorageReference reference = fileStorage.child("images/" + file);
-        mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
+        mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
         reference.putFile(localUri).addOnCompleteListener(task -> {
-            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
+            mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
             if (task.isSuccessful()) {
                 reference.getDownloadUrl().addOnSuccessListener(uri -> {
                     serverUri = uri;
                     UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(Objects.requireNonNull(mBinding.viewInputName.getText()).toString()
+                            .setDisplayName(Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString()
                                     .trim()).setPhotoUri(serverUri).build();
                     firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
@@ -157,8 +161,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                             // Initializing a new hashmap to update the database reference accordingly
                             Map<String, String> personalInfoMap = new HashMap<>();
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString().trim());
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupEmail.getText()).toString().trim());
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, serverUri.getPath());
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
@@ -185,12 +189,12 @@ public class SignUpActivity extends AppCompatActivity {
      * The Firebase console will have the userID which will have children as: Name, email, profile picture
      */
     private void updateUserName() {
-        mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
+        mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                .setDisplayName(Objects.requireNonNull(mBinding.viewInputName.getText()).toString()
+                .setDisplayName(Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString()
                         .trim()).build();
         firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
-            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
+            mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
             if (task.isSuccessful()) {
                 String userID = firebaseUser.getUid();
 
@@ -200,16 +204,16 @@ public class SignUpActivity extends AppCompatActivity {
 
                 // Initializing a new hashmap to update the database reference accordingly
                 Map<String, String> personalInfoMap = new HashMap<>();
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim());
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim());
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString().trim());
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupEmail.getText()).toString().trim());
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, " ");
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
-                mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
+                mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
                 mUsersDatabaseRef.child(userID)
                         .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
                         .setValue(personalInfoMap).addOnCompleteListener(task1 -> {
-                            mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
+                            mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
                             mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
                             startActivity(new Intent(mContext, LoginActivity.class));
                         });
@@ -225,24 +229,22 @@ public class SignUpActivity extends AppCompatActivity {
     /**
      * The onClick method to initiate the signup procedure to the Firebase Auth
      * server and verifying the user credentials for new user accounts creations
-     *
-     * @param view The login button view
      */
-    public void signUpButton(View view) {
-        String name = Objects.requireNonNull(mBinding.viewInputName.getText()).toString().trim();
-        String email = Objects.requireNonNull(mBinding.viewInputEmail.getText()).toString().trim();
-        String password = Objects.requireNonNull(mBinding.viewInputPassword.getText()).toString().trim();
-        String confirmPassword = Objects.requireNonNull(mBinding.viewInputConfirmPassword.getText())
+    public void signUpButton() {
+        String name = Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString().trim();
+        String email = Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupEmail.getText()).toString().trim();
+        String password = Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupPassword.getText()).toString().trim();
+        String confirmPassword = Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupConfirmPassword.getText())
                 .toString().trim();
 
         if (!mBaseUtils.isEmpty(name) && !mBaseUtils.isEmpty(email) && mBaseUtils.isValidEmail(email)
                 && !mBaseUtils.isEmpty(password) && !mBaseUtils.isEmpty(confirmPassword)
                 && password.equals(confirmPassword)) {
-            mBinding.progressbar.getRoot().setVisibility(View.VISIBLE);
+            mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
+                    mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     /* creating a user profile */
                     firebaseUser = firebaseAuth.getCurrentUser();
                     if (localUri != null) {
@@ -260,22 +262,22 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (mBaseUtils.isEmpty(name)) {
-            mBinding.viewInputName.setError(getString(R.string.invalid_name));
+            mBinding.viewSegmentSignup.viewInputSignupName.setError(getString(R.string.invalid_name));
         }
         if (mBaseUtils.isEmpty(email)) {
-            mBinding.viewInputEmail.setError(getString(R.string.invalid_email));
+            mBinding.viewSegmentSignup.viewInputSignupEmail.setError(getString(R.string.invalid_email));
         }
         if (mBaseUtils.isEmpty(password)) {
-            mBinding.viewInputPassword.setError(getString(R.string.invalid_password));
+            mBinding.viewSegmentSignup.viewInputSignupPassword.setError(getString(R.string.invalid_password));
         }
         if (mBaseUtils.isEmpty(confirmPassword)) {
-            mBinding.viewInputConfirmPassword.setError(getString(R.string.invalid_password));
+            mBinding.viewSegmentSignup.viewInputSignupConfirmPassword.setError(getString(R.string.invalid_password));
         }
         if (!mBaseUtils.isValidEmail(email)) {
-            mBinding.viewInputEmail.setError(getString(R.string.invalid_email));
+            mBinding.viewSegmentSignup.viewInputSignupEmail.setError(getString(R.string.invalid_email));
         }
         if (!password.equals(confirmPassword)) {
-            mBinding.viewInputConfirmPassword.setError(getString(R.string.password_not_match));
+            mBinding.viewSegmentSignup.viewInputSignupConfirmPassword.setError(getString(R.string.password_not_match));
         }
     }
 }

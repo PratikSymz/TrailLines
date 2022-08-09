@@ -19,10 +19,13 @@
         android:theme="@style/Theme.MAD_Team4_FinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".ContactUsPage"
+            android:name=".activities.ContactUsPage"
             android:exported="false" />
         <activity
-            android:name=".AppSettingsPage"
+            android:name=".activities.AppSettingsPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ChatScreenActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ConnectionActivity"

@@ -34,7 +34,19 @@ object Constants {
     object ChatKeys {
         const val KEY_TLO = "chats"
 
-        const val KEY_TIMESTAMP = "timestamp"
+        object MessageKeys {
+            const val KEY_TLO = "messages"
+
+            // Message fields
+            const val KEY_FROM = "from"
+            const val KEY_CONTENT = "content"
+            const val KEY_MESSAGE_ID = "message_id"
+            const val KEY_TIMESTAMP = "timestamp"
+            const val KEY_DATA_TYPE = "data_type"
+
+            // The data types
+            const val DATA_TYPE_TEXT = "text"
+        }
     }
 
     object FirebaseStorageKeys {

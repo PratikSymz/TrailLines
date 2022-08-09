@@ -7,8 +7,8 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_horizontal_view"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/trail_type_image_view"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal|top|center_vertical"
             android:layout_marginTop="8dp"
@@ -31,7 +31,6 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
             android:gravity="center"
             android:textAlignment="center"
             android:textColor="#807E7E"

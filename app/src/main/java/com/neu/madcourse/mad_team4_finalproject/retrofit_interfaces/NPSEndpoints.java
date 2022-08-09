@@ -11,7 +11,7 @@ public interface NPSEndpoints {
     @GET("parks")
     Call<ParkResult> getParkResults();
 
-    @GET("thingstodo")
+    @GET("thingstodo?api_key=gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I")
     Call<ThingsToDoResult> getThingsToDoResults();
 
 //    @Headers("api_key: " + "gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I")

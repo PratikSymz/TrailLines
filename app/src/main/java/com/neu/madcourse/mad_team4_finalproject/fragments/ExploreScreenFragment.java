@@ -16,9 +16,14 @@ import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ActivityResult;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentExploreScreenBinding;
 import com.neu.madcourse.mad_team4_finalproject.retrofit_interfaces.NPSEndpoints;
+import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,12 +43,12 @@ public class ExploreScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         mBinding = FragmentExploreScreenBinding.inflate(getLayoutInflater(), container, false);
         activityList = new ArrayList<>();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,
+                false);
         activityAdapter = new ActivityAdapter(activityList, getActivity());
-        mBinding.verticalTrailRecyclerView.setLayoutManager(layoutManager);
-        mBinding.verticalTrailRecyclerView.setAdapter(activityAdapter);
+        mBinding.horizontalTrailRecyclerView.setLayoutManager(layoutManager);
+        mBinding.horizontalTrailRecyclerView.setAdapter(activityAdapter);
         NPSEndpoints npsEndpoints = getRetrofitClient();
-
 
         mBinding.filterButton.setOnClickListener(v -> {
             FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog();
@@ -56,9 +61,19 @@ public class ExploreScreenFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ActivityResult> call, @NonNull Response<ActivityResult> response) {
                 assert response.body() != null;
+                List<String> activities = List.of(Constants.ThingsToDoStrings.CAMPING, Constants.ThingsToDoStrings.CAMPING,
+                        Constants.ThingsToDoStrings.CAMPING, Constants.ThingsToDoStrings.CANYONEERING,
+                        Constants.ThingsToDoStrings.CAVING, Constants.ThingsToDoStrings.BOATING,
+                        Constants.ThingsToDoStrings.BIKING, Constants.ThingsToDoStrings.CLIMBING,
+                        Constants.ThingsToDoStrings.SCUBA_DIVING, Constants.ThingsToDoStrings.SKIING,
+                        Constants.ThingsToDoStrings.SNORKELING, Constants.ThingsToDoStrings.SURFING,
+                        Constants.ThingsToDoStrings.WATER_SKIING, Constants.ThingsToDoStrings.FISHING,
+                        Constants.ThingsToDoStrings.PADDLING, Constants.ThingsToDoStrings.HIKING);
+
                 activityList = response.body().getActivityList();
-                activityAdapter = new ActivityAdapter(activityList, getActivity());
-                mBinding.verticalTrailRecyclerView.setAdapter(activityAdapter);
+                List<Activity> filteredActivityList = activityList.stream().filter(activity -> activities.contains(activity.getName())).collect(Collectors.toList());
+                activityAdapter = new ActivityAdapter(filteredActivityList, getActivity());
+                mBinding.horizontalTrailRecyclerView.setAdapter(activityAdapter);
                 Log.d(TAG, response.body().getDataCount());
             }
 

@@ -48,7 +48,7 @@
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            app:placeholderText="Name"
+            app:placeholderText="Enter a city"
             android:drawablePadding="8dp"
             app:startIconDrawable="@drawable/ic_search"
             app:endIconTint="@color/black"

@@ -1,5 +1,7 @@
 package com.neu.madcourse.mad_team4_finalproject.utils
 
+import com.neu.madcourse.mad_team4_finalproject.R
+
 object Constants {
     /* The User directory keys -> "users" */
     object UserKeys {
@@ -106,6 +108,37 @@ object Constants {
     const val RATING_START = "ratingStart"
     const val RATING_END = "ratingEnd"
 
+    object ThingsToDoImageIds {
+        const val CAMPING = R.drawable.camping
+        const val BIKING = R.drawable.biking
+        const val BOATING = R.drawable.boating
+        const val CANYONEERING = R.drawable.canyon
+        const val CAVING = R.drawable.caving
+        const val CLIMBING = R.drawable.climbing
+        const val FISHING = R.drawable.fishing
+        const val HIKING = R.drawable.hiking
+        const val PADDLING = R.drawable.paddling
+        const val SCUBA_DIVING = R.drawable.scuba
+        const val SNORKELLING = R.drawable.snorkelling
+        const val SKIING = R.drawable.skiing
+        const val SURFING = R.drawable.surfing
+        const val WATER_SKIING = R.drawable.waterskiing
+    }
 
-
+    object ThingsToDoStrings {
+        const val CAMPING = "Camping"
+        const val BIKING = "Biking"
+        const val BOATING = "Boating"
+        const val CANYONEERING = "Canyoneering"
+        const val CAVING = "Caving"
+        const val CLIMBING = "Climbing"
+        const val FISHING = "Fishing"
+        const val HIKING = "Hiking"
+        const val PADDLING = "Paddling"
+        const val SCUBA_DIVING = "SCUBA Diving"
+        const val SNORKELING = "Snorkeling"
+        const val SKIING = "Skiing"
+        const val SURFING = "Surfing"
+        const val WATER_SKIING = "Water Skiing"
+    }
 }

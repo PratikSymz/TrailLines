@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/view_profile_image"
         android:layout_width="85dp"
         android:layout_height="85dp"
@@ -92,14 +92,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include4"
+        app:layout_constraintBottom_toTopOf="@+id/profile_tag_settings"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <include
-        android:id="@+id/include4"
+        android:id="@+id/profile_tag_settings"
         layout="@layout/item_profile_tag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toBottomOf="@+id/include4" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_tag_settings" />
 
     <Button
         android:id="@+id/view_edit_button"

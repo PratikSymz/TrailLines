@@ -55,4 +55,11 @@
     <string name="failed_to_send_request">Failed to send friend request: %1$s</string>
     <string name="request_cancelled_successfully">Request cancelled successfully</string>
     <string name="failed_to_cancel_request">Failed to cancel request: %1$s</string>
+    <string name="change_units">Change units</string>
+    <string name="private_profile">Private Profile</string>
+    <string name="dark_light">Dark/Light</string>
+    <string name="current_version">Current Version: v1.0</string>
+    <string name="support_contact">Contact Us</string>
+    <string name="log_out">Log Out</string>
+    <string name="submit_text">Submit</string>
 </resources>

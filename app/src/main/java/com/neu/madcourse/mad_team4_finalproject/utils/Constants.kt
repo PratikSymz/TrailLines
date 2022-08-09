@@ -34,14 +34,31 @@ object Constants {
     object ReviewKeys {
         const val KEY_TLO = "reviews"
 
-        // The review fields
-        const val KEY_RATING = "rating"
-        const val KEY_TIMESTAMP = "timestamp"
-        const val KEY_TITLE = "title"
-        const val KEY_MESSAGE = "message"
-        const val KEY_RECOMMEND_STATUS = "recommend_status"
-        const val KEY_TRAIL_ID = "trail_id"
-        const val KEY_IMAGES = "images"
+        object ReviewStats {
+            const val KEY_TLO = "review_stats"
+
+            // The Review stats fields
+            const val KEY_TOTAL_REVIEWERS = "total_reviewers"
+            const val KEY_TOTAL_STARS = "total_stars"
+            const val KEY_NUM_EXCELLENT = "num_excellent"
+            const val KEY_NUM_GREAT = "num_great"
+            const val KEY_NUM_AVERAGE = "num_average"
+            const val KEY_NUM_POOR = "num_poor"
+            const val KEY_NUM_TERRIBLE = "num_terrible"
+        }
+
+        object ReviewMessages {
+            const val KEY_TLO = "review_messages"
+
+            // The review message fields
+            const val KEY_RATING = "rating"
+            const val KEY_TIMESTAMP = "timestamp"
+            const val KEY_TITLE = "title"
+            const val KEY_MESSAGE = "message"
+            const val KEY_RECOMMEND_STATUS = "recommend_status"
+            const val KEY_TRAIL_ID = "trail_id"
+            const val KEY_IMAGES = "images"
+        }
     }
 
     /* The Chat directory keys -> "chats" */

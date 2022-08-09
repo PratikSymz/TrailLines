@@ -22,28 +22,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.GenericAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityAddReviewBinding;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemSelectedImageBinding;
-import com.neu.madcourse.mad_team4_finalproject.fragments.TrailReviewsFragment;
+import com.neu.madcourse.mad_team4_finalproject.models.ReviewStat;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class AddReviewActivity extends AppCompatActivity {
     /* The Fragment Log Tag */
-    private final String LOG_TAG = TrailReviewsFragment.class.getSimpleName();
+    private final String LOG_TAG = AddReviewActivity.class.getSimpleName();
 
     /* The Activity context */
     private Context mContext;
@@ -70,13 +75,13 @@ public class AddReviewActivity extends AppCompatActivity {
     private GenericAdapter<Uri> mAdapter;
 
     /* The Review images selected list reference */
-    private List<Uri> mSelectedImageList = new ArrayList<>();
+    private Set<Uri> mSelectedImageList = new HashSet<>();
 
     /* The Review images selected url list reference */
-    private List<String> mSelectedImageUrlList = new ArrayList<>();
+    private Set<String> mSelectedImageUrlList = new HashSet<>();
 
-    /* The Trail ID reference */
-    private String mTrailID = "101";
+    /* TODO: Retrieve The Trail ID reference */
+    private final String mTrailID = "102";
 
     /* The Recommendation status boolean reference */
     private Boolean mRecommendationStatus = false;
@@ -126,7 +131,7 @@ public class AddReviewActivity extends AppCompatActivity {
         mBinding.recyclerViewSelectedImages.setLayoutManager(layoutManager);
 
         // Instantiate the adapter class
-        mAdapter = new GenericAdapter<>(mContext, mSelectedImageList, ItemSelectedImageBinding.inflate(getLayoutInflater()));
+        mAdapter = new GenericAdapter<>(mContext, new ArrayList<>(mSelectedImageList), ItemSelectedImageBinding.inflate(getLayoutInflater()));
 
         // Set the adapter on the recycler view
         mBinding.recyclerViewSelectedImages.setAdapter(mAdapter);
@@ -171,12 +176,6 @@ public class AddReviewActivity extends AppCompatActivity {
                     mNRHighlighted = false;
                 }
             }
-
-            mBaseUtils.showToast(
-                    "Recommended status: " + mRecommendationStatus +
-                            "\nRHighlight: " + mRHighlighted,
-                    Toast.LENGTH_SHORT
-            );
         });
 
         /* Setup the "Not recommended" button onClick action */
@@ -209,12 +208,6 @@ public class AddReviewActivity extends AppCompatActivity {
                     mNRHighlighted = true;
                 }
             }
-
-            mBaseUtils.showToast(
-                    "Recommended status: " + mRecommendationStatus +
-                            "\nNRHighlight: " + mNRHighlighted,
-                    Toast.LENGTH_SHORT
-            );
         });
 
         /* Set the "submit" review button onClick action */
@@ -235,8 +228,11 @@ public class AddReviewActivity extends AppCompatActivity {
             // Verify information as non-null
             if (rating > 0 && !mBaseUtils.isEmpty(title)) {
                 // Iterate through the image URI's and add them to the Firebase Storage
-                if (!mSelectedImageList.isEmpty()) {
+                if (!mSelectedImageList.isEmpty()) {    // TODO: Remove
                     StorageReference reviewImageRef = mFirebaseStorage.child(String.format("images/%s/reviews", mFirebaseUser.getUid()));
+                    // Clear the selected image url list
+                    mSelectedImageUrlList.clear();
+
                     // Iterate
                     for (Uri imageUri : mSelectedImageList) {
                         // TODO: Fix file sub-directories
@@ -251,40 +247,13 @@ public class AddReviewActivity extends AppCompatActivity {
 
                                 // Once all images have been uploaded, create the review on firebase
                                 if (mSelectedImageUrlList.size() == mSelectedImageList.size()) {
-                                    // Create a data map
-                                    Map<String, Object> dataMap = new HashMap<>();
-                                    // Add the review rating
-                                    dataMap.put(Constants.ReviewKeys.KEY_RATING, rating);
-                                    // Add the review title
-                                    dataMap.put(Constants.ReviewKeys.KEY_TITLE, title);
-                                    // Add the review body
-                                    dataMap.put(Constants.ReviewKeys.KEY_MESSAGE, message);
-                                    // Add the review timestamp
-                                    dataMap.put(Constants.ReviewKeys.KEY_TIMESTAMP, ServerValue.TIMESTAMP);
-                                    // Add the review recommend status
-                                    dataMap.put(Constants.ReviewKeys.KEY_RECOMMEND_STATUS, mRecommendationStatus);
-                                    // Add the review trail ID
-                                    dataMap.put(Constants.ReviewKeys.KEY_TRAIL_ID, mTrailID);
-                                    // Add the review image IDs
-                                    dataMap.put(Constants.ReviewKeys.KEY_IMAGES, mSelectedImageUrlList);
-
-                                    // Update the "reviews" database reference for the given Trail ID
-                                    mReviewsDatabaseRef.child(mTrailID)
-                                            // for the logged in user
-                                            .child(mFirebaseUser.getUid())
-                                            .setValue(dataMap)
-                                            .addOnCompleteListener(reviewTask -> {
-                                                if (reviewTask.isSuccessful()) {
-                                                    mBaseUtils.showToast("Added review successfully!", Toast.LENGTH_SHORT);
-                                                    finish();
-                                                } else {
-                                                    mBaseUtils.showToast("Failed adding review!", Toast.LENGTH_SHORT);
-                                                }
-                                            });
+                                    submitReview(rating, title, message, mRecommendationStatus, new ArrayList<>(mSelectedImageUrlList));
                                 }
                             });
                         });
                     }
+                } else {
+                    submitReview(rating, title, message, mRecommendationStatus, new ArrayList<>());
                 }
             }
 
@@ -298,6 +267,110 @@ public class AddReviewActivity extends AppCompatActivity {
                 mBinding.viewInputReviewTitle.setError("Empty review title");
             }
         });
+    }
+
+    private void submitReview(float rating, String title, String message,
+                              Boolean recommendationStatus, List<String> selectedImageUrlList) {
+        // Create a data map
+        Map<String, Object> dataMap = new HashMap<>();
+        // Add the review rating
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_RATING, rating);
+        // Add the review title
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TITLE, title);
+        // Add the review body
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_MESSAGE, message);
+        // Add the review timestamp
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TIMESTAMP, ServerValue.TIMESTAMP);
+        // Add the review recommend status
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_RECOMMEND_STATUS, recommendationStatus);
+        // Add the review trail ID
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TRAIL_ID, mTrailID);
+        // Add the review image IDs
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_IMAGES, selectedImageUrlList);
+
+        // Update the "reviews" messages reference for the given Trail ID
+        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewMessages.KEY_TLO)
+                // for the logged in user
+                .child(mFirebaseUser.getUid())
+                .setValue(dataMap)
+                .addOnCompleteListener(reviewTask -> {
+                    if (reviewTask.isSuccessful()) {
+                        mBaseUtils.showToast("Added review successfully!", Toast.LENGTH_SHORT);
+                        finish();
+                    } else {
+                        mBaseUtils.showToast("Failed adding review!", Toast.LENGTH_SHORT);
+                    }
+                });
+
+        /* Load the "reviews" stats reference for the given Trail ID */
+        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot statsSnapshot) {
+                        // Extract the review stats
+                        ReviewStat reviewStats = statsSnapshot.getValue(ReviewStat.class);
+                        if (reviewStats == null) reviewStats = new ReviewStat();
+
+                        // Create a stats map
+                        Map<String, Object> statsMap = new HashMap<>();
+                        // Add the total review count
+                        statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_TOTAL_REVIEWERS, reviewStats.getTotalReviewers() + 1);
+                        // Add the total stars count
+                        statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_TOTAL_STARS, reviewStats.getTotalStars() + rating);
+                        // Add the excellence rating count
+                        // TERRIBLE
+                        if (rating > 0 && rating <= 1.0) {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_TERRIBLE, reviewStats.getNumTerrible() + 1);
+                        } else {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_TERRIBLE, reviewStats.getNumTerrible());
+                        }
+
+                        // POOR
+                        if (rating > 1.0 && rating <= 2.0) {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_POOR, reviewStats.getNumPoor() + 1);
+                        } else {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_POOR, reviewStats.getNumPoor());
+                        }
+
+                        // AVERAGE
+                        if (rating > 2.0 && rating <= 3.0) {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_AVERAGE, reviewStats.getNumAverage() + 1);
+                        } else {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_AVERAGE, reviewStats.getNumAverage());
+                        }
+
+                        // GREAT
+                        if (rating > 3.0 && rating <= 4.0) {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_GREAT, reviewStats.getNumGreat() + 1);
+                        } else {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_GREAT, reviewStats.getNumGreat());
+                        }
+
+                        // EXCELLENT
+                        if (rating > 4.0 && rating <= 5.0) {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_EXCELLENT, reviewStats.getNumExcellent() + 1);
+                        } else {
+                            statsMap.put(Constants.ReviewKeys.ReviewStats.KEY_NUM_EXCELLENT, reviewStats.getNumExcellent());
+                        }
+
+                        // Update the "reviews" stats reference for the given Trail ID
+                        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+                                .setValue(statsMap)
+                                .addOnCompleteListener(statsTask -> {
+                                    if (statsTask.isSuccessful()) {
+                                        mBaseUtils.showToast("Updated stats successfully!", Toast.LENGTH_SHORT);
+                                        finish();
+                                    } else {
+                                        mBaseUtils.showToast("Failed updating review stats!", Toast.LENGTH_SHORT);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        mBaseUtils.showToast(error.getMessage(), Toast.LENGTH_SHORT);
+                    }
+                });
     }
 
     /**
@@ -356,7 +429,7 @@ public class AddReviewActivity extends AppCompatActivity {
             }
 
             // Update the recycler view adapter
-            mAdapter.updateDataList(mSelectedImageList);
+            mAdapter.updateDataList(new ArrayList<>(mSelectedImageList));
         }
     }
 

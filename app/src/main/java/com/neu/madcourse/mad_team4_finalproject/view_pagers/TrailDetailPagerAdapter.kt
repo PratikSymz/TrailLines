@@ -18,7 +18,7 @@ class TrailDetailPagerAdapter(@NonNull fragmentActivity: FragmentActivity)
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> TrailOverviewFragment()
-            1 -> TrailReviewsFragment()    // TODO: Change with Review Fragment
+            1 -> TrailReviewsFragment()
             else -> Fragment()
         }
     }

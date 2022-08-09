@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.neu.madcourse.mad_team4_finalproject.databinding.ItemReviewBinding
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemSelectedImageBinding
 import com.neu.madcourse.mad_team4_finalproject.view_holders.GenericViewHolder
 
@@ -26,7 +27,13 @@ class GenericAdapter<T>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder<T> {
         if (mItemBinding::class.java.isAssignableFrom(ItemSelectedImageBinding::class.java)) {
-            mItemBinding = ItemSelectedImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            mItemBinding =
+                ItemSelectedImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        }
+
+        if (mItemBinding::class.java.isAssignableFrom(ItemReviewBinding::class.java)) {
+            mItemBinding =
+                ItemReviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         }
 
         return GenericViewHolder(mContext, mItemBinding)

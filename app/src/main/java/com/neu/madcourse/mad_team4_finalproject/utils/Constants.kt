@@ -53,6 +53,14 @@ object Constants {
         const val KEY_IMAGES = "images"
     }
 
+    //Notification tokens
+    object Tokens {
+        const val KEY_TLO = "tokens"
+
+        const val DEVICE_TOKEN = "device_token"
+
+    }
+
     /* The ProfileActivity tags */
     const val PROFILE_TAG_ACCOUNT = "Account"
     const val PROFILE_TAG_MY_TRIPS = "My Trips"
@@ -66,4 +74,10 @@ object Constants {
     const val ACTIVITY_SAVED_PLACES = "SavedPlacesActivity"
     const val ACTIVITY_SETTINGS = "SettingsActivity"
     const val ACTIVITY_COMPLIANCE = "ComplianceActivity"
+
+    /* JSON object structure for data message notification data */
+    const val NOTIFICATION_TITLE = "title"
+    const val NOTIFICATION_MESSAGE = "message"
+    const val NOTIFICATION_TO = "to"
+    const val NOTIFICATION_DATA = "data"
 }

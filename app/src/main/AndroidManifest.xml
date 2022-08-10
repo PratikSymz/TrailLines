@@ -18,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MAD_Team4_FinalProject"
         tools:targetApi="31">
+        <service
+            android:name=".service.ChatMessagingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGE_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />

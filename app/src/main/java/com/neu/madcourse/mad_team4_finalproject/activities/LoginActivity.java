@@ -8,8 +8,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /* The Firebase User reference */
     private FirebaseUser mFirebaseUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,13 @@ public class LoginActivity extends AppCompatActivity {
         // Check if the user is currently logged in to the app
         // This piece of code will not be executed if the user has already logged out
         if (mFirebaseUser != null) {
+            /* Setting up the cloud messaging */
+            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    mNetworkUtils.updateDeviceToken(mContext, s);
+                }
+            });
             startActivity(new Intent(mContext, CommunityScreenActivity.class));
             finish();
         }

@@ -48,7 +48,7 @@ class ConversationViewHolder(
         val fromUserID: String? = mConversation.fromID
 
         // IF "from" field contains the logged in user's info
-        if (fromUserID == mFirebaseUser.uid) {
+        if (fromUserID != mFirebaseUser.uid) {
             // Show the sender bubble
             mBinding.holderSender.visibility = View.VISIBLE
             mBinding.holderReceiver.visibility = View.GONE

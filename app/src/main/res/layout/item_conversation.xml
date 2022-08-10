@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#D9D9D9"
     android:paddingBottom="8dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -29,9 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|top"
+            android:ellipsize="end"
             android:fontFamily="@font/lato"
             android:padding="10dp"
-            android:text="Sup'! How you doin'?"
+            android:text="Sup'! How you doin'? kjbfv fv kkjbjkvbk"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:fontFamily="@font/lato"
             android:text="12:44"
             android:textColor="@color/white"
@@ -50,12 +50,13 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/holder_receiver"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/conversation_receiver"
+        android:backgroundTint="#D9D9D9"
         android:orientation="horizontal"
         android:padding="8dp"
         android:visibility="gone"

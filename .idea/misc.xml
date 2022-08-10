@@ -26,14 +26,17 @@
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_review_screen.xml" value="0.375" />
         <entry key="app/src/main/res/layout/custom_fragment_list_row.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_update.xml" value="0.335" />
         <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.375" />
         <entry key="app/src/main/res/layout/item_profile_tag.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/item_settings_support.xml" value="0.335" />
         <entry key="app/src/main/res/layout/segment_get_started.xml" value="0.55" />
         <entry key="app/src/main/res/layout/segment_recommend.xml" value="0.335" />
         <entry key="app/src/main/res/layout/vertical_trail_views.xml" value="0.375" />
+        <entry key="app/src/main/res/menu/delete_menu.xml" value="0.17037037037037037" />
         <entry key="app/src/main/res/menu/explore_screen_bottom_navigation.xml" value="0.165" />
         <entry key="app/src/main/res/menu/explore_screen_bttom.xml" value="0.12314814814814815" />
       </map>

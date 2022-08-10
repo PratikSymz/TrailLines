@@ -65,4 +65,6 @@
     <string name="failed_to_send_message">Failed to send message: %1$s</string>
     <string name="message_sent_successfully">Message sent successfully</string>
     <string name="no_internet">No internet connection</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
 </resources>

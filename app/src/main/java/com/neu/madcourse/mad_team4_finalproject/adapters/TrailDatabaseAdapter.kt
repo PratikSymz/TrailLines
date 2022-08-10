@@ -1,4 +1,4 @@
-package com.neu.madcourse.mad_team4_finalproject.database.list
+package com.neu.madcourse.mad_team4_finalproject.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.neu.madcourse.mad_team4_finalproject.database.SavedTrails
 import com.neu.madcourse.mad_team4_finalproject.databinding.CustomFragmentListRowBinding
+import com.neu.madcourse.mad_team4_finalproject.models.SavedTrails
+import com.neu.madcourse.mad_team4_finalproject.view_holders.TrailViewHolder
 
 class TrailDatabaseAdapter(@NonNull context: Context,
 @NonNull savedTrailList: List<SavedTrails>) : RecyclerView.Adapter<TrailViewHolder>() {

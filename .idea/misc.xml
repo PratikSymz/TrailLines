@@ -56,6 +56,7 @@
         <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/fragment_find_friends.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/fragment_list.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/fragment_requests.xml" value="0.25" />
         <entry key="app/src/main/res/layout/friend_request_layout_file.xml" value="0.25" />
         <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.375" />

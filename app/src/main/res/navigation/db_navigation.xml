@@ -7,20 +7,22 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.neu.madcourse.mad_team4_finalproject.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        android:name="com.neu.madcourse.mad_team4_finalproject.database.list.ListFragment"
+        android:label="List"
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_addFragment"
             app:destination="@id/addFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.neu.madcourse.mad_team4_finalproject.AddFragment"
-        android:label="fragment_add"
-        tools:layout="@layout/fragment_add" >
+        android:name="com.neu.madcourse.mad_team4_finalproject.database.add.AddFragment"
+        android:label="Add"
+        tools:layout="@layout/fragment_add">
         <action
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
+
 </navigation>

@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
  * provide data to the UI and survive config changes
  * this class will communicate with Repo class and the app UI
  */
-class SavedTrailViewModel(application: Application): AndroidViewModel(application){
+class SavedTrailViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val readAllData: LiveData<List<SavedTrails>>
+    val readAllData: LiveData<List<SavedTrails>>
     private val repository: SavedTrailRepository
 
     init {
@@ -26,7 +26,7 @@ class SavedTrailViewModel(application: Application): AndroidViewModel(applicatio
     fun addTrails(savedTrails: SavedTrails) {
         // this will run in the background thread
         viewModelScope.launch(Dispatchers.IO) {
-        repository.addTrails(savedTrails)
+            repository.addTrails(savedTrails)
         }
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="40dp">
+
+    <TextView
+        android:id="@+id/holder_trail_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="id" />
+
+    <TextView
+        android:id="@+id/holder_trail_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_id"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_id"
+        tools:text="trail" />
+
+    <TextView
+        android:id="@+id/holder_trail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_image"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_image"
+        tools:text="name" />
+
+    <TextView
+        android:id="@+id/holder_trail_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_name"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_name"
+        tools:text="location" />
+
+    <TextView
+        android:id="@+id/holder_trail_reviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_location"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_location"
+        tools:text="reviews" />
+
+    <TextView
+        android:id="@+id/holder_trail_ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_reviews"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_reviews"
+        tools:text="ratings" />
+
+    <TextView
+        android:id="@+id/holder_trail_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_ratings"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_ratings"
+        tools:text="level" />
+
+    <TextView
+        android:id="@+id/holder_trail_elevation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_difficulty"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_difficulty"
+        tools:text="elevation" />
+
+    <TextView
+        android:id="@+id/holder_trail_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/lato"
+        app:layout_constraintStart_toEndOf="@+id/holder_trail_elevation"
+        app:layout_constraintTop_toTopOf="@+id/holder_trail_elevation"
+        tools:text="length" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

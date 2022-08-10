@@ -48,10 +48,11 @@
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            app:placeholderText="Enter a city"
+            android:hint="Where to next?"
+            app:hintTextColor="#159440"
+            app:boxStrokeColor="#159440"
             android:drawablePadding="8dp"
             app:startIconDrawable="@drawable/ic_search"
-            app:endIconTint="@color/black"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.rounded"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintEnd_toStartOf="@id/filterButton"
@@ -77,11 +78,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/search"/>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/horizontal_trail_recycler_view"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="125dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"

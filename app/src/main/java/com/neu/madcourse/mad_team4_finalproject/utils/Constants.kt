@@ -116,7 +116,7 @@ object Constants {
         const val CAVING = R.drawable.caving
         const val CLIMBING = R.drawable.climbing
         const val FISHING = R.drawable.fishing
-        const val HIKING = R.drawable.hiking
+        const val HIKING = R.drawable.ic_hiking
         const val PADDLING = R.drawable.paddling
         const val SCUBA_DIVING = R.drawable.scuba
         const val SNORKELLING = R.drawable.snorkelling
@@ -140,5 +140,22 @@ object Constants {
         const val SKIING = "Skiing"
         const val SURFING = "Surfing"
         const val WATER_SKIING = "Water Skiing"
+    }
+
+    object ThingsToDoCodes {
+        const val CAMPING_CODE = "A59947B7-3376-49B4-AD02-C0423E08C5F7"
+        const val BIKING_CODE = "7CE6E935-F839-4FEC-A63E-052B1DEF39D2"
+        const val BOATING_CODE = "071BA73C-1D3C-46D4-A53C-00D5602F7F0E"
+        const val CANYONEERING_CODE = "07CBCA6A-46B8-413F-8B6C-ABEDEBF9853E"
+        const val CAVING_CODE = "BA316D0F-92AE-4E00-8C80-DBD605DC58C3"
+        const val CLIMBING_CODE = "B12FAAB9-713F-4B38-83E4-A273F5A43C77"
+        const val FISHING_CODE = "AE42B46C-E4B7-4889-A122-08FE180371AE"
+        const val HIKING_CODE = "BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA"
+        const val PADDLING_CODE = "4D224BCA-C127-408B-AC75-A51563C42411"
+        const val SCUBA_DIVING_CODE = "42CF4021-8524-428E-866A-D33097A4A764"
+        const val SNORKELING_CODE = "3EBF7EAC-68FC-4754-B6A4-0C38A1583D45"
+        const val SKIING_CODE = "F9B1D433-6B86-4804-AED7-B50A519A3B7C"
+        const val SURFING_CODE = "AE3C95F5-E05B-4A28-81DD-1C5FD4BE88E2"
+        const val WATER_SKIING_CODE = "8A1C7B17-C2C6-4F7C-9539-EA1E19971D80"
     }
 }

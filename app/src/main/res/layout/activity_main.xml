@@ -24,7 +24,7 @@
         android:defaultFocusHighlightEnabled="true"
         android:textAlignment="center"
         app:itemIconTint="@color/black"
-        app:itemTextColor="#00897B"
+        app:itemTextColor="#159440"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,16 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.neu.madcourse.mad_team4_finalproject.adapters.ActivityAdapter;
+import com.neu.madcourse.mad_team4_finalproject.adapters.ParkAdapter;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ActivityResult;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentExploreScreenBinding;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.ParkResult;
 import com.neu.madcourse.mad_team4_finalproject.retrofit_interfaces.NPSEndpoints;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +34,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ExploreScreenFragment extends Fragment {
     private FragmentExploreScreenBinding mBinding;
     private ActivityAdapter activityAdapter;
+    private ParkAdapter parkAdapter;
     List<Activity> activityList;
+    List<Park> parklist;
     private final String TAG = ExploreScreenFragment.class.getSimpleName();
 
     @Override
@@ -43,11 +45,18 @@ public class ExploreScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         mBinding = FragmentExploreScreenBinding.inflate(getLayoutInflater(), container, false);
         activityList = new ArrayList<>();
+        parklist = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,
                 false);
         activityAdapter = new ActivityAdapter(activityList, getActivity());
         mBinding.horizontalTrailRecyclerView.setLayoutManager(layoutManager);
         mBinding.horizontalTrailRecyclerView.setAdapter(activityAdapter);
+
+        LinearLayoutManager layoutManagerForParks = new LinearLayoutManager(getActivity());
+        parkAdapter = new ParkAdapter(parklist, getActivity());
+        mBinding.verticalTrailRecyclerView.setLayoutManager(layoutManagerForParks);
+        mBinding.verticalTrailRecyclerView.setAdapter(parkAdapter);
+
         NPSEndpoints npsEndpoints = getRetrofitClient();
 
         mBinding.filterButton.setOnClickListener(v -> {
@@ -82,6 +91,47 @@ public class ExploreScreenFragment extends Fragment {
                 Log.e(TAG, t.getMessage());
             }
         });
+
+        npsEndpoints.getParkResults("gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I", "MA").enqueue(new Callback<ParkResult>() {
+            @Override
+            public void onResponse(Call<ParkResult> call, Response<ParkResult> response) {
+                assert response.body() != null;
+                parklist = response.body().getParkList();
+
+                List<String> activityCodes = List.of(Constants.ThingsToDoCodes.CAMPING_CODE, Constants.ThingsToDoCodes.CAMPING_CODE,
+                        Constants.ThingsToDoCodes.CAMPING_CODE, Constants.ThingsToDoCodes.CANYONEERING_CODE,
+                        Constants.ThingsToDoCodes.CAVING_CODE, Constants.ThingsToDoCodes.BOATING_CODE,
+                        Constants.ThingsToDoCodes.BIKING_CODE, Constants.ThingsToDoCodes.CLIMBING_CODE,
+                        Constants.ThingsToDoCodes.SCUBA_DIVING_CODE, Constants.ThingsToDoCodes.SKIING_CODE,
+                        Constants.ThingsToDoCodes.SNORKELING_CODE, Constants.ThingsToDoCodes.SURFING_CODE,
+                        Constants.ThingsToDoCodes.WATER_SKIING_CODE, Constants.ThingsToDoCodes.FISHING_CODE,
+                        Constants.ThingsToDoCodes.PADDLING_CODE, Constants.ThingsToDoCodes.HIKING_CODE);
+
+                List<Park> filteredParkList = new ArrayList<>();
+                for (Park park : parklist) {
+                    boolean flag = false;
+                    for (Activity activity: park.getActivityList()) {
+                        if (activityCodes.contains(activity.getRecordId())) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (flag) {
+                        filteredParkList.add(park);
+                    }
+                }
+
+                parkAdapter = new ParkAdapter(filteredParkList, getActivity());
+                mBinding.verticalTrailRecyclerView.setAdapter(parkAdapter);
+                Log.d(TAG, response.body().getDataCount());
+            }
+
+            @Override
+            public void onFailure(Call<ParkResult> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+
         return mBinding.getRoot();
     }
 

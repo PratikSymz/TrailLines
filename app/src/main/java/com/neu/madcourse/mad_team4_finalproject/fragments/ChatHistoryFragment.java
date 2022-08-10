@@ -29,8 +29,9 @@ import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -45,7 +46,7 @@ public class ChatHistoryFragment extends Fragment {
     private ChatHistoryAdapter chatHistoryAdapter;
 
     // declaring List of chatModel
-    private List<ChatHistory> chatHistoryList = new ArrayList<>();
+    private Set<ChatHistory> chatHistoryList = new HashSet<>();
 
     // creating a database reference object for chats and users
     private DatabaseReference chatDatabaseReference, userDatabaseReference;
@@ -76,7 +77,7 @@ public class ChatHistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Instantiate the adapter
-        chatHistoryAdapter = new ChatHistoryAdapter(requireActivity(), chatHistoryList);
+        chatHistoryAdapter = new ChatHistoryAdapter(requireActivity(), new ArrayList<>(chatHistoryList));
         // Show the progress view while loading data
         mBinding.chatProgressBar.getRoot().setVisibility(View.VISIBLE);
 
@@ -105,7 +106,7 @@ public class ChatHistoryFragment extends Fragment {
                     mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
                 }
 
-                for (DataSnapshot child: snapshot.getChildren()) {
+                for (DataSnapshot child : snapshot.getChildren()) {
                     updateChatList(snapshot, true, child.getKey());
                 }
             }
@@ -168,25 +169,26 @@ public class ChatHistoryFragment extends Fragment {
         lastMessageTime = "";
         unreadMessageCount = "";
 
-        userDatabaseReference.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
-                String photo = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL)
-                        .getValue()).toString();
+        userDatabaseReference.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String name = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
+                        String photo = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL)
+                                .getValue()).toString();
 
-                // adding these data to the chatModelList
-                ChatHistory chatHistory = new ChatHistory(userID, name, photo, unreadMessageCount, lastMessage, lastMessageTime);
-                chatHistoryList.add(chatHistory);
-                chatHistoryAdapter.notifyItemInserted(chatHistoryList.size() - 1);
-                mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
-            }
+                        // adding these data to the chatModelList
+                        ChatHistory chatHistory = new ChatHistory(userID, name, photo, unreadMessageCount, lastMessage, lastMessageTime);
+                        chatHistoryList.add(chatHistory);
+                        chatHistoryAdapter.notifyItemInserted(chatHistoryList.size() - 1);
+                        mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                mBaseUtils.showToast(getString(R.string.failed_chat_list, error.getMessage()), Toast.LENGTH_SHORT);
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        mBaseUtils.showToast(getString(R.string.failed_chat_list, error.getMessage()), Toast.LENGTH_SHORT);
+                    }
+                });
     }
 
     /**

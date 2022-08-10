@@ -118,7 +118,12 @@ public class FindFriendsFragment extends Fragment {
         mBinding.viewRequestRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mBinding.viewRequestRecyclerView.setEmptyView(mBinding.labelFindFriends);
         // Instantiate the recycler view adapter
-        mAdapter = new FindFriendAdapter(mContext, mFindFriendsList);
+        mAdapter = new FindFriendAdapter(mContext, mFindFriendsList, position -> {
+            // Remove the user from the find friends list
+            mFindFriendsList.remove(position);
+            mAdapter.updateDataList(mFindFriendsList);
+        });
+
         // TODO: Fix this
         // Set the adapter to the recycler view
         mBinding.viewRequestRecyclerView.setAdapter(mAdapter);
@@ -143,6 +148,7 @@ public class FindFriendsFragment extends Fragment {
                 /* snapshot -> contains list of all the users */
                 // Clear the existing list
                 mFindFriendsList.clear();
+
                 // Iterate through all the users
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     // Extract the user's ID
@@ -193,7 +199,7 @@ public class FindFriendsFragment extends Fragment {
                                 mFindFriendsList.add(findFriend);
 
                                 // Update the adapter
-                                mAdapter.notifyDataSetChanged();
+                                mAdapter.updateDataList(mFindFriendsList);
                             }
 
                             @Override

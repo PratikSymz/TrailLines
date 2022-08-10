@@ -134,6 +134,9 @@ class FindFriendViewHolder(
                                     mBinding.viewRequestProgressBar.visibility = View.INVISIBLE
                                     // Show the cancel request button
                                     mBinding.viewRequestButtonCancel.visibility = View.VISIBLE
+
+                                    // Remove item from the find friends list
+                                    mListener.removeItem(position)
                                 } else {
                                     mBaseUtils.showToast(
                                         mContext.getString(
@@ -155,9 +158,6 @@ class FindFriendViewHolder(
                         handleFailedSendRequest()
                     }
                 }
-
-            // Remove item from the adapter
-            mListener.removeItem(position)
         }
 
         // Set the cancel friend request button onClick action

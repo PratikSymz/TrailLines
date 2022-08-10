@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.neu.madcourse.mad_team4_finalproject.models.SavedTrails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,6 +28,22 @@ class SavedTrailViewModel(application: Application) : AndroidViewModel(applicati
         // this will run in the background thread
         viewModelScope.launch(Dispatchers.IO) {
             repository.addTrails(savedTrails)
+        }
+    }
+
+
+    /**
+     * Methods to delete single trails as well all trails
+     */
+    fun deleteTrail(savedTrail:SavedTrails){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteTrail(savedTrail)
+        }
+    }
+
+    fun deleteAllTrails(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAllTrails()
         }
     }
 }

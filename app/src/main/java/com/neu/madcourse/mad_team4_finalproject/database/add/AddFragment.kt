@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.neu.madcourse.mad_team4_finalproject.R
 import com.neu.madcourse.mad_team4_finalproject.database.SavedTrailViewModel
-import com.neu.madcourse.mad_team4_finalproject.database.SavedTrails
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentAddBinding
+import com.neu.madcourse.mad_team4_finalproject.models.SavedTrails
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 
 
@@ -30,12 +30,12 @@ class AddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         mBinding = FragmentAddBinding.inflate(inflater, container, false)
 
         // Instantiate the view model
-        mTrailViewModel = ViewModelProvider(this).get(SavedTrailViewModel::class.java)
+        mTrailViewModel = ViewModelProvider(this)[SavedTrailViewModel::class.java]
 
         // Instantiate the Base utils reference
         mBaseUtils = BaseUtils(requireActivity())

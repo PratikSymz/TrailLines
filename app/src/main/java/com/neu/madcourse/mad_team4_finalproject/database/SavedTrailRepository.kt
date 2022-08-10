@@ -1,6 +1,7 @@
 package com.neu.madcourse.mad_team4_finalproject.database
 
 import androidx.lifecycle.LiveData
+import com.neu.madcourse.mad_team4_finalproject.models.SavedTrails
 
 
 /**
@@ -14,5 +15,11 @@ class SavedTrailRepository (private val savedTrailsDao: SavedTrailsDao){
 
     suspend fun addTrails(savedTrails: SavedTrails){
         savedTrailsDao.addTrails(savedTrails)
+    }
+    suspend fun deleteTrail(savedTrail: SavedTrails){
+        savedTrailsDao.deleteTrail(savedTrail)
+    }
+    suspend fun deleteAllTrails(){
+        savedTrailsDao.deleteAllTrails()
     }
 }

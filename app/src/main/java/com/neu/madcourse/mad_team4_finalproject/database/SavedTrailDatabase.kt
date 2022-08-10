@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.neu.madcourse.mad_team4_finalproject.models.SavedTrails
 
 /** this
  * this class contains the database holder and serves as the main

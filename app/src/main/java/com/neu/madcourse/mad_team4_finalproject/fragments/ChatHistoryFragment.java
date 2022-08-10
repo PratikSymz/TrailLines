@@ -180,7 +180,7 @@ public class ChatHistoryFragment extends Fragment {
                         // adding these data to the chatModelList
                         ChatHistory chatHistory = new ChatHistory(userID, name, photo, unreadMessageCount, lastMessage, lastMessageTime);
                         chatHistoryList.add(chatHistory);
-                        chatHistoryAdapter.notifyItemInserted(chatHistoryList.size() - 1);
+                        chatHistoryAdapter.updateDataList(new ArrayList<>(chatHistoryList));
                         mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     }
 
@@ -197,6 +197,6 @@ public class ChatHistoryFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        query.removeEventListener(childEventListener);
+        if (query != null) query.removeEventListener(childEventListener);
     }
 }

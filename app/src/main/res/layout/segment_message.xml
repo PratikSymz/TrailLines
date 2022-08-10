@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/round_corner_background"
-    android:elevation="15dp">
+    android:background="@drawable/round_stroke_corner_background"
+    android:padding="2dp">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/view_button_attach"
@@ -27,7 +27,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/holder_message"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
@@ -44,14 +44,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/view_message"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:lineSpacingExtra="1dp"
             android:fontFamily="@font/lato"
-            android:gravity="start|top"
             android:inputType="textMultiLine"
-            android:lines="1"
             android:nestedScrollingEnabled="true"
-            android:text="adffssadwffkldnkrnwkvnSDKJnjkjvnkjsDNFSkJV FJk rwfvdmnokvnkdlasnkcsfsvs fkv ksdskfadknfonwnfdonkvkNKS"
             android:textColor="@color/hike_dark_green" />
 
     </com.google.android.material.textfield.TextInputLayout>

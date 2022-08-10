@@ -18,7 +18,7 @@ class ChatHistoryAdapter(
     private val mContext: Context = context
 
     /* The Chat history item list */
-    private val mChatHistoryList: List<ChatHistory> = chatHistoryList
+    private var mChatHistoryList: List<ChatHistory> = chatHistoryList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatHistoryViewHolder {
         // Inflate the item view
@@ -36,5 +36,13 @@ class ChatHistoryAdapter(
 
     override fun getItemCount(): Int {
         return mChatHistoryList.size
+    }
+
+    /* Helper method to update the adapter list */
+    fun updateDataList(chatHistoryList: List<ChatHistory>) {
+        // Update the data list
+        mChatHistoryList = chatHistoryList
+        // Notify the adapter
+        notifyDataSetChanged()
     }
 }

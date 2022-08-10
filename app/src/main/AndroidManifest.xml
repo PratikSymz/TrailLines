@@ -27,6 +27,7 @@
             </intent-filter>
         </service>
 
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />

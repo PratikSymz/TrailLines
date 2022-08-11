@@ -14,6 +14,8 @@ object Constants {
             const val KEY_ONLINE_STATUS = "online_status"
             const val KEY_PROFILE_URL = "profile_picture_url"
             const val KEY_PRIVATE_PROFILE = "private_profile"
+            const val KEY_ONLINE = "online"
+            const val KEY_OFFLINE = "offline"
         }
 
         /* The Friend Requests sub-directory keys -> "users" */

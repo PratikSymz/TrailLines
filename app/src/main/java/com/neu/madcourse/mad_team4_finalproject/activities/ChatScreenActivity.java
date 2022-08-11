@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ConversationAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityChatScreenBinding;
@@ -162,6 +163,32 @@ public class ChatScreenActivity extends AppCompatActivity {
             mCurrentPage += 1;
             // reload the next messages
             loadConversationHistory();
+        });
+
+        /**
+         * Code here to change user online status
+         */
+        DatabaseReference databaseReference = mRootDatabaseRef.child(Constants.UserKeys.KEY_TLO)
+                .child(mOtherUserID);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String onlineStatus = "";
+                if (snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
+                        .getValue() != null)
+                    onlineStatus = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
+                            .getValue()).toString();
+                if(onlineStatus.equals("true"));
+                    //TODO do something
+                else;
+                    //TODO do something
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
     }
 

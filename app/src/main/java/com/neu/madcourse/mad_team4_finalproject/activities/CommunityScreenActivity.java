@@ -9,10 +9,16 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.CommunitiesPagerAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityCommunityScreenBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
+import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
+
+import java.util.Objects;
 
 public class CommunityScreenActivity extends AppCompatActivity {
     /* The Activity layout view binding reference */
@@ -22,18 +28,32 @@ public class CommunityScreenActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private boolean pressAgain = false;
     private BaseUtils mBaseUtils;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Instantiate the activity layout view binding
         mBinding = ActivityCommunityScreenBinding.inflate(getLayoutInflater());
+        firebaseAuth = FirebaseAuth.getInstance();
         // Set the layout root view
         setContentView(mBinding.getRoot());
         tabLayout = mBinding.viewChatTabs;
         viewPager = mBinding.viewChatPages;
         mBaseUtils = new BaseUtils(this);
         setViewPage();
+
+        /* code for updating user online status */
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.UserKeys.KEY_TLO)
+                .child(Objects.requireNonNull(firebaseAuth.getUid()));
+        // if the user is online and then show online
+        mDatabaseReference.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
+                .setValue(true);
+        // if the user is offline or disconnected from the server then show offline
+        mDatabaseReference.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
+                .onDisconnect().setValue(false);
     }
 
     /**

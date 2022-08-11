@@ -30,6 +30,7 @@ import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -60,6 +61,9 @@ public class ChatHistoryFragment extends Fragment {
     // Creating a query object for firebase
     private Query query;
 
+    // Creating a list of all userId
+    List<String> userIDList;
+
     public ChatHistoryFragment() {
         // Required empty public constructor
     }
@@ -88,6 +92,9 @@ public class ChatHistoryFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         // setting the stack from end as true
         linearLayoutManager.setStackFromEnd(true);
+
+        //Initiating the userIDList
+        userIDList = new ArrayList<>();
 
         // Set the adapter and the layout manager
         mBinding.recyclerViewHistory.setLayoutManager(linearLayoutManager);
@@ -119,36 +126,37 @@ public class ChatHistoryFragment extends Fragment {
 
         // declaring child listener to make sure fragment is destroyed when we are not using
         // and reopened when we use it
-//        childEventListener = new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                // calling the helper method
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // calling the helper method
+                updateChatList(snapshot, true, snapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // changed the value of isNewRecord to false here
+                updateChatList(snapshot, false, snapshot.getKey());
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 //                updateChatList(snapshot, true, snapshot.getKey());
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 //                updateChatList(snapshot, true, snapshot.getKey());
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//                updateChatList(snapshot, true, snapshot.getKey());
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                updateChatList(snapshot, true, snapshot.getKey());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        };
-//
-//        // adding the child listener to the query
-//        query.addChildEventListener(childEventListener);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
+        // adding the child listener to the query
+        query.addChildEventListener(childEventListener);
     }
 
     /**
@@ -165,9 +173,23 @@ public class ChatHistoryFragment extends Fragment {
 
         final String lastMessage, lastMessageTime, unreadMessageCount;
         // TODO: these strings data structures are updated later
-        lastMessage = "";
-        lastMessageTime = "";
-        unreadMessageCount = "";
+        // updating the last message - if its not null get the value or else set to null
+        if (dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE).getValue() != null) {
+            lastMessage = Objects.requireNonNull(dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE).getValue()).toString();
+        } else {
+            lastMessage = "";
+        }
+        // same thing for this one as well
+        if (dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE_TIME).getValue() != null) {
+            lastMessageTime = Objects.requireNonNull(dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE_TIME).getValue()).toString();
+        } else {
+            lastMessageTime = "";
+        }
+
+        unreadMessageCount = dataSnapshot.child(Constants.ChatKeys.MessageKeys.UNREAD_COUNT)
+                .getValue() == null ? "0" :
+                Objects.requireNonNull(dataSnapshot.child(Constants.ChatKeys.MessageKeys.UNREAD_COUNT)
+                        .getValue()).toString();
 
         userDatabaseReference.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -179,8 +201,16 @@ public class ChatHistoryFragment extends Fragment {
 
                         // adding these data to the chatModelList
                         ChatHistory chatHistory = new ChatHistory(userID, name, photo, unreadMessageCount, lastMessage, lastMessageTime);
-                        chatHistoryList.add(chatHistory);
+                        /* wrote a conditional statement to update list only its isNew record then add directly */
+                        if (isNewRecord) {
+                            chatHistoryList.add(chatHistory);
+                            userIDList.add(userID);
+                        } else {
+                            //TODO ask Pratik about this!
+                            int clickedUser = userIDList.indexOf(userID);
+                        }
                         chatHistoryAdapter.updateDataList(new ArrayList<>(chatHistoryList));
+                        chatHistoryAdapter.notifyDataSetChanged();
                         mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     }
 

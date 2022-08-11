@@ -4,6 +4,7 @@ package com.neu.madcourse.mad_team4_finalproject.view_holders;
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -78,6 +79,23 @@ class ChatHistoryViewHolder(
             mContext.startActivity(intent)
 
         }
+        if (!mChatHistory.unreadCount.equals("0")) {
+            mBinding.viewUnreadCount.visibility = View.VISIBLE
+            mBinding.viewUnreadCount.text = chatHistory.unreadCount
+        } else {
+            mBinding.viewUnreadCount.visibility = View.INVISIBLE
+        }
+
+        // check the length of the last message and then assign it to new String variable
+        if (mBinding.viewLastSeenMessage.length() > 30) {
+            val lastMessage: String = chatHistory.lastMessage.substring(0, 30)
+            mBinding.viewLastSeenMessage.text = lastMessage
+        }
+        if (mBinding.viewTimeLastSent.text == null) {
+            mBinding.viewTimeLastSent.text = ""
+        }
+
+
     }
 
     /* Helper method to convert filename into "images" database reference */

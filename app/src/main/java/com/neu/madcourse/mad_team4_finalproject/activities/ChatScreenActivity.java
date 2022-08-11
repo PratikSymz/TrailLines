@@ -148,6 +148,10 @@ public class ChatScreenActivity extends AppCompatActivity {
 
         // Load the messages from the server
         loadConversationHistory();
+        // clear unread message count when the user clicks on the chat
+        // TODO ask Pratik (video 80) about currentUserID and chatUserID part here
+        mRootDatabaseRef.child(Constants.ChatKeys.KEY_TLO).child(Constants.ChatKeys.MessageKeys.KEY_FROM)
+                .child(Constants.ChatKeys.MessageKeys.UNREAD_COUNT).setValue(0);
         // Scroll to most recent message
         mBinding.recyclerViewConversation.scrollToPosition(mConversationList.size() - 1);
 
@@ -214,6 +218,10 @@ public class ChatScreenActivity extends AppCompatActivity {
                         // Create a notification
                         String title = "New message";
                         mNetworkUtils.sendNotification(mContext, title, message, mOtherUserID);
+                        String lastMessage = !title.equals("New message")?title:message;
+                        /* call the updateChatDetails method here */
+                        //TODO ask pratik about the parameters added to the method here
+                        mNetworkUtils.updateChatDetails(mContext, mCurrentUserRef, mOtherUserID, lastMessage);
                     }
                 });
             }
@@ -287,5 +295,13 @@ public class ChatScreenActivity extends AppCompatActivity {
 
         // Add listener to the query
         messageQuery.addChildEventListener(mConversationListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO ask Pratik about (video 80) currentUserID and chatUserID part here and back on line 152
+        mRootDatabaseRef.child(Constants.ChatKeys.KEY_TLO).child(Constants.ChatKeys.MessageKeys.KEY_FROM)
+                .child(Constants.ChatKeys.MessageKeys.UNREAD_COUNT).setValue(0);
+        super.onBackPressed();
     }
 }

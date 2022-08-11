@@ -29,7 +29,7 @@ class NetworkUtils(context: Context) {
     private val mFirebaseUser: FirebaseUser = mFirebaseAuth.currentUser!!
 
     /* The Firebase Root database reference */
-    private val mRootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
+    private var mRootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     /* The Firebase Token database reference */
     private var mTokenRef: DatabaseReference =
@@ -98,21 +98,28 @@ class NetworkUtils(context: Context) {
                         mNotification.put(Constants.NOTIFICATION_DATA, mNotificationData)
 
                         // Send the notification
-                        mEndpoint.sendNotification(mNotification).enqueue(object : retrofit2.Callback<JSONObject> {
-                            override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
-                                mBaseUtils.showToast(
-                                    "Notification sent successfully",
-                                    Toast.LENGTH_SHORT
-                                )
-                            }
+                        mEndpoint.sendNotification(mNotification)
+                            .enqueue(object : retrofit2.Callback<JSONObject> {
+                                override fun onResponse(
+                                    call: Call<JSONObject>,
+                                    response: Response<JSONObject>
+                                ) {
+                                    mBaseUtils.showToast(
+                                        "Notification sent successfully",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                }
 
-                            override fun onFailure(call: Call<JSONObject>, throwable: Throwable) {
-                                mBaseUtils.showToast(
-                                    "Failed to send notification",
-                                    Toast.LENGTH_SHORT
-                                )
-                            }
-                        })
+                                override fun onFailure(
+                                    call: Call<JSONObject>,
+                                    throwable: Throwable
+                                ) {
+                                    mBaseUtils.showToast(
+                                        "Failed to send notification",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                }
+                            })
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -122,6 +129,67 @@ class NetworkUtils(context: Context) {
             override fun onCancelled(error: DatabaseError) {
                 Log.e(LOG_TAG, error.message)
             }
+        })
+    }
+
+    /**
+     * function to update chat details in firebase and also implement unread message count
+     * chat user is another user and current user is me
+     */
+    fun updateChatDetails(
+        context: Context,
+        currentUserId: String,
+        chatUserID: String,
+        lastMessage: String
+    ) {
+        mRootRef = FirebaseDatabase.getInstance().reference
+        var chatRef: DatabaseReference =
+            mRootRef.child(Constants.ChatKeys.KEY_TLO).child(chatUserID)
+                .child(currentUserId)
+        chatRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var currentCount: String = "0"
+                if (snapshot.child(Constants.ChatKeys.MessageKeys.UNREAD_COUNT).value != null) {
+                    currentCount =
+                        snapshot.child(Constants.ChatKeys.MessageKeys.UNREAD_COUNT).value.toString()
+                    val chatMap = HashMap<String, Any>()
+                    chatMap.put(
+                        Constants.ChatKeys.MessageKeys.KEY_TIMESTAMP,
+                        ServerValue.TIMESTAMP
+                    )
+                    chatMap.put(
+                        Constants.ChatKeys.MessageKeys.UNREAD_COUNT,
+                        Integer.parseInt(currentCount) + 1
+                    )
+                    chatMap.put(Constants.ChatKeys.MessageKeys.LAST_MESSAGE, lastMessage)
+
+                    chatMap.put(
+                        Constants.ChatKeys.MessageKeys.LAST_MESSAGE_TIME,
+                        ServerValue.TIMESTAMP
+                    )
+
+                    val chatUserMap = HashMap<String, Any>()
+                    chatUserMap.put(
+                        Constants.ChatKeys.KEY_TLO + "/" + chatUserID + "/"
+                                + currentUserId, chatMap.toString()
+                    )
+                    /* Update the children in the database rootRef with chatUserMap */
+                    mRootRef.updateChildren(
+                        chatUserMap,
+                        DatabaseReference.CompletionListener() { databaseError: DatabaseError?, databaseReference: DatabaseReference ->
+                            if (databaseError != null) {
+                                mBaseUtils.showToast("Something went wrong", Toast.LENGTH_SHORT)
+
+                            }
+                        })
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                mBaseUtils.showToast("Something went wrong", Toast.LENGTH_SHORT)
+            }
+
         })
     }
 

@@ -43,6 +43,9 @@ object Constants {
             const val KEY_MESSAGE_ID = "message_id"
             const val KEY_TIMESTAMP = "timestamp"
             const val KEY_DATA_TYPE = "data_type"
+            const val UNREAD_COUNT = "unread_message_count"
+            const val LAST_MESSAGE = "last_message"
+            const val LAST_MESSAGE_TIME = "last_message_time"
 
             // The data types
             const val DATA_TYPE_TEXT = "text"

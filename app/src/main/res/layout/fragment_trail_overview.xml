@@ -32,6 +32,8 @@
             android:breakStrategy="high_quality"
             android:ellipsize="end"
             android:fontFamily="@font/lato"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="4sp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
             android:text="A permit is required for this hike. To attain the permit you must win it through the permit lottery. There is a maximum fine of $100,000 and/or jail time if you enter the permit area without a valid permit which is by lottery only. While dogs are currently allowed in this permit area, this is a harsh environment with no water and extreme heat"

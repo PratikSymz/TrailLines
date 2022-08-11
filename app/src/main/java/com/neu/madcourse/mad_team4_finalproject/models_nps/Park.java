@@ -2,17 +2,18 @@ package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Park {
+public class Park implements Serializable {
     @SerializedName("activities")
     private List<Activity> activityList;
-//    @SerializedName("addresses")
-//    private List<Address> addressList;
+    @SerializedName("addresses")
+    private List<Address> addressList;
     @SerializedName("contacts")
     private ParkContact parkContact;
     private String designation;
-//    @SerializedName("entranceFees")
+    //    @SerializedName("entranceFees")
 //    private List<EntranceFee> entranceFeeList;
 //    @SerializedName("entrancePasses")
 //    private List<EntrancePass> entrancePassList;
@@ -26,7 +27,7 @@ public class Park {
     private List<Image> imageList;
     @SerializedName("name")
     private String shortName;
-//    @SerializedName("operatingHours")
+    //    @SerializedName("operatingHours")
 //    private List<ParkOperationsHours> parkOperationsHoursList;
     private String states;
     private String url;
@@ -63,6 +64,10 @@ public class Park {
 
     public String getParkID() {
         return parkID;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
     }
 
     public String getLatitude() {

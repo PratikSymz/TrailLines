@@ -158,4 +158,10 @@ object Constants {
         const val SURFING_CODE = "AE3C95F5-E05B-4A28-81DD-1C5FD4BE88E2"
         const val WATER_SKIING_CODE = "8A1C7B17-C2C6-4F7C-9539-EA1E19971D80"
     }
+
+    object Retrofit {
+        const val BASE_URL = "https://developer.nps.gov/api/v1/"
+        const val API_KEY = "gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I"
+        const val STATE_MA = "MA"
+    }
 }

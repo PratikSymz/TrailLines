@@ -1,6 +1,8 @@
 package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
-public class Image {
+import java.io.Serializable;
+
+public class Image implements Serializable {
     private String credit;
     private String altText;
     private String title;

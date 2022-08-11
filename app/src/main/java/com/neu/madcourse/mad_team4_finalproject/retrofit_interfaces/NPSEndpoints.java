@@ -12,10 +12,9 @@ public interface NPSEndpoints {
     @GET("parks")
     Call<ParkResult> getParkResults(@Query("api_key") String apiKey, @Query("stateCode") String stateCode);
 
-    @GET("thingstodo?api_key=gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I")
-    Call<ThingsToDoResult> getThingsToDoResults();
+    @GET("thingstodo")
+    Call<ThingsToDoResult> getThingsToDoResults(@Query("api_key") String apiKey);
 
-//    @Headers("api_key: " + "gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I")
-    @GET("activities?api_key=gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I")
-    Call<ActivityResult> getActivityResults();
+    @GET("activities")
+    Call<ActivityResult> getActivityResults(@Query("api_key") String apiKey);
 }

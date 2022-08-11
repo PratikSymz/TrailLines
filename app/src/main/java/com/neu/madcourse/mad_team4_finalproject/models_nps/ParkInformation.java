@@ -2,9 +2,10 @@ package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ParkInformation {
+public class ParkInformation implements Serializable {
     public String fullName;
     @SerializedName("id")
     public String parkID;

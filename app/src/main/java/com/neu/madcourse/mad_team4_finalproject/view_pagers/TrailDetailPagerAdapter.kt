@@ -6,19 +6,23 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.neu.madcourse.mad_team4_finalproject.fragments.TrailOverviewFragment
 import com.neu.madcourse.mad_team4_finalproject.fragments.TrailReviewsFragment
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Park
 
 /**
  * This class is created to show the contents of the tab when clicked
  * the recycler view will be shown using the adapter class
  * the tabs will be the direct source to show the recycler view contents
  */
-class TrailDetailPagerAdapter(@NonNull fragmentActivity: FragmentActivity)
+class TrailDetailPagerAdapter(@NonNull fragmentActivity: FragmentActivity, @NonNull park: Park)
     : FragmentStateAdapter(fragmentActivity) {
+
+    /* The Park reference */
+    private val mPark = park
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> TrailOverviewFragment()
-            1 -> TrailReviewsFragment()    // TODO: Change with Review Fragment
+            0 -> TrailOverviewFragment(mPark)
+            1 -> TrailReviewsFragment()
             else -> Fragment()
         }
     }

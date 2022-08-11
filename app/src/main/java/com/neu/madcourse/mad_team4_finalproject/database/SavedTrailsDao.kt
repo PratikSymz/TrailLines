@@ -1,11 +1,8 @@
 package com.neu.madcourse.mad_team4_finalproject.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.IGNORE
-import androidx.room.Query
 import com.neu.madcourse.mad_team4_finalproject.models.SavedTrails
 
 /**
@@ -16,8 +13,12 @@ interface SavedTrailsDao {
     @Insert(onConflict = IGNORE)
     suspend fun addTrails(savedTrails: SavedTrails)
 
+    @Update
+    suspend fun updateTrails(savedTrail: SavedTrails)
+
     @Delete
     suspend fun deleteTrail(savedTrail: SavedTrails)
+
     @Query("DELETE FROM saved_trails")
     suspend fun deleteAllTrails()
 

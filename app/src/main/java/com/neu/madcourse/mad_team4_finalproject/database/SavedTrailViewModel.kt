@@ -35,15 +35,21 @@ class SavedTrailViewModel(application: Application) : AndroidViewModel(applicati
     /**
      * Methods to delete single trails as well all trails
      */
-    fun deleteTrail(savedTrail:SavedTrails){
+    fun deleteTrail(savedTrail: SavedTrails) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteTrail(savedTrail)
         }
     }
 
-    fun deleteAllTrails(){
+    fun deleteAllTrails() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAllTrails()
+        }
+    }
+
+    fun updateTrails(savedTrail: SavedTrails) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateTrails(savedTrail)
         }
     }
 }

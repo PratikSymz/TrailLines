@@ -1,4 +1,4 @@
-package com.neu.madcourse.mad_team4_finalproject.fragments;
+package com.neu.madcourse.mad_team4_finalproject.chatfragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

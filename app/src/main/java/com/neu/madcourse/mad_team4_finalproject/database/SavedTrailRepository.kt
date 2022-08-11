@@ -22,4 +22,7 @@ class SavedTrailRepository (private val savedTrailsDao: SavedTrailsDao){
     suspend fun deleteAllTrails(){
         savedTrailsDao.deleteAllTrails()
     }
+    suspend fun updateTrails(savedTrail: SavedTrails){
+        savedTrailsDao.updateTrails(savedTrail)
+    }
 }

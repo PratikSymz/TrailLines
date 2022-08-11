@@ -6,9 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
-import com.neu.madcourse.mad_team4_finalproject.fragments.ChatHistoryFragment;
-import com.neu.madcourse.mad_team4_finalproject.fragments.FindFriendsFragment;
-import com.neu.madcourse.mad_team4_finalproject.fragments.ConnectionRequestsFragment;
+import com.neu.madcourse.mad_team4_finalproject.chatfragments.ChatHistoryFragment;
+import com.neu.madcourse.mad_team4_finalproject.chatfragments.FindFriendsFragment;
+import com.neu.madcourse.mad_team4_finalproject.chatfragments.ConnectionRequestsFragment;
 
 /**
  * This class is created to show the contents of the tab when clicked

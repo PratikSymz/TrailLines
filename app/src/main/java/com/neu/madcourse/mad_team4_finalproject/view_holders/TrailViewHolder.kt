@@ -3,7 +3,9 @@ package com.neu.madcourse.mad_team4_finalproject.view_holders
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.annotation.NonNull
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.neu.madcourse.mad_team4_finalproject.database.list.ListFragmentDirections
 import com.neu.madcourse.mad_team4_finalproject.databinding.CustomFragmentListRowBinding
 import com.neu.madcourse.mad_team4_finalproject.models.SavedTrails
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
@@ -42,5 +44,9 @@ class TrailViewHolder(
         mBinding.holderTrailElevation.text = mSavedTrails.trailElevation.toString()
         mBinding.holderTrailLength.text = mSavedTrails.trailLength.toString()
 
+        mBinding.customRowLayout.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(mSavedTrails)
+            mBinding.customRowLayout.findNavController().navigate(action)
+        }
     }
 }

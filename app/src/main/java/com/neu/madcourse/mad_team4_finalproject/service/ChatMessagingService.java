@@ -6,19 +6,27 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.activities.LoginActivity;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils;
+
+import java.util.Objects;
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class ChatMessagingService extends FirebaseMessagingService {
@@ -62,10 +70,35 @@ public class ChatMessagingService extends FirebaseMessagingService {
             notificationBuilder.setAutoCancel(true);
             notificationBuilder.setSound(defaultSound);
             notificationBuilder.setContentIntent(pendingIntent);
-            notificationBuilder.setContentText(message);
 
-            /* notification manager created to manage the chat notifications */
-            notificationManager.notify(123, notificationBuilder.build());
+            /* checking if the notification is a message or a video/image in a condition statement */
+            if (Objects.requireNonNull(message).startsWith("https://firebasestorage.")) {
+                try {
+                    NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
+                    Glide.with(this).asBitmap()
+                            .load(message).into(new CustomTarget<Bitmap>(200, 100) {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    bigPictureStyle.bigPicture(resource);
+                                    notificationBuilder.setStyle(bigPictureStyle);
+                                    notificationManager.notify(123, notificationBuilder.build());
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                }
+                            });
+                } catch (Exception e) {
+                    notificationBuilder.setContentText("New notification received");
+                }
+            } else {
+                notificationBuilder.setContentText(message);
+                /* notification manager created to manage the chat notifications */
+                notificationManager.notify(123, notificationBuilder.build());
+            }
+
+            //TODO ask pratik about video 77 12:49 min mark
         }
     }
 }

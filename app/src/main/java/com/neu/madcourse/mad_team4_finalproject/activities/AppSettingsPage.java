@@ -63,9 +63,24 @@ public class AppSettingsPage extends AppCompatActivity {
 
     public void logout() {
         // Set the logout button onClick action
-        mFirebaseAuth.signOut();
-        startActivity(new Intent(mContext, LoginActivity.class));
-        finish();
+        // Also set the token removal when the user logs out of the chat app
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
+        mUsersDatabaseRef = rootReference.child(Constants.Tokens.KEY_TLO).child(mFirebaseUser.getUid());
+        mUsersDatabaseRef.setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    mFirebaseAuth.signOut();
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                    finish();
+                } else {
+                    mBaseUtils.showToast("Something went wrong", Toast.LENGTH_SHORT);
+                }
+            }
+        });
+
     }
 
     public void forgotPassword() {

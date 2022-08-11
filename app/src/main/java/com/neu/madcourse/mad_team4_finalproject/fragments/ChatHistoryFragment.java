@@ -29,10 +29,8 @@ import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  *
@@ -47,7 +45,7 @@ public class ChatHistoryFragment extends Fragment {
     private ChatHistoryAdapter chatHistoryAdapter;
 
     // declaring List of chatModel
-    private Set<ChatHistory> chatHistoryList = new HashSet<>();
+    private List<ChatHistory> chatHistoryList = new ArrayList<>();
 
     // creating a database reference object for chats and users
     private DatabaseReference chatDatabaseReference, userDatabaseReference;
@@ -208,8 +206,9 @@ public class ChatHistoryFragment extends Fragment {
                         } else {
                             //TODO ask Pratik about this!
                             int clickedUser = userIDList.indexOf(userID);
+                            chatHistoryList.set(clickedUser, chatHistory);
                         }
-                        chatHistoryAdapter.updateDataList(new ArrayList<>(chatHistoryList));
+                        chatHistoryAdapter.updateDataList(chatHistoryList);
                         chatHistoryAdapter.notifyDataSetChanged();
                         mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     }

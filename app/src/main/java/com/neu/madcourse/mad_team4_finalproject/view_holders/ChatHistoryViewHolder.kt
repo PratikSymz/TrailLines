@@ -56,13 +56,34 @@ class ChatHistoryViewHolder(
         mBinding.viewProfileName.text = chatHistory.name
 
         // Set the last message
-        mBinding.viewLastSeenMessage.text = chatHistory.lastMessage
+        // check the length of the last message and then assign it to new String variable
+        val lastMessage: String = chatHistory.lastMessage
+        if (mBaseUtils.isEmpty(lastMessage)) {
+            mBinding.viewLastSeenMessage.text = ""
+        } else if (lastMessage.length > 30) {
+            mBinding.viewLastSeenMessage.text = lastMessage.substring(0, 30)
+        } else {
+            mBinding.viewLastSeenMessage.text = chatHistory.lastMessage
+        }
+
 
         // Set the unread message count
-        mBinding.viewUnreadCount.text = chatHistory.unreadCount
+        if (mChatHistory.unreadCount != "0") {
+            mBinding.viewUnreadCount.visibility = View.VISIBLE
+            mBinding.viewUnreadCount.text = chatHistory.unreadCount
+        } else {
+            mBinding.viewUnreadCount.visibility = View.INVISIBLE
+        }
 
         // Set the last message timestamp
-        mBinding.viewTimeLastSent.text = chatHistory.lastMessageTimestamp
+        if (mBaseUtils.isEmpty(chatHistory.lastMessageTimestamp)) {
+            mBinding.viewTimeLastSent.text = ""
+        } else {
+            mBinding.viewTimeLastSent.text = mNetworkUtils
+                .getTimeAgo(chatHistory.lastMessageTimestamp.toLong())
+
+        }
+
 
         // Get the profile image storage reference
         val imageReference: StorageReference = mFirebaseStorage.child(
@@ -85,21 +106,6 @@ class ChatHistoryViewHolder(
             intent.putExtra("user_id", mChatHistory.userID)
             mContext.startActivity(intent)
 
-        }
-        if (!mChatHistory.unreadCount.equals("0")) {
-            mBinding.viewUnreadCount.visibility = View.VISIBLE
-            mBinding.viewUnreadCount.text = chatHistory.unreadCount
-        } else {
-            mBinding.viewUnreadCount.visibility = View.INVISIBLE
-        }
-
-        // check the length of the last message and then assign it to new String variable
-        if (mBinding.viewLastSeenMessage.length() > 30) {
-            val lastMessage: String = chatHistory.lastMessage.substring(0, 30)
-            mBinding.viewLastSeenMessage.text = lastMessage
-        }
-        if (mBinding.viewTimeLastSent.text == null) {
-            mBinding.viewTimeLastSent.text = ""
         }
 
 

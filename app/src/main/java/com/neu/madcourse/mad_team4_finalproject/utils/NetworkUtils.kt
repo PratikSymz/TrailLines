@@ -197,37 +197,31 @@ class NetworkUtils(context: Context) {
      * method to implement the time ago
      */
     fun getTimeAgo(time: Long): String {
+        var mTime: Long = time
         val secondMillis = 1000;
         val minuteMillis: Int = 60 * secondMillis;
         val hourMillis: Int = 60 * minuteMillis;
         val dayMillis: Int = 60 * hourMillis;
-        //TODO how the fuck to make this work!
-        //time *= 1000
+        mTime *= 1000
         var now: Long = System.currentTimeMillis()
-        if (time>now || time <=0){
+        if (mTime > now || mTime <= 0) {
             return ""
         }
-        val difference:Long = now - time
-        if (difference < minuteMillis){
-            return "just now"
-        }
-        else if (difference < 2*minuteMillis){
-            return "a minute ago"
-        }
-        else if (difference < 59*minuteMillis){
-            return difference.div(minuteMillis).toString() + " minutes ago"
-        }
-        else if (difference < 90 * minuteMillis){
-            return "an hour ago"
-        }
-        else if (difference < 24 * hourMillis){
-            return difference.div(hourMillis).toString() + " hours ago"
-        }
-        else if (difference < 48 * hourMillis){
-            return "yesterday"
-        }
-        else {
-            return difference.div(dayMillis).toString() + " days ago"
+        val difference: Long = now - mTime
+        return if (difference < minuteMillis) {
+            "just now"
+        } else if (difference < 2 * minuteMillis) {
+            "a minute ago"
+        } else if (difference < 59 * minuteMillis) {
+            difference.div(minuteMillis).toString() + " minutes ago"
+        } else if (difference < 90 * minuteMillis) {
+            "an hour ago"
+        } else if (difference < 24 * hourMillis) {
+            difference.div(hourMillis).toString() + " hours ago"
+        } else if (difference < 48 * hourMillis) {
+            "yesterday"
+        } else {
+            difference.div(dayMillis).toString() + " days ago"
         }
     }
 

@@ -19,6 +19,7 @@ import com.neu.madcourse.mad_team4_finalproject.interfaces.ItemRemoveListener
 import com.neu.madcourse.mad_team4_finalproject.models.FindFriend
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
+import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils
 
 class FindFriendViewHolder(
     @NonNull context: Context,
@@ -37,6 +38,9 @@ class FindFriendViewHolder(
 
     /* The Base utils reference */
     private val mBaseUtils: BaseUtils = BaseUtils(mContext)
+
+    /* The Network utils reference */
+    private val mNetworkUtils: NetworkUtils = NetworkUtils(mContext)
 
     /* The Firebase storage reference */
     private val mFirebaseStorage: StorageReference = FirebaseStorage.getInstance().reference
@@ -137,6 +141,11 @@ class FindFriendViewHolder(
 
                                     // Remove item from the find friends list
                                     mListener.removeItem(position)
+
+                                    // Create a notification
+                                    val title = "New Friend Request"
+                                    val message = "Friend request from " + mFirebaseUser.displayName
+                                    mNetworkUtils.sendNotification(mContext, title, message, friendID)
                                 } else {
                                     mBaseUtils.showToast(
                                         mContext.getString(

@@ -21,6 +21,7 @@ import com.neu.madcourse.mad_team4_finalproject.interfaces.ItemRemoveListener;
 import com.neu.madcourse.mad_team4_finalproject.models.ConnectionRequest;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
+import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,9 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
 
     /* The Base utils reference */
     private BaseUtils mBaseUtils;
+
+    /* The Network utils reference */
+    private NetworkUtils mNetworkUtils;
 
     /* The Firebase storage reference */
     private StorageReference mFirebaseStorage;
@@ -70,6 +74,9 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
 
         // Instantiate the base utils reference
         mBaseUtils = new BaseUtils(mContext);
+
+        // Instantiate the network utils reference
+        mNetworkUtils = new NetworkUtils(mContext);
 
         // Instantiate the Firebase storage reference
         mFirebaseStorage = FirebaseStorage.getInstance().getReference();
@@ -187,6 +194,11 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                                                                             // Show the accept and deny buttons
                                                                             mBinding.viewConnButtonAccept.setVisibility(View.VISIBLE);
                                                                             mBinding.viewConnButtonDeny.setVisibility(View.VISIBLE);
+
+                                                                            // Create a notification
+                                                                            String title = "Friend Request Accepted";
+                                                                            String message = "Friend request accepted by " + mFirebaseUser.getDisplayName();
+                                                                            mNetworkUtils.sendNotification(mContext, title, message, userID);
                                                                         } else {
                                                                             handleAcceptException(Objects.requireNonNull(reverseTaskFriendRequest.getException()));
                                                                         }
@@ -238,6 +250,19 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                                     .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
                                         .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_DENIED)
                                     .addOnCompleteListener(reverseTask -> {
+                                        if (reverseTask.isSuccessful()) {
+                                            mBaseUtils.showToast("Request denied successfully!", Toast.LENGTH_SHORT);
+                                            // Hide the progress bar
+                                            mBinding.viewConnProgressBar.setVisibility(View.INVISIBLE);
+                                            // Show the accept and deny buttons
+                                            mBinding.viewConnButtonAccept.setVisibility(View.VISIBLE);
+                                            mBinding.viewConnButtonDeny.setVisibility(View.VISIBLE);
+
+                                            // Create a notification
+                                            String title = "Friend Request Denied";
+                                            String message = "Friend request denied by " + mFirebaseUser.getDisplayName();
+                                            mNetworkUtils.sendNotification(mContext, title, message, userID);
+                                        }
                                         if (!reverseTask.isSuccessful()) {
                                             handleDenyException(Objects.requireNonNull(reverseTask.getException()));
                                         }

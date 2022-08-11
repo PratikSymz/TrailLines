@@ -210,6 +210,10 @@ public class ChatScreenActivity extends AppCompatActivity {
                                 getString(R.string.message_sent_successfully),
                                 Toast.LENGTH_SHORT
                         );
+
+                        // Create a notification
+                        String title = "New message";
+                        mNetworkUtils.sendNotification(mContext, title, message, mOtherUserID);
                     }
                 });
             }

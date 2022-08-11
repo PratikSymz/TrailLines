@@ -81,7 +81,7 @@ class NetworkUtils(context: Context) {
     }
 
     /* Method to send notifications whenever a message or friend request is sent from the chat */
-    fun sendNotifications(context: Context, title: String, message: String, userId: String) {
+    fun sendNotification(context: Context, title: String, message: String, userId: String) {
         // Get the new token database reference
         mTokenRef = mRootRef.child(Constants.Tokens.KEY_TLO).child(userId)
         mTokenRef.addListenerForSingleValueEvent(object : ValueEventListener {

@@ -16,6 +16,7 @@ import com.neu.madcourse.mad_team4_finalproject.databinding.ItemChatHistoryAltBi
 import com.neu.madcourse.mad_team4_finalproject.models.ChatHistory
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
+import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils
 
 class ChatHistoryViewHolder(
     @NonNull context: Context,
@@ -25,6 +26,11 @@ class ChatHistoryViewHolder(
     /* The activity context */
     private val mContext: Context = context
 
+    // Instantiate the Network utils reference
+
+    // Instantiate the Network utils reference
+    private val mNetworkUtils: NetworkUtils = NetworkUtils(mContext)
+
     /* The Item View binder */
     private val mBinding: ItemChatHistoryAltBinding = itemBinding
 
@@ -33,6 +39,7 @@ class ChatHistoryViewHolder(
 
     /* The Base utils reference */
     private val mBaseUtils: BaseUtils = BaseUtils(mContext)
+
 
     /* The Firebase storage reference */
     private val mFirebaseStorage: StorageReference = FirebaseStorage.getInstance().reference

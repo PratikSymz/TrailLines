@@ -193,4 +193,42 @@ class NetworkUtils(context: Context) {
         })
     }
 
+    /**
+     * method to implement the time ago
+     */
+    fun getTimeAgo(time: Long): String {
+        val secondMillis = 1000;
+        val minuteMillis: Int = 60 * secondMillis;
+        val hourMillis: Int = 60 * minuteMillis;
+        val dayMillis: Int = 60 * hourMillis;
+        //TODO how the fuck to make this work!
+        //time *= 1000
+        var now: Long = System.currentTimeMillis()
+        if (time>now || time <=0){
+            return ""
+        }
+        val difference:Long = now - time
+        if (difference < minuteMillis){
+            return "just now"
+        }
+        else if (difference < 2*minuteMillis){
+            return "a minute ago"
+        }
+        else if (difference < 59*minuteMillis){
+            return difference.div(minuteMillis).toString() + " minutes ago"
+        }
+        else if (difference < 90 * minuteMillis){
+            return "an hour ago"
+        }
+        else if (difference < 24 * hourMillis){
+            return difference.div(hourMillis).toString() + " hours ago"
+        }
+        else if (difference < 48 * hourMillis){
+            return "yesterday"
+        }
+        else {
+            return difference.div(dayMillis).toString() + " days ago"
+        }
+    }
+
 }

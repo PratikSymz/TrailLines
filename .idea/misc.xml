@@ -41,27 +41,26 @@
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_review_screen.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/custom_fragment_list_row.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_add.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_send_messages.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.28518524169921877" />
         <entry key="app/src/main/res/layout/alt_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/alt_signup.xml" value="0.2764957264957265" />
         <entry key="app/src/main/res/layout/chat_list_layout_file.xml" value="0.37093445867554753" />
         <entry key="app/src/main/res/layout/chat_tab.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/custom_fragment_list_row.xml" value="0.25" />
         <entry key="app/src/main/res/layout/default_progress_bar.xml" value="0.23552917480468752" />
         <entry key="app/src/main/res/layout/find_tab.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat2.xml" value="0.19701086956521738" />
         <entry key="app/src/main/res/layout/fragment_chat_history.xml" value="0.26741390391292735" />
+        <entry key="app/src/main/res/layout/fragment_connection_requests.xml" value="0.11018518518518519" />
         <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/fragment_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_update.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/fragment_find_friends.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/fragment_requests.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_update.xml" value="0.335" />
         <entry key="app/src/main/res/layout/friend_request_layout_file.xml" value="0.25" />
         <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.375" />
         <entry key="app/src/main/res/layout/ich_alt.xml" value="0.5179263905582265" />

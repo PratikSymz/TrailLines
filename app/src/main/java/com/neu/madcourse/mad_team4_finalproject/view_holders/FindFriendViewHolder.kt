@@ -146,6 +146,7 @@ class FindFriendViewHolder(
                                     val title = "New Friend Request"
                                     val message = "Friend request from " + mFirebaseUser.displayName
                                     mNetworkUtils.sendNotification(mContext, title, message, friendID)
+
                                 } else {
                                     mBaseUtils.showToast(
                                         mContext.getString(

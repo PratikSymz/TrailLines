@@ -79,4 +79,9 @@ object Constants {
     const val NOTIFICATION_MESSAGE = "message"
     const val NOTIFICATION_TO = "to"
     const val NOTIFICATION_DATA = "data"
+
+    /* Notification Channels to group all different chat notifications for the app */
+    const val CHANNEL_ID = "channel_id"
+    const val CHANNEL_NAME = "channel_name"
+    const val CHANNEL_DESCRIPTION = "channel_description"
 }

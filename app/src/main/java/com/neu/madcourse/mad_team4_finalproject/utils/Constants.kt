@@ -53,12 +53,11 @@ object Constants {
         const val KEY_IMAGES = "images"
     }
 
-    //Notification tokens
+    // Notification tokens
     object Tokens {
         const val KEY_TLO = "tokens"
 
         const val DEVICE_TOKEN = "device_token"
-
     }
 
     /* The ProfileActivity tags */

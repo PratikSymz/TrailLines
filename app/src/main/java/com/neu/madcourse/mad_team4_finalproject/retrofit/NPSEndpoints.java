@@ -1,4 +1,4 @@
-package com.neu.madcourse.mad_team4_finalproject.retrofit_interfaces;
+package com.neu.madcourse.mad_team4_finalproject.retrofit;
 
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ActivityResult;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ParkResult;

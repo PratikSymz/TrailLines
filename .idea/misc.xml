@@ -6,26 +6,34 @@
         <entry key="../../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/border_set.xml" value="0.216" />
         <entry key="app/src/main/res/drawable/button_selector.xml" value="0.215" />
+        <entry key="app/src/main/res/drawable/ic_biking.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_boating.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bookmark.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_hiking.xml" value="0.1075" />
+        <entry key="app/src/main/res/drawable/ic_campfire.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_camping.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_fishing.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_hiking.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_person_hiking_solid.xml" value="0.215" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.2535" />
+        <entry key="app/src/main/res/drawable/ic_scuba.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.215" />
+        <entry key="app/src/main/res/drawable/ic_skiing.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_star.xml" value="0.2985" />
+        <entry key="app/src/main/res/drawable/ic_swimming.xml" value="0.1" />
         <entry key="app/src/main/res/layout-v28/fragment_explore_screen.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/activity_explore_screen.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/activity_explore_standy.xml" value="0.2543822146216332" />
         <entry key="app/src/main/res/layout/activity_information.xml" value="0.11500641299700727" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.2543822146216332" />
-        <entry key="app/src/main/res/layout/activity_trail_detail.xml" value="0.4797507788161994" />
+        <entry key="app/src/main/res/layout/activity_trail_detail.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/bottom_sheet_filter_screen.xml" value="0.577423095703125" />
         <entry key="app/src/main/res/layout/filter_screen.xml" value="0.29065040650406504" />
-        <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.2614349365234375" />
+        <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_filter_screen_dialog_list_dialog.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_filter_screen_dialog_list_dialog_item.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_trail_overview.xml" value="0.2419837537409149" />
-        <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.5103851318359376" />
+        <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_explore_activities.xml" value="0.2535271483539974" />
         <entry key="app/src/main/res/layout/item_review.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/item_selected_image.xml" value="0.2419837537409149" />
@@ -36,10 +44,91 @@
         <entry key="app/src/main/res/layout/segment_overview_reviews.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/segment_recommend.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/segment_review_card.xml" value="0.2419837537409149" />
-        <entry key="app/src/main/res/layout/vertical_trail_views.xml" value="0.2873134328358209" />
+        <entry key="app/src/main/res/layout/vertical_trail_views.xml" value="0.1" />
         <entry key="app/src/main/res/menu/explore_screen_bottom_navigation.xml" value="0.2543822146216332" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/caving.xml" value="0.1" />
         <entry key="app/src/main/res/xml/file_paths.xml" value="0.2826086956521739" />
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.15896739130434784" />
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.1308876811594203" />
+        <entry key="app/src/main/res/drawable-xxxhdpi/conversation_sender.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/add_symbol.xml" value="0.283" />
+        <entry key="app/src/main/res/drawable/attachment_bubble.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/chat_bubble_sender.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/conversation_receiver.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/custom_rating_bar.xml" value="0.301" />
+        <entry key="app/src/main/res/drawable/explore_screen_search_bar.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/horizontal_trail_views.xml" value="0.23" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/ic_arrow_right.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/ic_nature.xml" value="0.181" />
+        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.241" />
+        <entry key="app/src/main/res/drawable/ic_right.xml" value="0.254" />
+        <entry key="app/src/main/res/drawable/image.xml" value="0.23" />
+        <entry key="app/src/main/res/drawable/linear_layout_shape.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/message_count_shape.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/rating_empty.xml" value="0.301" />
+        <entry key="app/src/main/res/drawable/rating_fill.xml" value="0.301" />
+        <entry key="app/src/main/res/drawable/round_corner_background.xml" value="0.1755" />
+        <entry key="app/src/main/res/drawable/round_stroke_corner_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/textbox_getstarted.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/textbox_recommended.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_account.xml" value="0.29832580566406247" />
+        <entry key="app/src/main/res/layout/activity_app_settings_page.xml" value="0.28804347826086957" />
+        <entry key="app/src/main/res/layout/activity_change_password.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_chat_screen.xml" value="0.36270192464192713" />
+        <entry key="app/src/main/res/layout/activity_connection.xml" value="0.28163051768245856" />
+        <entry key="app/src/main/res/layout/activity_contact_us_page.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/activity_information.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.21668701171875002" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_review_screen.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_send_messages.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.28518524169921877" />
+        <entry key="app/src/main/res/layout/alt_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/alt_signup.xml" value="0.2764957264957265" />
+        <entry key="app/src/main/res/layout/chat_list_layout_file.xml" value="0.37093445867554753" />
+        <entry key="app/src/main/res/layout/chat_tab.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/custom_fragment_list_row.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/default_progress_bar.xml" value="0.23552917480468752" />
+        <entry key="app/src/main/res/layout/find_tab.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_chat2.xml" value="0.19701086956521738" />
+        <entry key="app/src/main/res/layout/fragment_chat_history.xml" value="0.26741390391292735" />
+        <entry key="app/src/main/res/layout/fragment_connection_requests.xml" value="0.11018518518518519" />
+        <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_find.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/fragment_find_friends.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/fragment_list.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/fragment_requests.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_update.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/friend_request_layout_file.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/ich_alt.xml" value="0.5179263905582265" />
+        <entry key="app/src/main/res/layout/item_chat_history.xml" value="0.2738396624472574" />
+        <entry key="app/src/main/res/layout/item_chat_history_alt.xml" value="0.68450927734375" />
+        <entry key="app/src/main/res/layout/item_chat_request.xml" value="0.4406148926824587" />
+        <entry key="app/src/main/res/layout/item_connection_request.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/item_conversation.xml" value="0.2328055215776984" />
+        <entry key="app/src/main/res/layout/item_friend_request.xml" value="0.4717971801757813" />
+        <entry key="app/src/main/res/layout/item_profile_tag.xml" value="0.2942708333333333" />
+        <entry key="app/src/main/res/layout/item_settings_support.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/layout_progress_bar.xml" value="0.21529388427734375" />
+        <entry key="app/src/main/res/layout/request_tab.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/segment_get_started.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/segment_log_in.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/segment_message.xml" value="0.35170288085937507" />
+        <entry key="app/src/main/res/layout/segment_recommend.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/segment_sign_up.xml" value="0.3828887939453126" />
+        <entry key="app/src/main/res/layout/vertical_trail_views.xml" value="0.375" />
+        <entry key="app/src/main/res/menu/delete_menu.xml" value="0.17037037037037037" />
+        <entry key="app/src/main/res/menu/explore_screen_bottom_navigation.xml" value="0.165" />
+        <entry key="app/src/main/res/menu/explore_screen_bttom.xml" value="0.12314814814814815" />
+        <entry key="app/src/main/res/menu/menu_image.xml" value="0.27735042735042736" />
       </map>
     </option>
   </component>

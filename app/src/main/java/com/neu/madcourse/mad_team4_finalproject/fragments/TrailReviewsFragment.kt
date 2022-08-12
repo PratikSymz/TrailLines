@@ -17,11 +17,12 @@ import com.neu.madcourse.mad_team4_finalproject.activities.AddReviewActivity
 import com.neu.madcourse.mad_team4_finalproject.adapters.GenericAdapter
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentTrailReviewsBinding
 import com.neu.madcourse.mad_team4_finalproject.models.Review
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Park
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
 
 
-class TrailReviewsFragment : Fragment() {
+class TrailReviewsFragment(park: Park) : Fragment() {
     /* The Fragment Log Tag */
     private val LOG_TAG: String = TrailReviewsFragment::class.java.simpleName
 
@@ -52,6 +53,11 @@ class TrailReviewsFragment : Fragment() {
     /* The Recycler view adapter reference */
     private lateinit var mAdapter: GenericAdapter<Review>
 
+    /* The Park model reference */
+    private val mPark = park
+
+    /* The Park ID reference */
+    private var mParkID: String = mPark.parkID
     /* The Trail ID reference */
     private var mTrailID: String = "102"
 
@@ -89,14 +95,15 @@ class TrailReviewsFragment : Fragment() {
         mUsersDatabaseRef = FirebaseDatabase.getInstance().reference
             .child(Constants.UserKeys.KEY_TLO)
 
-        // Instantiate the firebase database reference -> "reviews"/trailID
+        // Instantiate the firebase database reference -> "reviews"/parkID
         mReviewsDatabaseRef = FirebaseDatabase.getInstance().reference
             .child(Constants.ReviewKeys.KEY_TLO)
-            .child(mTrailID)
+            .child(mParkID)
 
         // Add the onClick action for the "Add review button"
         mBaseUtils.applyListener(mBinding.viewAddReview.root) {
             val intent: Intent = Intent(mContext, AddReviewActivity::class.java)
+            intent.putExtra("park_details", mPark)
             startActivity(intent)
         }
     }

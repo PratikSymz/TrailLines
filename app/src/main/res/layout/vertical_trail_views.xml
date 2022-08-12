@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="8dp">
 
     <!--    <LinearLayout-->
     <!--        android:id="@+id/linear_layout_vertical_trail"-->
@@ -20,41 +20,45 @@
         android:id="@+id/view_trail_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
         android:src="@drawable/ic_nature"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/image_rounded_corners"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/image_rounded_corners" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/view_trail_name"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/lato_bold"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/view_trail_image"
-        app:layout_constraintStart_toStartOf="@+id/view_trail_image"
-        app:layout_constraintTop_toBottomOf="@id/view_trail_image"
-        tools:text="Great Blue Hill via Skyline Trail" />
+        android:layout_marginLeft="4dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Trail"
+        app:layout_constraintTop_toBottomOf="@id/view_trail_image"/>
+
 
 
     <TextView
         android:id="@+id/view_trail_info"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/lato"
-        android:textColor="#5A5A5A"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/view_trail_name"
-        app:layout_constraintTop_toBottomOf="@id/view_trail_name"
-        tools:text="Blue Hills Reservations" />
+        android:layout_marginLeft="4dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        tools:text="Description"
+        app:layout_constraintTop_toBottomOf="@id/view_trail_name"/>
 
     <!--        <LinearLayout-->
     <!--            android:id="@+id/holder_trail_review"-->
@@ -64,57 +68,46 @@
     <!--            android:orientation="horizontal"-->
     <!--            android:weightSum="1">-->
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_allowed_activities"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:orientation="horizontal"
+        android:id="@+id/trail_activties"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="4dp"
+        android:layout_weight="1"
+        android:maxLines="1"
         android:padding="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view_trail_info"
-        app:layout_constraintEnd_toEndOf="@+id/view_trail_name"
-        app:layout_constraintHorizontal_bias="0.828"
-        app:layout_constraintStart_toEndOf="@+id/view_trail_info"
-        app:layout_constraintTop_toTopOf="@+id/view_trail_info" />
+        android:orientation="horizontal"
+        tools:text="Activities: "
+        app:layout_constraintTop_toBottomOf="@id/view_trail_info"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <ImageView
-        android:id="@+id/view_park_stars"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/recycler_view_allowed_activities"
-        app:layout_constraintTop_toTopOf="@+id/view_park_difficulty"
+        android:id="@+id/reviewStar"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/view_trail_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view_park_rating"
         app:srcCompat="@drawable/ic_star" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/view_park_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="2dp"
-        android:fontFamily="@font/lato_bold"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view_park_stars"
-        app:layout_constraintEnd_toStartOf="@+id/view_park_stars"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/view_park_difficulty"
-        app:layout_constraintTop_toTopOf="@+id/view_park_stars"
-        tools:text="4.7" />
 
     <TextView
-        android:id="@+id/view_park_difficulty"
+        android:id="@+id/view_park_rating"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/lato_bold"
-        android:text="Easy"
-        android:textColor="@color/hike_green"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/view_trail_info"
-        app:layout_constraintTop_toBottomOf="@+id/view_trail_info" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|start|right"
+        android:padding="2dp"
+        android:textAlignment="gravity"
+        tools:text="5"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@id/reviewStar"
+        app:layout_constraintTop_toBottomOf="@id/view_trail_info"
+        />
 
 
     <!--        </LinearLayout>-->

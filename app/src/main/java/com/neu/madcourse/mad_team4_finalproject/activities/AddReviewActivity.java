@@ -38,6 +38,7 @@ import com.neu.madcourse.mad_team4_finalproject.adapters.GenericAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityAddReviewBinding;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemSelectedImageBinding;
 import com.neu.madcourse.mad_team4_finalproject.fragments.TrailReviewsFragment;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
@@ -85,6 +86,9 @@ public class AddReviewActivity extends AppCompatActivity {
     /* The Review images selected url list reference */
     private List<String> mSelectedImageUrlList = new ArrayList<>();
 
+    /* The Intent Park model reference */
+    private Park mPark;
+
     /* The Trail ID reference */
     private String mTrailID = "101";
 
@@ -116,6 +120,9 @@ public class AddReviewActivity extends AppCompatActivity {
         mBinding = ActivityAddReviewBinding.inflate(getLayoutInflater());
         // Set the root view
         setContentView(mBinding.getRoot());
+
+        // Retrieve the Park information from the intent
+        mPark = (Park) getIntent().getSerializableExtra("park_details");
 
         // Instantiate the Base utils reference
         mBaseUtils = new BaseUtils(mContext);
@@ -174,6 +181,9 @@ public class AddReviewActivity extends AppCompatActivity {
             // Open the image picker screen
             // openImagePicker();
         });
+
+        /* Set the park name */
+        mBinding.viewReviewTrailName.setText(mPark.getFullName());
 
         /* Setup the "Not recommended" button */
         setupNotRecommendedButton();

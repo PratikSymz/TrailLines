@@ -53,7 +53,7 @@ class TrailReviewsFragment : Fragment() {
     private lateinit var mAdapter: GenericAdapter<Review>
 
     /* The Trail ID reference */
-    private lateinit var mTrailID: String
+    private var mTrailID: String = "102"
 
     /* The selected images list reference */
     // private val mFindFriendsList: List<FindFriend>? = null

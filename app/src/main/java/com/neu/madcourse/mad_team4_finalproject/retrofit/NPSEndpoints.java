@@ -17,4 +17,8 @@ public interface NPSEndpoints {
 
     @GET("activities")
     Call<ActivityResult> getActivityResults(@Query("api_key") String apiKey);
+
+    @GET("parks")
+    Call<ParkResult> getActivityParkResults(@Query("api_key") String apiKey, @Query("stateCode") String stateCode, @Query("q") String activityId);
+
 }

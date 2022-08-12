@@ -140,4 +140,15 @@
         tools:layout_editor_absoluteX="15dp"
         tools:layout_editor_absoluteY="15dp"
         tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/noResultsFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="No results found! Update your search."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_trail_recycler_view"
+        android:visibility="invisible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

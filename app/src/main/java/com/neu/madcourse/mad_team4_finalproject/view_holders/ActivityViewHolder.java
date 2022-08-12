@@ -1,8 +1,11 @@
 package com.neu.madcourse.mad_team4_finalproject.view_holders;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,23 +13,45 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.neu.madcourse.mad_team4_finalproject.R;
+import com.neu.madcourse.mad_team4_finalproject.activities.TrailDetailActivity;
+import com.neu.madcourse.mad_team4_finalproject.interfaces.ActivityOnClickListener;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.ParkResult;
+import com.neu.madcourse.mad_team4_finalproject.retrofit.NPSEndpoints;
+import com.neu.madcourse.mad_team4_finalproject.retrofit.NPSInterceptor;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
-public class ActivityViewHolder extends RecyclerView.ViewHolder {
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ActivityViewHolder extends RecyclerView.ViewHolder implements ActivityOnClickListener {
     private TextView nameText;
     private ShapeableImageView imageView;
     private Context mContext;
+    private View mItemView;
+    private List<Park> mParkList = new ArrayList<>();
+    private ActivityOnClickListener mListener;
 
-    public ActivityViewHolder(@NonNull View itemView, Context context) {
+    public ActivityViewHolder(@NonNull View itemView, Context context, ActivityOnClickListener listener) {
         super(itemView);
         nameText = itemView.findViewById(R.id.trail_type_textview);
         imageView = itemView.findViewById(R.id.trail_type_image_view);
         mContext = context;
+        mItemView = itemView;
+        mListener = listener;
+
+
     }
 
     public void bindData(Activity activity) {
         nameText.setText(activity.getName());
+
+        mItemView.setOnClickListener(v -> mListener.onActivityClick(activity.getRecordId()));
 
         switch (activity.getName()) {
             case Constants.ThingsToDoStrings.CAMPING:
@@ -128,5 +153,13 @@ public class ActivityViewHolder extends RecyclerView.ViewHolder {
                         .into(imageView);
                 break;
         }
+
+
     }
+
+    @Override
+    public void onActivityClick(String activityCode) {
+
+    }
+
 }

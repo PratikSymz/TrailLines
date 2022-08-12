@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.neu.madcourse.mad_team4_finalproject.R;
+import com.neu.madcourse.mad_team4_finalproject.interfaces.ActivityOnClickListener;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
 import com.neu.madcourse.mad_team4_finalproject.view_holders.ActivityViewHolder;
 
@@ -17,17 +18,19 @@ import java.util.List;
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
     private List<Activity> activityList;
     private Context mContext;
+    private ActivityOnClickListener mListener;
 
-    public ActivityAdapter(List<Activity> activityList, Context context) {
+    public ActivityAdapter(List<Activity> activityList, Context context, ActivityOnClickListener listener) {
         this.activityList = activityList;
         mContext = context;
+        mListener = listener;
     }
 
     @NonNull
     @Override
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.horizontal_trail_views, parent, false);
-        return new ActivityViewHolder(view, mContext);
+        return new ActivityViewHolder(view, mContext, mListener);
     }
 
     @Override

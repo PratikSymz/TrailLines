@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -35,6 +37,7 @@ import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ActivityAdapter;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ParkAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentExploreScreenBinding;
+import com.neu.madcourse.mad_team4_finalproject.interfaces.ActivityOnClickListener;
 import com.neu.madcourse.mad_team4_finalproject.interfaces.LocationResultListener;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ActivityResult;
@@ -135,7 +138,13 @@ public class ExploreScreenFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL,
                 false
         );
-        mActivityAdapter = new ActivityAdapter(mActivityList, mActivityContext);
+        mActivityAdapter = new ActivityAdapter(mActivityList, mActivityContext, new ActivityOnClickListener() {
+            @Override
+            public void onActivityClick(String activityCode) {
+                initiateActivityParkCallback(activityCode);
+            }
+        });
+
         mBinding.horizontalTrailRecyclerView.setLayoutManager(horizontalLayoutManager);
         mBinding.horizontalTrailRecyclerView.setAdapter(mActivityAdapter);
 
@@ -205,7 +214,53 @@ public class ExploreScreenFragment extends Fragment {
         });
     }
 
-    /* Helper method to initiate the "Activity list" endpoint callback */
+    /* Helper method to initiate the "Park list" endpoint callback */
+    private void initiateActivityParkCallback(String activityCode) {
+        Address currentLocationAddress = mLocationUtils.getLocationFromCoordinates(mLocation);
+        if (currentLocationAddress == null) {
+            mBaseUtils.showToast("Current location not found!", Toast.LENGTH_SHORT);
+        } else {
+            // Extract the state code
+            String stateCode = mBaseUtils.extractStateCode(currentLocationAddress.getAdminArea());
+            mEndpoints.getActivityParkResults(Constants.Retrofit.API_KEY, stateCode, activityCode).enqueue(new Callback<>() {
+                @Override
+                public void onResponse(Call<ParkResult> call, Response<ParkResult> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        // Extract the Park results
+                        ParkResult results = response.body();
+                        // Extract the park list
+                        mParkList = results.getParkList();
+
+                        if (mParkList.isEmpty()) {
+                            mBinding.noResultsFound.setVisibility(View.VISIBLE);
+                            mBinding.verticalTrailRecyclerView.setVisibility(View.INVISIBLE);
+                        } else {
+
+                            mBinding.noResultsFound.setVisibility(View.INVISIBLE);
+                            mBinding.verticalTrailRecyclerView.setVisibility(View.VISIBLE);
+
+                            // Update the adapter list
+                            mParkAdapter.updateDataList(mParkList);
+                        }
+                        Log.d(TAG, results.getDataCount());
+                    } else {
+                        mBaseUtils.showToast(
+                                String.format("NPS Parks Response error: %s", response.errorBody()),
+                                Toast.LENGTH_SHORT
+                        );
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ParkResult> call, Throwable throwable) {
+                    Log.e(TAG, throwable.getMessage());
+                }
+            });
+        }
+    }
+
+
+                /* Helper method to initiate the "Activity list" endpoint callback */
     private void initiateActivityCallback() {
         mEndpoints.getActivityResults(Constants.Retrofit.API_KEY).enqueue(new Callback<>() {
             @Override
@@ -252,20 +307,20 @@ public class ExploreScreenFragment extends Fragment {
                         // Extract the park list
                         mParkList = results.getParkList();
 
-                        // TODO: How is it being filtered?
-                        List<Park> filteredParkList = new ArrayList<>();
-                        for (Park park : mParkList) {
-                            boolean flag = false;
-                            for (Activity activity : park.getActivityList()) {
-                                if (ACTIVITY_CODES.contains(activity.getRecordId())) {
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                            if (flag) {
-                                filteredParkList.add(park);
-                            }
-                        }
+//                        // TODO: How is it being filtered?
+//                        List<Park> filteredParkList = new ArrayList<>();
+//                        for (Park park : mParkList) {
+//                            boolean flag = false;
+//                            for (Activity activity : park.getActivityList()) {
+//                                if (ACTIVITY_CODES.contains(activity.getRecordId())) {
+//                                    flag = true;
+//                                    break;
+//                                }
+//                            }
+//                            if (flag) {
+//                                filteredParkList.add(park);
+//                            }
+//                        }
 
                         // Update the adapter list
                         mParkAdapter.updateDataList(mParkList);

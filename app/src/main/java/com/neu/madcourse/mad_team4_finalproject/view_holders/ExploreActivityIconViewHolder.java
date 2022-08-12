@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ExploreActivityIconAdapter;
@@ -17,14 +19,14 @@ import com.squareup.picasso.Picasso;
 
 public class ExploreActivityIconViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
-//    private Context context;
+    private Context mContext;
     public RecyclerView childRecyclerView;
 
 
-    public ExploreActivityIconViewHolder(@NonNull View itemView) {
+    public ExploreActivityIconViewHolder(@NonNull View itemView, Context mContext) {
         super(itemView);
         imageView = itemView.findViewById(R.id.exploreActivityIcon);
-//        this.context = context;
+        this.mContext = mContext;
 
 
     }
@@ -33,12 +35,12 @@ public class ExploreActivityIconViewHolder extends RecyclerView.ViewHolder {
 //        idText.setText(activity.getRecordId());
 //        nameText.setText(activity.getName());
         Picasso.get().load(iconId).into(imageView);
-//        Glide.with(mContext)
-//                .load(park.getImageList().get(0).getUrl())
-//                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-//                .placeholder(R.drawable.ic_downloading)
-//                .error(R.drawable.ic_error)
-//                .into(trailImage);
+        Glide.with(mContext)
+                .load(iconId)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .placeholder(R.drawable.ic_downloading)
+                .error(R.drawable.ic_error)
+                .into(imageView);
 
 
     }

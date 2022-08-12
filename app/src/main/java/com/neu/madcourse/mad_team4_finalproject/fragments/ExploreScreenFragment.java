@@ -179,6 +179,8 @@ public class ExploreScreenFragment extends Fragment {
             String query = Objects.requireNonNull(mBinding.viewSearchQuery.getText()).toString();
             Address address = mLocationUtils.getLocationFromQuery(query);
             String location = (address != null) ? address.getAdminArea() : "null";
+            String stateCode = mBaseUtils.extractStateCode(location);
+            initiateParksCallback(stateCode);
             Log.d(TAG, location);
         });
 
@@ -237,6 +239,53 @@ public class ExploreScreenFragment extends Fragment {
     }
 
     /* Helper method to initiate the "Park list" endpoint callback */
+    private void initiateParksCallback(String stateCode) {
+        if (stateCode == null) {
+            mBaseUtils.showToast("Invalid location!", Toast.LENGTH_SHORT);
+        } else {
+            mEndpoints.getParkResults(Constants.Retrofit.API_KEY, stateCode).enqueue(new Callback<>() {
+                @Override
+                public void onResponse(@NonNull Call<ParkResult> call, @NonNull Response<ParkResult> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        // Extract the Park results
+                        ParkResult results = response.body();
+                        // Extract the park list
+                        mParkList = results.getParkList();
+
+                        // TODO: How is it being filtered?
+                        List<Park> filteredParkList = new ArrayList<>();
+                        for (Park park : mParkList) {
+                            boolean flag = false;
+                            for (Activity activity : park.getActivityList()) {
+                                if (ACTIVITY_CODES.contains(activity.getRecordId())) {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (flag) {
+                                filteredParkList.add(park);
+                            }
+                        }
+
+                        // Update the adapter list
+                        mParkAdapter.updateDataList(mParkList);
+                        Log.d(TAG, results.getDataCount());
+                    } else {
+                        mBaseUtils.showToast(
+                                String.format("NPS Parks Response error: %s", response.errorBody()),
+                                Toast.LENGTH_SHORT
+                        );
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ParkResult> call, @NonNull Throwable throwable) {
+                    Log.e(TAG, throwable.getMessage());
+                }
+            });
+        }
+    }
+    /* Helper method to initiate the "Park list" endpoint callback */
     private void initiateParksCallback(@NonNull Location location) {
         Address currentLocationAddress = mLocationUtils.getLocationFromCoordinates(location);
         if (currentLocationAddress == null) {
@@ -244,50 +293,7 @@ public class ExploreScreenFragment extends Fragment {
         } else {
             // Extract the state code
             String stateCode = mBaseUtils.extractStateCode(currentLocationAddress.getAdminArea());
-            if (stateCode == null) {
-                mBaseUtils.showToast("Invalid location!", Toast.LENGTH_SHORT);
-            } else {
-                mEndpoints.getParkResults(Constants.Retrofit.API_KEY, stateCode).enqueue(new Callback<>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ParkResult> call, @NonNull Response<ParkResult> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            // Extract the Park results
-                            ParkResult results = response.body();
-                            // Extract the park list
-                            mParkList = results.getParkList();
-
-                            // TODO: How is it being filtered?
-                            List<Park> filteredParkList = new ArrayList<>();
-                            for (Park park : mParkList) {
-                                boolean flag = false;
-                                for (Activity activity : park.getActivityList()) {
-                                    if (ACTIVITY_CODES.contains(activity.getRecordId())) {
-                                        flag = true;
-                                        break;
-                                    }
-                                }
-                                if (flag) {
-                                    filteredParkList.add(park);
-                                }
-                            }
-
-                            // Update the adapter list
-                            mParkAdapter.updateDataList(mParkList);
-                            Log.d(TAG, results.getDataCount());
-                        } else {
-                            mBaseUtils.showToast(
-                                    String.format("NPS Parks Response error: %s", response.errorBody()),
-                                    Toast.LENGTH_SHORT
-                            );
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<ParkResult> call, @NonNull Throwable throwable) {
-                        Log.e(TAG, throwable.getMessage());
-                    }
-                });
-            }
+            initiateParksCallback(stateCode);
         }
     }
 

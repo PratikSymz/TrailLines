@@ -30,7 +30,7 @@ public class ExploreActivityIconAdapter extends RecyclerView.Adapter<ExploreActi
     @Override
     public ExploreActivityIconViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_explore_activities, parent, false);
-        return new ExploreActivityIconViewHolder(view);
+        return new ExploreActivityIconViewHolder(view, mContext);
     }
 
     @Override

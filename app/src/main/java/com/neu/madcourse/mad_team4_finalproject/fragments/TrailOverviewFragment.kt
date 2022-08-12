@@ -31,7 +31,7 @@ class TrailOverviewFragment(park: Park) : Fragment() {
     private val mPark = park
 
     override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?): View? {
+                              container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         mBinding = FragmentTrailOverviewBinding.inflate(layoutInflater, container, false)
 
@@ -55,7 +55,7 @@ class TrailOverviewFragment(park: Park) : Fragment() {
         // TODO: Set the length and elevation
 
         // TODO: Set the static map
-        val mapUrl: String = "https://maps.googleapis.com/maps/api/staticmap?center=" + mPark.latitude + "," + mPark.longitude + "&zoom=12&size=400x400&maptype=roadmap&key=AIzaSyBG6sBP1e1UXr-PIY06i7PLV9jmdLy8cIg&signature=AE2AWbd3XOO-geCRpY-wbyOe6vk="
+        val mapUrl: String = "https://maps.googleapis.com/maps/api/staticmap?center=" + mPark.latitude + "," + mPark.longitude + "&zoom=14&scale=2&size=400x400&maptype=roadmap&key=AIzaSyBG6sBP1e1UXr-PIY06i7PLV9jmdLy8cIg"
         Log.d(LOG_TAG, mapUrl);
         Glide.with(mActivityContext)
             .load(mapUrl)

@@ -22,7 +22,7 @@ class TrailDetailPagerAdapter(@NonNull fragmentActivity: FragmentActivity, @NonN
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> TrailOverviewFragment(mPark)
-            1 -> TrailReviewsFragment()
+            1 -> TrailReviewsFragment(mPark)
             else -> Fragment()
         }
     }

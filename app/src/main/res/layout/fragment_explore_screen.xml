@@ -61,10 +61,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/view_search_query"
-            android:inputType="text"
-            android:maxLines="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +85,7 @@
         android:id="@+id/horizontal_trail_recycler_view"
         android:layout_width="0dp"
         android:layout_height="125dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,8 +97,47 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_trail_recycler_view" />
+        app:layout_constraintTop_toBottomOf="@id/horizontal_trail_recycler_view"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/view_progress_bar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/hike_dark_green"
+        app:layout_constraintBottom_toBottomOf="@+id/vertical_trail_recycler_view"
+        app:layout_constraintEnd_toEndOf="@+id/vertical_trail_recycler_view"
+        app:layout_constraintStart_toStartOf="@+id/vertical_trail_recycler_view"
+        app:layout_constraintTop_toTopOf="@+id/vertical_trail_recycler_view" />
+
+    <TextView
+        android:id="@+id/label_progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lato"
+        android:text="@string/loading"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/view_progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/view_progress_bar"
+        app:layout_constraintTop_toBottomOf="@+id/view_progress_bar" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_park_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="view_progress_bar,label_progress_text"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="15dp"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

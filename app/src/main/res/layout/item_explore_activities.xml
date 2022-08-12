@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/reviewStar"
+        android:id="@+id/exploreActivityIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="4dp"

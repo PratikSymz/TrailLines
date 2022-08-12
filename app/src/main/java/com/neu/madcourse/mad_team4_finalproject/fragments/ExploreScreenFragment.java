@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ActivityAdapter;
+import com.neu.madcourse.mad_team4_finalproject.adapters.ExploreActivityIconAdapter;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ParkAdapter;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ActivityResult;
@@ -20,6 +22,7 @@ import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ParkResult;
 import com.neu.madcourse.mad_team4_finalproject.retrofit_interfaces.NPSEndpoints;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,7 @@ public class ExploreScreenFragment extends Fragment {
     private ParkAdapter parkAdapter;
     List<Activity> activityList;
     List<Park> parklist;
+    private ExploreActivityIconAdapter exploreActivityIconAdapter;
     private final String TAG = ExploreScreenFragment.class.getSimpleName();
 
     @Override
@@ -98,6 +102,9 @@ public class ExploreScreenFragment extends Fragment {
                 assert response.body() != null;
                 parklist = response.body().getParkList();
 
+                List<Integer> exploreActivityIconIds = new ArrayList<>();
+
+
                 List<String> activityCodes = List.of(Constants.ThingsToDoCodes.CAMPING_CODE, Constants.ThingsToDoCodes.CAMPING_CODE,
                         Constants.ThingsToDoCodes.CAMPING_CODE, Constants.ThingsToDoCodes.CANYONEERING_CODE,
                         Constants.ThingsToDoCodes.CAVING_CODE, Constants.ThingsToDoCodes.BOATING_CODE,
@@ -113,8 +120,55 @@ public class ExploreScreenFragment extends Fragment {
                     for (Activity activity: park.getActivityList()) {
                         if (activityCodes.contains(activity.getRecordId())) {
                             flag = true;
-                            break;
                         }
+
+                        switch (activity.getRecordId()) {
+                            case Constants
+                                    .ThingsToDoStrings.CAMPING:
+                                exploreActivityIconIds.add(R.drawable.ic_camping);
+                                break;
+                            case Constants
+                                    .ThingsToDoStrings.CANYONEERING:
+                            case Constants
+                                    .ThingsToDoStrings.CAVING:
+                            case Constants
+                                    .ThingsToDoStrings.CLIMBING:
+                            case Constants
+                                    .ThingsToDoStrings.HIKING:
+                                exploreActivityIconIds.add(R.drawable.ic_hiking);
+                                break;
+                            case Constants
+                                    .ThingsToDoStrings.SCUBA_DIVING:
+                            case Constants
+                                    .ThingsToDoStrings.SNORKELING:
+                                exploreActivityIconIds.add(R.drawable.ic_scuba);
+                                break;
+                            case Constants
+                                    .ThingsToDoStrings.BIKING:
+                                exploreActivityIconIds.add(R.drawable.ic_biking);
+                                break;
+                            case Constants
+                                    .ThingsToDoStrings.BOATING:
+                            case Constants
+                                    .ThingsToDoStrings.PADDLING:
+                                exploreActivityIconIds.add(R.drawable.ic_boating);
+                                break;
+                            case Constants
+                                    .ThingsToDoStrings.FISHING:
+                                exploreActivityIconIds.add(R.drawable.ic_fishing);
+                                break;
+                            case Constants
+                                    .ThingsToDoStrings.SKIING:
+                                exploreActivityIconIds.add(R.drawable.ic_skiing);
+                                break;
+                            case Constants
+                                    .ThingsToDoStrings.SURFING:
+                            case Constants
+                                    .ThingsToDoStrings.WATER_SKIING:
+                                exploreActivityIconIds.add(R.drawable.ic_swimming);
+                                break;
+                        }
+
                     }
                     if (flag) {
                         filteredParkList.add(park);
@@ -123,6 +177,7 @@ public class ExploreScreenFragment extends Fragment {
 
                 parkAdapter = new ParkAdapter(filteredParkList, getActivity());
                 mBinding.verticalTrailRecyclerView.setAdapter(parkAdapter);
+
                 Log.d(TAG, response.body().getDataCount());
             }
 

@@ -1,6 +1,8 @@
 package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
-public class HolidayHours {
+import java.io.Serializable;
+
+public class HolidayHours implements Serializable {
     public String sunday;
     public String monday;
     public String tuesday;

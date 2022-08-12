@@ -3,39 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingEnd="12dp">
 
-    <LinearLayout
-        android:id="@+id/linear_layout_horizontal_view"
-        android:layout_width="150dp"
-        android:layout_height="130dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/trail_type_image_view"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/image_rounded_corners"
+        app:srcCompat="@drawable/ic_nature" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/trail_type_image_view"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal|top|center_vertical"
-            android:layout_marginTop="8dp"
-            android:padding="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_nature"
-            app:shapeAppearanceOverlay="@style/image_rounded_corners" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/trail_type_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="#5C5C5C"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trail_type_image_view"
+        tools:text="Trail" />
 
-        <TextView
-            android:id="@+id/trail_type_textview"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="#807E7E"
-            android:textSize="14sp"
-            tools:text="Trail" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

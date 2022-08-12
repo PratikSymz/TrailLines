@@ -31,7 +31,7 @@ public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
     @Override
     public ParkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.vertical_trail_views, parent, false);
-        return new ParkViewHolder(view);
+        return new ParkViewHolder(view, mContext);
     }
 
     @Override
@@ -103,4 +103,11 @@ public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
         return parkList.size();
     }
 
+    /* Helper method to update the adapter list */
+    public void updateDataList(List<Park> parkList) {
+        // Update the data list
+        this.parkList = parkList;
+        // Notify the adapter
+        notifyItemRangeChanged(0, this.parkList.size());
+    }
 }

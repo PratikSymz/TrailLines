@@ -2,7 +2,9 @@ package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
 import com.google.gson.annotations.SerializedName;
 
-public class StandardParkHours {
+import java.io.Serializable;
+
+public class StandardParkHours implements Serializable {
     @SerializedName("sunday")
     public String sundayHours;
     @SerializedName("monday")

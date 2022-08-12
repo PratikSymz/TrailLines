@@ -2,7 +2,9 @@ package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
 import com.google.gson.annotations.SerializedName;
 
-public class EntrancePass {
+import java.io.Serializable;
+
+public class EntrancePass implements Serializable {
     @SerializedName("cost")
     public int passCost;
     @SerializedName("description")

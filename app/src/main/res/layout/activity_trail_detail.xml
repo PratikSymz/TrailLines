@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/ic_nature" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/view_detail_short_name"
+        android:id="@+id/view_detail_full_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -27,13 +27,13 @@
         android:text="The Wave Trail"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/view_detail_long_name"
+        app:layout_constraintBottom_toTopOf="@+id/view_detail_designation"
         app:layout_constraintEnd_toEndOf="@+id/view_detail_image"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view_detail_long_name" />
+        app:layout_constraintStart_toStartOf="@+id/view_detail_designation" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/view_detail_long_name"
+        android:id="@+id/view_detail_designation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -135,7 +135,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/recycler_view_activities"
         app:layout_constraintStart_toStartOf="@+id/recycler_view_activities"

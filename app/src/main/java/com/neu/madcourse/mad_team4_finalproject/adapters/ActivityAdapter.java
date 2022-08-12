@@ -18,16 +18,16 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
     private List<Activity> activityList;
     private Context mContext;
 
-    public ActivityAdapter(List<Activity> activityList, Context mContext) {
+    public ActivityAdapter(List<Activity> activityList, Context context) {
         this.activityList = activityList;
-        this.mContext = mContext;
+        mContext = context;
     }
 
     @NonNull
     @Override
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.horizontal_trail_views, parent, false);
-        return new ActivityViewHolder(view);
+        return new ActivityViewHolder(view, mContext);
     }
 
     @Override
@@ -39,5 +39,13 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
     @Override
     public int getItemCount() {
         return activityList.size();
+    }
+
+    /* Helper method to update the adapter list */
+    public void updateDataList(List<Activity> activityList) {
+        // Update the data list
+        this.activityList = activityList;
+        // Notify the adapter
+        notifyItemRangeChanged(0, this.activityList.size());
     }
 }

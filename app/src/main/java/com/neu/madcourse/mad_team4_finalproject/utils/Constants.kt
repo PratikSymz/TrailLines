@@ -89,4 +89,9 @@ object Constants {
     const val CHANNEL_ID = "channel_id"
     const val CHANNEL_NAME = "channel_name"
     const val CHANNEL_DESCRIPTION = "channel_description"
+
+    // firebase cloud messaging key and sender id
+    const val FIREBASE_MESSAGING_KEY =
+        "BG1_DKwTp7UBPrpSADz7M5mEx9Ra3kYs84X0lZ94wOcgDqWlVOi3VYWOGXZoAXSLF4_C-78kI0YcelSjvK9h6Vk"
+    const val FIREBASE_MESSAGE_SENDER_ID = "707222154198"
 }

@@ -253,6 +253,7 @@ public class ChatScreenActivity extends AppCompatActivity {
                         // Create a notification
                         String title = "New message";
                         mNotificationUtils.sendNotification(mContext, title, message, mOtherUserID);
+                        //TODO this needs to be double checked!
                         String lastMessage = !title.equals("New message") ? title : message;
                         /* call the updateChatDetails method here */
                         mNotificationUtils.updateChatDetails(mContext, mFirebaseUser.getUid(), mOtherUserID, lastMessage);

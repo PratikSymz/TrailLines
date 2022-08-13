@@ -265,7 +265,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                                             mBinding.viewConnButtonAccept.setVisibility(View.VISIBLE);
                                             mBinding.viewConnButtonDeny.setVisibility(View.VISIBLE);
 
-                                            // Create a notification
+                                            // Create a notification for friend request denied
                                             String title = "Friend Request Denied";
                                             String message = "Friend request denied by " + mFirebaseUser.getDisplayName();
                                             mNotificationUtils.sendNotification(mContext, title, message, userID);

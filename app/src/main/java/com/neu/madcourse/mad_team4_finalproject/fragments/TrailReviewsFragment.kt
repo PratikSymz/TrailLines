@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.neu.madcourse.mad_team4_finalproject.activities.AddReviewActivity
 import com.neu.madcourse.mad_team4_finalproject.adapters.GenericAdapter
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentTrailReviewsBinding
-import com.neu.madcourse.mad_team4_finalproject.models.Review
+import com.neu.madcourse.mad_team4_finalproject.models.ReviewMessage
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Park
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
@@ -51,7 +51,7 @@ class TrailReviewsFragment(park: Park) : Fragment() {
     private lateinit var mFirebaseUser: FirebaseUser
 
     /* The Recycler view adapter reference */
-    private lateinit var mAdapter: GenericAdapter<Review>
+    private lateinit var mAdapter: GenericAdapter<ReviewMessage>
 
     /* The Park model reference */
     private val mPark = park

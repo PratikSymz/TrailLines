@@ -29,16 +29,20 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ActivityAdapter;
-import com.neu.madcourse.mad_team4_finalproject.adapters.ParkAdapter;
+import com.neu.madcourse.mad_team4_finalproject.adapters.ExploreAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentExploreScreenBinding;
 import com.neu.madcourse.mad_team4_finalproject.interfaces.ActivityOnClickListener;
 import com.neu.madcourse.mad_team4_finalproject.interfaces.LocationResultListener;
 import com.neu.madcourse.mad_team4_finalproject.interfaces.ShowFiltersListener;
+import com.neu.madcourse.mad_team4_finalproject.models.Explore;
+import com.neu.madcourse.mad_team4_finalproject.models.ReviewStat;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.ActivityResult;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
@@ -77,11 +81,17 @@ public class ExploreScreenFragment extends Fragment {
     /* The Activities list reference */
     private List<Activity> mActivityList = new ArrayList<>();
 
-    /* The Park list adapter reference */
-    private ParkAdapter mParkAdapter;
+    /* The Explore list adapter reference */
+    private ExploreAdapter mExploreAdapter;
+
+    /* The Explore list reference */
+    private List<Explore> mExploreList = new ArrayList<>();
 
     /* The Park list reference */
     private List<Park> mParkList = new ArrayList<>();
+
+    /* The Review Stat list reference */
+    private List<ReviewStat> mReviewStatList = new ArrayList<>();
 
     /* The Base Utils reference */
     private BaseUtils mBaseUtils;
@@ -103,12 +113,6 @@ public class ExploreScreenFragment extends Fragment {
 
     /* The Firebase Database reference -> "reviews" */
     private DatabaseReference mReviewsDatabaseRef;
-
-    /* The Firebase Auth service reference */
-    private FirebaseAuth mFirebaseAuth;
-
-    /* The Firebase User reference */
-    private FirebaseUser mFirebaseUser;
 
     /* The Location permission request code */
     private final int REQUEST_CODE_LOCATION = 101;
@@ -143,6 +147,10 @@ public class ExploreScreenFragment extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences("FilterSharedPreferences", Context.MODE_PRIVATE);
 
+        // Instantiate the firebase database reference -> "reviews"/trailID
+        mReviewsDatabaseRef = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.ReviewKeys.KEY_TLO);
+
         // Set the recycler view parameters for the "Horizontal" recycler view -> Activities
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(mActivityContext,
                 LinearLayoutManager.HORIZONTAL,
@@ -160,9 +168,9 @@ public class ExploreScreenFragment extends Fragment {
 
         // Set the recycler view parameters for the "Vertical" recycler view -> Parks
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(mActivityContext);
-        mParkAdapter = new ParkAdapter(mParkList, mActivityContext);
+        mExploreAdapter = new ExploreAdapter(mExploreList, mActivityContext);
         mBinding.verticalTrailRecyclerView.setLayoutManager(verticalLayoutManager);
-        mBinding.verticalTrailRecyclerView.setAdapter(mParkAdapter);
+        mBinding.verticalTrailRecyclerView.setAdapter(mExploreAdapter);
 
         // Instantiate the base utils reference
         mBaseUtils = new BaseUtils(mActivityContext);
@@ -205,34 +213,30 @@ public class ExploreScreenFragment extends Fragment {
 
         /* Set the onClick action for the filter button */
         mBinding.filterButton.setOnClickListener(view -> {
-            FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog(new ShowFiltersListener() {
-                @Override
-                public void showFiltersClicked(boolean isShowFiltersClicked) {
-                    if (isShowFiltersClicked) {
-
-                        if (sharedPreferences.getString(Constants.SORT, "").equals(Constants.TOP_RATED)) {
-                           //TODO: Sort based on rating once Pratik's code is done
-                        }
-
-                        //TODO: Filter based on rating range once Pratik's code is done
-
-                        List<Park> filteredParks = new ArrayList<>();
-                        Set<String> preferencesPref = sharedPreferences.getStringSet(Constants.PREFERENCES, new HashSet<>());
-                        mParkList.forEach(park -> {
-                            for (Activity activity : park.getActivityList()) {
-                                if (preferencesPref.contains(activity.getName())) {
-                                    filteredParks.add(park);
-                                    break;
-                                }
-                            }
-                        });
-
-                        // Update the adapter list
-                        mParkAdapter.updateDataList(filteredParks);
-                    } else {
-                        // Update the adapter list with unfiltered list
-                        mParkAdapter.updateDataList(mParkList);
+            FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog(isShowFiltersClicked -> {
+                if (isShowFiltersClicked) {
+                    if (sharedPreferences.getString(Constants.SORT, "").equals(Constants.TOP_RATED)) {
+                        //TODO: Sort based on rating once Pratik's code is done
                     }
+
+                    //TODO: Filter based on rating range once Pratik's code is done
+
+                    List<Park> filteredParks = new ArrayList<>();
+                    Set<String> preferencesPref = sharedPreferences.getStringSet(Constants.PREFERENCES, new HashSet<>());
+                    mParkList.forEach(park -> {
+                        for (Activity activity : park.getActivityList()) {
+                            if (preferencesPref.contains(activity.getName())) {
+                                filteredParks.add(park);
+                                break;
+                            }
+                        }
+                    });
+
+                    // Update the adapter list
+                    mParkAdapter.updateDataList(filteredParks);
+                } else {
+                    // Update the adapter list with unfiltered list
+                    mParkAdapter.updateDataList(mParkList);
                 }
             });
             bottomSheet.show(requireActivity().getSupportFragmentManager(), bottomSheet.getTag());
@@ -255,46 +259,46 @@ public class ExploreScreenFragment extends Fragment {
 
     /* Helper method to initiate the "Park list" endpoint callback */
     private void initiateActivityParkCallback(String activityCode) {
-            // Extract the state code
-            mEndpoints.getActivityParkResults(Constants.Retrofit.API_KEY, mStateCode, activityCode).enqueue(new Callback<>() {
-                @Override
-                public void onResponse(Call<ParkResult> call, Response<ParkResult> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        // Extract the Park results
-                        ParkResult results = response.body();
-                        // Extract the park list
-                        mParkList = results.getParkList();
+        // Extract the state code
+        mEndpoints.getActivityParkResults(Constants.Retrofit.API_KEY, mStateCode, activityCode).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ParkResult> call, Response<ParkResult> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Extract the Park results
+                    ParkResult results = response.body();
+                    // Extract the park list
+                    mParkList = results.getParkList();
 
-                        if (mParkList.isEmpty()) {
-                            mBinding.noResultsFound.setVisibility(View.VISIBLE);
-                            mBinding.verticalTrailRecyclerView.setVisibility(View.INVISIBLE);
-                        } else {
-
-                            mBinding.noResultsFound.setVisibility(View.INVISIBLE);
-                            mBinding.verticalTrailRecyclerView.setVisibility(View.VISIBLE);
-
-                            // Update the adapter list
-                            mParkAdapter.updateDataList(mParkList);
-                        }
-                        Log.d(TAG, results.getDataCount());
+                    if (mParkList.isEmpty()) {
+                        mBinding.noResultsFound.setVisibility(View.VISIBLE);
+                        mBinding.verticalTrailRecyclerView.setVisibility(View.INVISIBLE);
                     } else {
-                        mBaseUtils.showToast(
-                                String.format("NPS Parks Response error: %s", response.errorBody()),
-                                Toast.LENGTH_SHORT
-                        );
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<ParkResult> call, Throwable throwable) {
-                    Log.e(TAG, throwable.getMessage());
+                        mBinding.noResultsFound.setVisibility(View.INVISIBLE);
+                        mBinding.verticalTrailRecyclerView.setVisibility(View.VISIBLE);
+
+                        // Update the adapter list
+                        mParkAdapter.updateDataList(mParkList);
+                    }
+                    Log.d(TAG, results.getDataCount());
+                } else {
+                    mBaseUtils.showToast(
+                            String.format("NPS Parks Response error: %s", response.errorBody()),
+                            Toast.LENGTH_SHORT
+                    );
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<ParkResult> call, Throwable throwable) {
+                Log.e(TAG, throwable.getMessage());
+            }
+        });
 
     }
 
 
-                /* Helper method to initiate the "Activity list" endpoint callback */
+    /* Helper method to initiate the "Activity list" endpoint callback */
     private void initiateActivityCallback() {
         mEndpoints.getActivityResults(Constants.Retrofit.API_KEY).enqueue(new Callback<>() {
             @Override
@@ -302,6 +306,7 @@ public class ExploreScreenFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     // Extract the Activity results
                     ActivityResult results = response.body();
+
                     // Extract the activity list data from the response
                     mActivityList = results.getActivityList();
 
@@ -330,52 +335,84 @@ public class ExploreScreenFragment extends Fragment {
     }
 
     /* Helper method to initiate the "Park list" endpoint callback */
-    private void initiateParksCallback(String stateCode) {
-        if (stateCode == null) {
-            mBaseUtils.showToast("Invalid location!", Toast.LENGTH_SHORT);
+    private void initiateParksCallback(@NonNull Location location) {
+        Address currentLocationAddress = mLocationUtils.getLocationFromCoordinates(location);
+        if (currentLocationAddress == null) {
+            mBaseUtils.showToast("Current location not found!", Toast.LENGTH_SHORT);
         } else {
-            mEndpoints.getParkResults(Constants.Retrofit.API_KEY, stateCode).enqueue(new Callback<>() {
-                @Override
-                public void onResponse(@NonNull Call<ParkResult> call, @NonNull Response<ParkResult> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        // Extract the Park results
-                        ParkResult results = response.body();
-                        // Extract the park list
-                        mParkList = results.getParkList();
+            // Extract the state code
+            String stateCode = mBaseUtils.extractStateCode(currentLocationAddress.getAdminArea());
+            if (stateCode == null) {
+                mBaseUtils.showToast("Invalid location!", Toast.LENGTH_SHORT);
+            } else {
+                mEndpoints.getParkResults(Constants.Retrofit.API_KEY, stateCode).enqueue(new Callback<>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ParkResult> call, @NonNull Response<ParkResult> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            // Extract the Park results
+                            ParkResult results = response.body();
+                            // Extract the park list
+                            mParkList = results.getParkList();
 
-//                        // TODO: How is it being filtered?
-//                        List<Park> filteredParkList = new ArrayList<>();
-//                        for (Park park : mParkList) {
-//                            boolean flag = false;
-//                            for (Activity activity : park.getActivityList()) {
-//                                if (ACTIVITY_CODES.contains(activity.getRecordId())) {
-//                                    flag = true;
-//                                    break;
-//                                }
-//                            }
-//                            if (flag) {
-//                                filteredParkList.add(park);
-//                            }
-//                        }
+                            // TODO: How is it being filtered?
+                            List<Park> filteredParkList = new ArrayList<>();
+                            for (Park park : mParkList) {
+                                boolean flag = false;
+                                for (Activity activity : park.getActivityList()) {
+                                    if (ACTIVITY_CODES.contains(activity.getRecordId())) {
+                                        flag = true;
+                                        break;
+                                    }
+                                }
+                                if (flag) {
+                                    filteredParkList.add(park);
+                                }
+                            }
 
-                        // Update the adapter list
-                        mParkAdapter.updateDataList(mParkList);
-                        Log.d(TAG, results.getDataCount());
-                    } else {
-                        mBaseUtils.showToast(
-                                String.format("NPS Parks Response error: %s", response.errorBody()),
-                                Toast.LENGTH_SHORT
-                        );
+                            // Iterate through the parks list and retrieve Review stats
+                            for (Park park : mParkList) {
+                                mReviewsDatabaseRef.child(park.getParkID()).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot statSnapshot) {
+                                                // Extract the review stats
+                                                ReviewStat reviewStat = statSnapshot.getValue(ReviewStat.class);
+                                                if (reviewStat == null)
+                                                    reviewStat = new ReviewStat();
+                                                // Add to the review stat list
+                                                mReviewStatList.add(reviewStat);
+
+                                                // Build the explore instance
+                                                Explore explore = new Explore(park, reviewStat);
+                                                // Add to the explore list
+                                                mExploreList.add(explore);
+                                                // Update the adapter list
+                                                mExploreAdapter.updateDataList(mExploreList);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
+                                            }
+                                        });
+                            }
+                        } else {
+                            mBaseUtils.showToast(
+                                    String.format("NPS Parks Response error: %s", response.errorBody()),
+                                    Toast.LENGTH_SHORT
+                            );
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(@NonNull Call<ParkResult> call, @NonNull Throwable throwable) {
-                    Log.e(TAG, throwable.getMessage());
-                }
-            });
+                    @Override
+                    public void onFailure(@NonNull Call<ParkResult> call, @NonNull Throwable throwable) {
+                        Log.e(TAG, throwable.getMessage());
+                    }
+                });
+            }
         }
     }
+
     /* Helper method to initiate the "Park list" endpoint callback */
     private void initiateParksCallback(@NonNull Location location) {
         Address currentLocationAddress = mLocationUtils.getLocationFromCoordinates(location);
@@ -429,7 +466,8 @@ public class ExploreScreenFragment extends Fragment {
 
     /* Override method to check and request permissions */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_LOCATION && grantResults.length > 0) {
             if (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED) {

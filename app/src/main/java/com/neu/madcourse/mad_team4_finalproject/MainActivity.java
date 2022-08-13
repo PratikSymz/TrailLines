@@ -1,18 +1,15 @@
 package com.neu.madcourse.mad_team4_finalproject;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityMainBinding;
 import com.neu.madcourse.mad_team4_finalproject.fragments.ExploreScreenFragment;
+import com.neu.madcourse.mad_team4_finalproject.fragments.SavedTrailsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,22 +30,22 @@ public class MainActivity extends AppCompatActivity {
 
         mBinding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
-            case R.id.explore:
-                replaceFragment(new ExploreScreenFragment());
-                break;
+                case R.id.explore:
+                    replaceFragment(new ExploreScreenFragment());
+                    break;
 //
 //            case R.id.community:
 ////                getSupportFragmentManager().beginTransaction().replace(R.id.container, secondFragment).commit();
 //                return true;
 //
-//            case R.id.saved_trails:
-////                getSupportFragmentManager().beginTransaction().replace(R.id.container, thirdFragment).commit();
-//                return true;
+                case R.id.saved_trails:
+                    replaceFragment(new SavedTrailsFragment());
+                    break;
 //
 //            case R.id.profile:
 ////                getSupportFragmentManager().beginTransaction().replace(R.id.container, thirdFragment).commit();
 //                return true;
-        }
+            }
 
             return true;
         });

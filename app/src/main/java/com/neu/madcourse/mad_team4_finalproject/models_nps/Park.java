@@ -20,9 +20,9 @@ public class Park implements Serializable {
     @SerializedName("fullName")
     private String fullName;
     @SerializedName("id")
-    public String parkID;
-    public String latitude;
-    public String longitude;
+    private String parkID;
+    private String latitude;
+    private String longitude;
     @SerializedName("images")
     private List<Image> imageList;
     @SerializedName("name")

@@ -14,9 +14,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.activities.TrailDetailActivity;
+import com.neu.madcourse.mad_team4_finalproject.models.Explore;
+import com.neu.madcourse.mad_team4_finalproject.models.ReviewStat;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
 
-public class ParkViewHolder extends RecyclerView.ViewHolder {
+public class ExploreViewHolder extends RecyclerView.ViewHolder {
     private TextView trailName;
     private ShapeableImageView trailImage;
     private TextView trailInfo;
@@ -25,7 +27,7 @@ public class ParkViewHolder extends RecyclerView.ViewHolder {
     private Context mContext;
     private View mItemView;
 
-    public ParkViewHolder(@NonNull View itemView, Context context) {
+    public ExploreViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
         trailName = itemView.findViewById(R.id.view_trail_name);
         trailImage = itemView.findViewById(R.id.view_trail_image);
@@ -36,10 +38,24 @@ public class ParkViewHolder extends RecyclerView.ViewHolder {
         mItemView = itemView;
     }
 
-    public void bindData(Park park) {
+    public void bindData(Explore explore) {
+        // Explore the park and the review stat reference
+        Park park = explore.getPark();
+        ReviewStat reviewStat = explore.getReviewStat();
+
+        // Set the view information
         trailName.setText(park.getFullName());
         trailInfo.setText(park.getAddressList().get(0).getLine1());
         trailRating.setText("0.0");
+
+//        Picasso.get().load(park.getImageList().get(0).getUrl()).into(trailImage);
+
+        if (reviewStat.getTotalReviewers() > 0) {
+            Double avgRating = round((reviewStat.getTotalStars() / reviewStat.getTotalReviewers()), 1);
+            trailRating.setText(String.valueOf(avgRating));
+        } else {
+            trailRating.setText("0.0");
+        }
 
         Glide.with(mContext)
                 .load(park.getImageList().get(0).getUrl())
@@ -53,8 +69,14 @@ public class ParkViewHolder extends RecyclerView.ViewHolder {
         /* Set the onClick action for every item view on the parks list */
         mItemView.setOnClickListener(view -> {
             Intent detailIntent = new Intent(mContext, TrailDetailActivity.class);
-            detailIntent.putExtra("park_details", park);
+            detailIntent.putExtra("explore_details", explore);
             mContext.startActivity(detailIntent);
         });
+    }
+
+    /* Reference: https://stackoverflow.com/questions/22186778/using-math-round-to-round-to-one-decimal-place */
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 }

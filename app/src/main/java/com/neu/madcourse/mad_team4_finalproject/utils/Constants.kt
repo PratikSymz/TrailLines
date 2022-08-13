@@ -36,14 +36,33 @@ object Constants {
     object ReviewKeys {
         const val KEY_TLO = "reviews"
 
-        // The review fields
-        const val KEY_RATING = "rating"
-        const val KEY_TIMESTAMP = "timestamp"
-        const val KEY_TITLE = "title"
-        const val KEY_MESSAGE = "message"
-        const val KEY_RECOMMEND_STATUS = "recommend_status"
-        const val KEY_TRAIL_ID = "trail_id"
-        const val KEY_IMAGES = "images"
+        /* Sub-directory keys -> "reviews"/"review_stats" */
+        object ReviewStats {
+            const val KEY_TLO = "review_stats"
+
+            // The Review stats fields
+            const val KEY_TOTAL_REVIEWERS = "total_reviewers"
+            const val KEY_TOTAL_STARS = "total_stars"
+            const val KEY_NUM_EXCELLENT = "num_excellent"
+            const val KEY_NUM_GREAT = "num_great"
+            const val KEY_NUM_AVERAGE = "num_average"
+            const val KEY_NUM_POOR = "num_poor"
+            const val KEY_NUM_TERRIBLE = "num_terrible"
+        }
+
+        /* Sub-directory keys -> "reviews"/"review_messages" */
+        object ReviewMessages {
+            const val KEY_TLO = "review_messages"
+
+            // The review message fields
+            const val KEY_RATING = "rating"
+            const val KEY_TIMESTAMP = "timestamp"
+            const val KEY_TITLE = "title"
+            const val KEY_MESSAGE = "message"
+            const val KEY_RECOMMEND_STATUS = "recommend_status"
+            const val KEY_TRAIL_ID = "trail_id"
+            const val KEY_IMAGES = "images"
+        }
     }
 
     /* The Chat directory keys -> "chats" */
@@ -166,6 +185,13 @@ object Constants {
         const val API_KEY = "gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I"
         const val STATE_MA = "MA"
     }
+
+    object MapKeys {
+        const val API_KEY = "AIzaSyBG6sBP1e1UXr-PIY06i7PLV9jmdLy8cIg"
+        const val FORMAT =
+            "https://maps.googleapis.com/maps/api/staticmap?center=%s,%s&zoom=14&scale=2&size=400x400&maptype=roadmap&key=%s"
+    }
+
     /* JSON object structure for data message notification data */
     const val NOTIFICATION_TITLE = "title"
     const val NOTIFICATION_MESSAGE = "message"

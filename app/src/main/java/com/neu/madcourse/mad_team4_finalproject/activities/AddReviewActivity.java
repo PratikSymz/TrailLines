@@ -302,19 +302,19 @@ public class AddReviewActivity extends AppCompatActivity {
                                     // Create a data map
                                     Map<String, Object> dataMap = new HashMap<>();
                                     // Add the review rating
-                                    dataMap.put(Constants.ReviewKeys.KEY_RATING, rating);
+                                    dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_RATING, rating);
                                     // Add the review title
-                                    dataMap.put(Constants.ReviewKeys.KEY_TITLE, title);
+                                    dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TITLE, title);
                                     // Add the review body
-                                    dataMap.put(Constants.ReviewKeys.KEY_MESSAGE, message);
+                                    dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_MESSAGE, message);
                                     // Add the review timestamp
-                                    dataMap.put(Constants.ReviewKeys.KEY_TIMESTAMP, ServerValue.TIMESTAMP);
+                                    dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TIMESTAMP, ServerValue.TIMESTAMP);
                                     // Add the review recommend status
-                                    dataMap.put(Constants.ReviewKeys.KEY_RECOMMEND_STATUS, mRecommendationStatus);
+                                    dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_RECOMMEND_STATUS, mRecommendationStatus);
                                     // Add the review trail ID
-                                    dataMap.put(Constants.ReviewKeys.KEY_TRAIL_ID, mTrailID);
+                                    dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TRAIL_ID, mTrailID);
                                     // Add the review image IDs
-                                    dataMap.put(Constants.ReviewKeys.KEY_IMAGES, mSelectedImageUrlList);
+                                    dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_IMAGES, mSelectedImageUrlList);
 
                                     // Update the "reviews" database reference for the given Trail ID
                                     mReviewsDatabaseRef.child(mTrailID)

@@ -31,10 +31,18 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/lato"
+        android:rotationY="1"
+        android:text="No"
+        android:textColor="@color/black"
+        android:textOff="No"
+        android:textOn="Yes"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/view_change_units"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:showText="false"
+        app:switchPadding="10px" />
 
     <TextView
         android:id="@+id/holder_current_version"

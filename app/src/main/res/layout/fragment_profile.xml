@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/round_corner_background"
-        android:backgroundTint="@color/hike_accent"
+        android:backgroundTint="@color/hike_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,13 +28,13 @@
         android:layout_marginEnd="16dp"
         android:padding="1dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_arrow_right"
+        app:layout_constraintEnd_toEndOf="@+id/holder_profile"
+        app:layout_constraintStart_toStartOf="@+id/holder_profile"
+        app:layout_constraintTop_toTopOf="@+id/holder_profile"
         app:shapeAppearanceOverlay="@style/image_circular"
         app:strokeColor="@color/black"
         app:strokeWidth="0.5dp"
-        app:layout_constraintEnd_toEndOf="@+id/holder_profile"
-        app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toTopOf="@+id/holder_profile" />
+        tools:srcCompat="@drawable/ic_person" />
 
     <TextView
         android:id="@+id/view_profile_fullname"
@@ -44,12 +44,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/lato_bold"
-        android:text="John Appleseed"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_image" />
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_image"
+        tools:text="John Appleseed" />
 
     <TextView
         android:id="@+id/view_profile_email"
@@ -59,11 +59,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/lato"
-        android:text="j.appleseed@icloud.com"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_fullname" />
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_fullname"
+        tools:text="j.appleseed@icloud.com" />
 
     <include
         android:id="@+id/view_button_settings"
@@ -111,10 +111,28 @@
         android:includeFontPadding="false"
         android:text="Edit"
         android:textAllCaps="false"
-        android:textColor="@color/hike_dark_green"
+        android:textColor="@color/hike_accent"
         app:layout_constraintBottom_toBottomOf="@+id/holder_profile"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
         app:layout_constraintTop_toBottomOf="@+id/view_profile_email" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_views_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="view_profile_image,view_profile_fullname,view_profile_email,view_edit_button"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/view_profile_progress"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/holder_profile"
+        app:layout_constraintEnd_toEndOf="@+id/holder_profile"
+        app:layout_constraintStart_toStartOf="@+id/holder_profile"
+        app:layout_constraintTop_toTopOf="@+id/holder_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

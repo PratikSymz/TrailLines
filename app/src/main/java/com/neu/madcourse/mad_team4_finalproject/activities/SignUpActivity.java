@@ -149,8 +149,9 @@ public class SignUpActivity extends AppCompatActivity {
                 reference.getDownloadUrl().addOnSuccessListener(uri -> {
                     serverUri = uri;
                     UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString()
-                                    .trim()).setPhotoUri(serverUri).build();
+                            .setDisplayName(Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString().trim())
+                            .setPhotoUri(serverUri).build();
+
                     firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
                             String userID = firebaseUser.getUid();
@@ -160,12 +161,12 @@ public class SignUpActivity extends AppCompatActivity {
                                     child(Constants.UserKeys.KEY_TLO);
 
                             // Initializing a new hashmap to update the database reference accordingly
-                            Map<String, String> personalInfoMap = new HashMap<>();
+                            Map<String, Object> personalInfoMap = new HashMap<>();
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString().trim());
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupEmail.getText()).toString().trim());
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, true);
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, serverUri.getPath());
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
+                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, false);
 
                             mUsersDatabaseRef.child(userID)
                                     .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
@@ -192,8 +193,9 @@ public class SignUpActivity extends AppCompatActivity {
     private void updateUserName() {
         mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                .setDisplayName(Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString()
-                        .trim()).build();
+                .setDisplayName(Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString().trim())
+                .build();
+
         firebaseUser.updateProfile(profileChangeRequest).addOnCompleteListener(task -> {
             mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
             if (task.isSuccessful()) {
@@ -204,12 +206,12 @@ public class SignUpActivity extends AppCompatActivity {
                         child(Constants.UserKeys.KEY_TLO);
 
                 // Initializing a new hashmap to update the database reference accordingly
-                Map<String, String> personalInfoMap = new HashMap<>();
+                Map<String, Object> personalInfoMap = new HashMap<>();
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupName.getText()).toString().trim());
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, Objects.requireNonNull(mBinding.viewSegmentSignup.viewInputSignupEmail.getText()).toString().trim());
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, String.valueOf(true));
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, " ");
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, String.valueOf(false));
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS, true);
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, "");
+                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, false);
                 mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
                 mUsersDatabaseRef.child(userID)
                         .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)

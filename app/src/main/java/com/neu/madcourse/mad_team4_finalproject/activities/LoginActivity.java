@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if the user is currently logged in to the app
         // This piece of code will not be executed if the user has already logged out
+        // TODO: Uncomment
 //        if (mFirebaseUser != null) {
 //            // Instantiate the notification utils reference
 //            mNotificationUtils = new NotificationUtils(mContext);

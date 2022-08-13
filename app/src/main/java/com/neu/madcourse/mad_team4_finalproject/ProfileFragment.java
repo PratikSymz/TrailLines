@@ -1,5 +1,6 @@
 package com.neu.madcourse.mad_team4_finalproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -89,6 +90,10 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Show the profile progress bar
+        mBinding.viewProfileProgress.setVisibility(View.VISIBLE);
+        mBinding.groupViewsProfile.setVisibility(View.INVISIBLE);
+
         /* Load the user profile information */
         loadUserInformation();
 
@@ -136,6 +141,10 @@ public class ProfileFragment extends Fragment {
                             Intent intent = new Intent(mActivityContext, EditProfileActivity.class);
                             startActivity(intent);
                         });
+
+                        // Hide the profile progress bar
+                        mBinding.viewProfileProgress.setVisibility(View.INVISIBLE);
+                        mBinding.groupViewsProfile.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -148,6 +157,7 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void setupProfileTags() {
         // Set the Settings button
         mBinding.viewButtonSettings.viewSectionIcon.setImageDrawable(
@@ -159,7 +169,7 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         });
 
-// Set the set the change password button
+        // Set the change password button
         mBinding.viewButtonUpdatePassword.viewSectionIcon.setImageDrawable(
                 mActivityContext.getDrawable(R.drawable.ic_profile_tag_account)
         );
@@ -168,7 +178,8 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(mActivityContext, ChangePasswordActivity.class);
             startActivity(intent);
         });
-        // Set the set the contact us
+
+        // Set the contact us
         mBinding.viewButtonContactUs.viewSectionIcon.setImageDrawable(
                 mActivityContext.getDrawable(R.drawable.ic_profile_tag_account)
         );

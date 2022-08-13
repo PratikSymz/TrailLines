@@ -1,6 +1,7 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -70,7 +71,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 // Initiate the password update task
                 mFirebaseUser.updatePassword(password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        mBaseUtils.showToast(getString(R.string.password_change_successful), Toast.LENGTH_SHORT);
+                        mFirebaseAuth.signOut();
+                        startActivity(new Intent(mContext,LoginActivity.class));
                         // TODO: Logout the user
                         finish();
                     } else {

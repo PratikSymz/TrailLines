@@ -145,6 +145,7 @@ public class ProfileFragment extends Fragment {
                         // Hide the profile progress bar
                         mBinding.viewProfileProgress.setVisibility(View.INVISIBLE);
                         mBinding.groupViewsProfile.setVisibility(View.VISIBLE);
+
                     }
 
                     @Override
@@ -181,7 +182,7 @@ public class ProfileFragment extends Fragment {
 
         // Set the contact us
         mBinding.viewButtonContactUs.viewSectionIcon.setImageDrawable(
-                mActivityContext.getDrawable(R.drawable.ic_profile_tag_account)
+                mActivityContext.getDrawable(R.drawable.email)
         );
         mBinding.viewButtonContactUs.viewSectionLabel.setText("Contact Us");
         mBinding.viewButtonContactUs.getRoot().setOnClickListener(view -> {

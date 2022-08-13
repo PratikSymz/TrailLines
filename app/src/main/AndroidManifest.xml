@@ -31,6 +31,7 @@
 
         <!-- 1. Splash screen [Nishtha] -->
         <!-- 2. Login screen [Tested] -->
+
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true">
@@ -51,13 +52,15 @@
 
         <!-- 5. Tab Screen [Explore, Community, Saved, Profile] -->
 
-        <!-- 5.4 Profile tab screen -->
-        <!-- Profile Fragment -->
+        <!-- 5.4 Profile tab screen  tested-->
+        <!-- Profile Fragment tested -->
+        <!-- 5.4.1 Tested -->
+        <!--Profile is done only need check contact us if we still time -->
         <activity
             android:name=".activities.EditProfileActivity"
             android:exported="false" />
 
-        <!-- 5.2 Community tab screen -->
+        <!-- 5.2 Community tab screen tested -->
         <activity
             android:name=".MainActivity"
             android:exported="true">

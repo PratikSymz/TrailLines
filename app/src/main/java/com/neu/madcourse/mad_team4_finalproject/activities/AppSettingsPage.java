@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityAppSettingsPageBinding;
+import com.neu.madcourse.mad_team4_finalproject.models.User;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
@@ -24,6 +29,8 @@ public class AppSettingsPage extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     /* The Firebase User reference */
     private FirebaseUser mFirebaseUser;
+    /* The USERS database reference creating an object for database reference class */
+    private DatabaseReference mUsersDatabaseRef;
     /* The TOKENS database reference creating an object for database reference class */
     private DatabaseReference mTokensDatabaseRef;
     /* The Base utils reference */
@@ -56,6 +63,34 @@ public class AppSettingsPage extends AppCompatActivity {
             forgotPassword();
         });
 
+        // Load current private profile status
+        mUsersDatabaseRef = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.UserKeys.KEY_TLO);
+        mUsersDatabaseRef
+                .child(mFirebaseUser.getUid())
+                .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // Get the personal info
+                        User user = snapshot.getValue(User.class);
+                        assert (user != null);
+
+                        if (user.isPrivateProfile()) {
+                            mBinding.viewPrivateProfileSwitch.setText("Yes");
+                            mBinding.viewPrivateProfileSwitch.setChecked(true);
+                        } else {
+                            mBinding.viewPrivateProfileSwitch.setText("No");
+                            mBinding.viewPrivateProfileSwitch.setChecked(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        mBaseUtils.showToast("Can't load private profile",Toast.LENGTH_SHORT);
+                    }
+                });
+
         mBinding.viewPrivateProfileSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 mBinding.viewPrivateProfileSwitch.setText("Yes");
@@ -73,7 +108,8 @@ public class AppSettingsPage extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
-        mTokensDatabaseRef = rootReference.child(Constants.Tokens.KEY_TLO).child(mFirebaseUser.getUid());
+        mTokensDatabaseRef = rootReference.child(Constants.Tokens.KEY_TLO)
+                .child(mFirebaseUser.getUid());
         mTokensDatabaseRef.setValue(null)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

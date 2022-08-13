@@ -118,15 +118,15 @@ public class EditProfileActivity extends AppCompatActivity {
             // Extract the updated information
             String updatedName = Objects.requireNonNull(mBinding.viewUpdateName.getText()).toString();
             String updatedEmail = Objects.requireNonNull(mBinding.viewUpdateEmail.getText()).toString();
-            String updatePrivacyStatus = Objects.requireNonNull(mBinding.viewPrivateSwitch.getText()).toString();
+           // String updatePrivacyStatus = Objects.requireNonNull(mBinding.viewPrivateSwitch.getText()).toString();
 
             // Update firebase server information
             if (!mBaseUtils.isEmpty(updatedName) && !mBaseUtils.isEmpty(updatedEmail) &&
-                    mBaseUtils.isValidEmail(updatedEmail) && !mBaseUtils.isEmpty(updatePrivacyStatus)) {
+                    mBaseUtils.isValidEmail(updatedEmail)) {
                 if ((mLocalUri != null)) {
-                    updateLoginAndImageInfo(updatedName, updatedEmail, updatePrivacyStatus);
+                    updateLoginAndImageInfo(updatedName, updatedEmail);
                 } else {
-                    updateLoginInfo(updatedName, updatedEmail, updatePrivacyStatus);
+                    updateLoginInfo(updatedName, updatedEmail);
                 }
             }
 
@@ -138,23 +138,14 @@ public class EditProfileActivity extends AppCompatActivity {
                 mBinding.viewUpdateEmail.setError(getString(R.string.invalid_email));
             }
         });
-
-        // TODO: MOVE Logout button inside the "Profile Activity"
-        // Set the logout button onClick action
-        mBinding.viewButtonLogout.setOnClickListener(view -> {
-            mFirebaseAuth.signOut();
-            startActivity(new Intent(mContext, LoginActivity.class));
-            finish();
-        });
     }
 
     /**
      * Helper method to update the personal information of the current user in the firebase database
-     *
-     * @param name  The user's updated full name
+     *  @param name  The user's updated full name
      * @param email The user's updated email address
      */
-    private void updateLoginInfo(String name, String email, String privacyStatus) {
+    private void updateLoginInfo(String name, String email) {
         // Get the profile change request reference
         final UserProfileChangeRequest profileChangeRequest =
                 new UserProfileChangeRequest.Builder()
@@ -171,7 +162,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 Map<String, String> personalInfoMap = new HashMap<>();
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, name);
                 personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, email);
-                personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, privacyStatus);
 
                 // Update the database reference JSON
                 mUsersDatabaseRef.child(userID)
@@ -191,11 +181,10 @@ public class EditProfileActivity extends AppCompatActivity {
     /**
      * Helper method to update the personal information of the current user in the firebase database
      * The profile image is selected from the local system and updated in the firebase storage
-     *
-     * @param name  The user's updated full name
+     *  @param name  The user's updated full name
      * @param email The user's updated email address
      */
-    private void updateLoginAndImageInfo(String name, String email, String privacyStatus) {
+    private void updateLoginAndImageInfo(String name, String email) {
         // Get the filename
         String fileName = String.format("%s.jpg", mFirebaseUser.getUid());
 
@@ -227,7 +216,6 @@ public class EditProfileActivity extends AppCompatActivity {
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_NAME, name);
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_EMAIL_ID, email);
                             personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL, mServerUri.getPath());
-                            personalInfoMap.put(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE, privacyStatus);
 
                             // Update the database reference JSON
                             mUsersDatabaseRef.child(userID)

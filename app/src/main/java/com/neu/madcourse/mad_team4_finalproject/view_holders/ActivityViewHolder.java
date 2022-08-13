@@ -152,6 +152,13 @@ public class ActivityViewHolder extends RecyclerView.ViewHolder implements Activ
                         .error(R.drawable.ic_error)
                         .into(imageView);
                 break;
+            case Constants.ThingsToDoStrings.ALL:
+                Glide.with(mContext)
+                        .load(Constants.ThingsToDoImageIds.ALL)
+                        .placeholder(R.drawable.ic_downloading)
+                        .error(R.drawable.ic_error)
+                        .into(imageView);
+                break;
         }
 
 

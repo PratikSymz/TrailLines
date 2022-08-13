@@ -16,5 +16,9 @@ public class Activity implements Serializable {
         return name;
     }
 
+    public Activity(String recordId, String name) {
+        this.name = name;
+        this.activityId = recordId;
+    }
 
 }

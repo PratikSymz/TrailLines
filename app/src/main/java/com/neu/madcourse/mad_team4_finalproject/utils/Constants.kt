@@ -123,6 +123,7 @@ object Constants {
         const val SKIING = R.drawable.skiing
         const val SURFING = R.drawable.surfing
         const val WATER_SKIING = R.drawable.waterskiing
+        const val ALL = R.drawable.allactivities
     }
 
     object ThingsToDoStrings {
@@ -140,6 +141,7 @@ object Constants {
         const val SKIING = "Skiing"
         const val SURFING = "Surfing"
         const val WATER_SKIING = "Water Skiing"
+        const val ALL = "All"
     }
 
     object ThingsToDoCodes {

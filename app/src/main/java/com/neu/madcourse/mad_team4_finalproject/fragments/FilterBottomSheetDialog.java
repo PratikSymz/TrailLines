@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FilterScreenBinding;
+import com.neu.madcourse.mad_team4_finalproject.interfaces.ShowFiltersListener;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
 import java.util.Arrays;
@@ -24,6 +25,11 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
     BottomSheetBehavior bottomSheetBehavior;
     FilterScreenBinding mBinding;
     SharedPreferences sharedPreferences;
+    private ShowFiltersListener mListener;
+
+    public FilterBottomSheetDialog(ShowFiltersListener listener) {
+        mListener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,60 +46,96 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
             case Constants.BEST_MATCHED: mBinding.bestMatched.setChecked(true);
             break;
 
-            case Constants.CLOSEST: mBinding.closest.setChecked(true);
-            break;
-
             default: mBinding.topRated.setChecked(true);
         }
 
-        mBinding.lengthSlider.setValues(sharedPreferences.getFloat(Constants.LENGTH_START, 0),
-                sharedPreferences.getFloat(Constants.LENGTH_END, 80));
+//        mBinding.lengthSlider.setValues(sharedPreferences.getFloat(Constants.LENGTH_START, 0),
+//                sharedPreferences.getFloat(Constants.LENGTH_END, 80));
+//
+//        mBinding.elevationSlider.setValues(sharedPreferences.getFloat(Constants.ELEVATION_START, 0),
+//                sharedPreferences.getFloat(Constants.ELEVATION_END, 1500));
 
-        mBinding.elevationSlider.setValues(sharedPreferences.getFloat(Constants.ELEVATION_START, 0),
-                sharedPreferences.getFloat(Constants.ELEVATION_END, 1500));
-
-        Set<String> difficultyPref = sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
-        if (difficultyPref.isEmpty()) {
-            mBinding.easyCheckBox.setChecked(true);
-            mBinding.medCheckBox.setChecked(true);
-            mBinding.hardCheckBox.setChecked(true);
-        } else {
-            if (difficultyPref.contains(Constants.EASY)) {
-                mBinding.easyCheckBox.setChecked(true);
-            }
-            if (difficultyPref.contains(Constants.MEDIUM)) {
-                mBinding.medCheckBox.setChecked(true);
-            }
-            if (difficultyPref.contains(Constants.HARD)) {
-                mBinding.hardCheckBox.setChecked(true);
-            }
-        }
+//        Set<String> difficultyPref = sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
+//        if (difficultyPref.isEmpty()) {
+//            mBinding.easyCheckBox.setChecked(true);
+//            mBinding.medCheckBox.setChecked(true);
+//            mBinding.hardCheckBox.setChecked(true);
+//        } else {
+//            if (difficultyPref.contains(Constants.EASY)) {
+//                mBinding.easyCheckBox.setChecked(true);
+//            }
+//            if (difficultyPref.contains(Constants.MEDIUM)) {
+//                mBinding.medCheckBox.setChecked(true);
+//            }
+//            if (difficultyPref.contains(Constants.HARD)) {
+//                mBinding.hardCheckBox.setChecked(true);
+//            }
+//        }
 
         mBinding.ratingSlider.setValues(sharedPreferences.getFloat(Constants.RATING_START, 0),
                 sharedPreferences.getFloat(Constants.RATING_END, 5));
 
         Set<String> preferencesPref = sharedPreferences.getStringSet(Constants.PREFERENCES, new HashSet<>());
         if (preferencesPref.isEmpty()) {
-            mBinding.dog.setChecked(true);
-            mBinding.kid.setChecked(true);
-            mBinding.wheelchair.setChecked(true);
-            mBinding.camping.setChecked(true);
+            mBinding.hiking.setChecked(true);
             mBinding.biking.setChecked(true);
+            mBinding.canyoneering.setChecked(true);
+            mBinding.camping.setChecked(true);
+            mBinding.caving.setChecked(true);
+            mBinding.boating.setChecked(true);
+            mBinding.paddling.setChecked(true);
+            mBinding.surfing.setChecked(true);
+            mBinding.scuba.setChecked(true);
+            mBinding.snorkeling.setChecked(true);
+            mBinding.skiing.setChecked(true);
+            mBinding.waterskiing.setChecked(true);
+            mBinding.fishing.setChecked(true);
+            mBinding.climbing.setChecked(true);
+
+
+
         } else {
-            if (preferencesPref.contains(Constants.DOG)) {
-                mBinding.dog.setChecked(true);
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.HIKING)) {
+                mBinding.hiking.setChecked(true);
             }
-            if (preferencesPref.contains(Constants.KID)) {
-                mBinding.kid.setChecked(true);
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.BIKING)) {
+                mBinding.biking.setChecked(true);
             }
-            if (preferencesPref.contains(Constants.WHEELCHAIR)) {
-                mBinding.wheelchair.setChecked(true);
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.CANYONEERING)) {
+                mBinding.canyoneering.setChecked(true);
             }
-            if (preferencesPref.contains(Constants.CAMPING)) {
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.CAMPING)) {
                 mBinding.camping.setChecked(true);
             }
-            if (preferencesPref.contains(Constants.BIKING)) {
-                mBinding.biking.setChecked(true);
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.CAVING)) {
+                mBinding.caving.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.BOATING)) {
+                mBinding.boating.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.PADDLING)) {
+                mBinding.paddling.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.SURFING)) {
+                mBinding.surfing.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.SCUBA_DIVING)) {
+                mBinding.scuba.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.SNORKELING)) {
+                mBinding.snorkeling.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.SKIING)) {
+                mBinding.skiing.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.WATER_SKIING)) {
+                mBinding.waterskiing.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.FISHING)) {
+                mBinding.fishing.setChecked(true);
+            }
+            if (preferencesPref.contains(Constants.ThingsToDoStrings.CLIMBING)) {
+                mBinding.climbing.setChecked(true);
             }
         }
 
@@ -109,51 +151,81 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
             RadioButton r = (RadioButton) mBinding.radioGroup.getChildAt(index);
             String sortValue = r.getText().toString();
             myEditor.putString(Constants.SORT, sortValue);
-            //length
-            List<Float> lengthSliderValues = mBinding.lengthSlider.getValues();
-            myEditor.putFloat(Constants.LENGTH_START, lengthSliderValues.get(0));
-            myEditor.putFloat(Constants.LENGTH_END, lengthSliderValues.get(1));
-            //elevation
-            List<Float> elevationSliderValues = mBinding.elevationSlider.getValues();
-            myEditor.putFloat(Constants.ELEVATION_START, elevationSliderValues.get(0));
-            myEditor.putFloat(Constants.ELEVATION_END, elevationSliderValues.get(1));
-            //difficulty
-            Set<String> selectedDifficulty = new HashSet<>();
-            if(mBinding.easyCheckBox.isChecked()) {
-                selectedDifficulty.add(Constants.EASY);
-            }
-            if(mBinding.medCheckBox.isChecked()) {
-                selectedDifficulty.add(Constants.MEDIUM);
-            }
-            if(mBinding.hardCheckBox.isChecked()) {
-                selectedDifficulty.add(Constants.HARD);
-            }
-            sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
-            myEditor.putStringSet(Constants.DIFFICULTY, selectedDifficulty);
+//            //length
+//            List<Float> lengthSliderValues = mBinding.lengthSlider.getValues();
+//            myEditor.putFloat(Constants.LENGTH_START, lengthSliderValues.get(0));
+//            myEditor.putFloat(Constants.LENGTH_END, lengthSliderValues.get(1));
+//            //elevation
+//            List<Float> elevationSliderValues = mBinding.elevationSlider.getValues();
+//            myEditor.putFloat(Constants.ELEVATION_START, elevationSliderValues.get(0));
+//            myEditor.putFloat(Constants.ELEVATION_END, elevationSliderValues.get(1));
+//            //difficulty
+//            Set<String> selectedDifficulty = new HashSet<>();
+//            if(mBinding.easyCheckBox.isChecked()) {
+//                selectedDifficulty.add(Constants.EASY);
+//            }
+//            if(mBinding.medCheckBox.isChecked()) {
+//                selectedDifficulty.add(Constants.MEDIUM);
+//            }
+//            if(mBinding.hardCheckBox.isChecked()) {
+//                selectedDifficulty.add(Constants.HARD);
+//            }
+//            sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
+//            myEditor.putStringSet(Constants.DIFFICULTY, selectedDifficulty);
             //rating
             List<Float> ratingSliderValues = mBinding.ratingSlider.getValues();
             myEditor.putFloat(Constants.RATING_START, ratingSliderValues.get(0));
             myEditor.putFloat(Constants.RATING_END, ratingSliderValues.get(1));
             //preferences
             Set<String> selectedPreferences = new HashSet<>();
-            if(mBinding.dog.isChecked()) {
-                selectedPreferences.add(Constants.DOG);
+            if(mBinding.hiking.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.HIKING);
             }
-            if(mBinding.kid.isChecked()) {
-                selectedPreferences.add(Constants.KID);
+            if(mBinding.caving.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.CAVING);
             }
-            if(mBinding.wheelchair.isChecked()) {
-                selectedPreferences.add(Constants.WHEELCHAIR);
+            if(mBinding.canyoneering.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.CANYONEERING);
             }
             if(mBinding.camping.isChecked()) {
-                selectedPreferences.add(Constants.CAMPING);
+                selectedPreferences.add(Constants.ThingsToDoStrings.CAMPING);
             }
             if(mBinding.biking.isChecked()) {
-                selectedPreferences.add(Constants.BIKING);
+                selectedPreferences.add(Constants.ThingsToDoStrings.BIKING);
             }
+            if(mBinding.boating.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.BOATING);
+            }
+            if(mBinding.fishing.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.FISHING);
+            }
+            if(mBinding.paddling.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.PADDLING);
+            }
+            if(mBinding.snorkeling.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.SNORKELING);
+            }
+            if(mBinding.surfing.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.SURFING);
+            }
+            if(mBinding.climbing.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.CLIMBING);
+            }
+            if(mBinding.scuba.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.SCUBA_DIVING);
+            }
+            if(mBinding.skiing.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.SKIING);
+            }
+            if(mBinding.waterskiing.isChecked()) {
+                selectedPreferences.add(Constants.ThingsToDoStrings.WATER_SKIING);
+            }
+
+
             myEditor.putStringSet(Constants.PREFERENCES, selectedPreferences);
             myEditor.apply();
             dismiss();
+            mListener.showFiltersClicked(true);
         });
 
         mBinding.clearButton.setOnClickListener(new View.OnClickListener() {
@@ -162,36 +234,52 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
                 SharedPreferences.Editor myEditor = sharedPreferences.edit();
                 //sort
                 mBinding.bestMatched.setChecked(false);
-                mBinding.closest.setChecked(false);
+//                mBinding.closest.setChecked(false);
                 mBinding.topRated.setChecked(true);
                 myEditor.putString(Constants.SORT, Constants.TOP_RATED);
-                //length
-                mBinding.lengthSlider.setValues(0f, 80f);
-                myEditor.putFloat(Constants.LENGTH_START, 0);
-                myEditor.putFloat(Constants.LENGTH_END, 80);
-                //elevation
-                mBinding.lengthSlider.setValues(0f, 1500f);
-                myEditor.putFloat(Constants.ELEVATION_START, 0);
-                myEditor.putFloat(Constants.ELEVATION_END, 1500);
-                //difficulty
-                mBinding.easyCheckBox.setChecked(true);
-                mBinding.medCheckBox.setChecked(true);
-                mBinding.hardCheckBox.setChecked(true);
-                myEditor.putStringSet(Constants.DIFFICULTY, new HashSet<>(Arrays.asList(Constants.EASY, Constants.MEDIUM, Constants.HARD)));
+//                //length
+//                mBinding.lengthSlider.setValues(0f, 80f);
+//                myEditor.putFloat(Constants.LENGTH_START, 0);
+//                myEditor.putFloat(Constants.LENGTH_END, 80);
+//                //elevation
+//                mBinding.lengthSlider.setValues(0f, 1500f);
+//                myEditor.putFloat(Constants.ELEVATION_START, 0);
+//                myEditor.putFloat(Constants.ELEVATION_END, 1500);
+//                //difficulty
+//                mBinding.easyCheckBox.setChecked(true);
+//                mBinding.medCheckBox.setChecked(true);
+//                mBinding.hardCheckBox.setChecked(true);
+//                myEditor.putStringSet(Constants.DIFFICULTY, new HashSet<>(Arrays.asList(Constants.EASY, Constants.MEDIUM, Constants.HARD)));
                 //rating
-                mBinding.lengthSlider.setValues(0f, 5f);
+                mBinding.ratingSlider.setValues(0f, 5f);
                 myEditor.putFloat(Constants.RATING_START, 0);
                 myEditor.putFloat(Constants.RATING_END, 5);
                 //preferences
-                mBinding.dog.setChecked(true);
-                mBinding.kid.setChecked(true);
-                mBinding.wheelchair.setChecked(true);
+                mBinding.hiking.setChecked(true);
                 mBinding.biking.setChecked(true);
                 mBinding.camping.setChecked(true);
-                myEditor.putStringSet(Constants.PREFERENCES, new HashSet<>(Arrays.asList(Constants.DOG, Constants.KID, Constants.WHEELCHAIR, Constants.CAMPING, Constants.BIKING)));
+                mBinding.canyoneering.setChecked(true);
+                mBinding.climbing.setChecked(true);
+                mBinding.caving.setChecked(true);
+                mBinding.boating.setChecked(true);
+                mBinding.paddling.setChecked(true);
+                mBinding.surfing.setChecked(true);
+                mBinding.scuba.setChecked(true);
+                mBinding.snorkeling.setChecked(true);
+                mBinding.skiing.setChecked(true);
+                mBinding.waterskiing.setChecked(true);
+                mBinding.fishing.setChecked(true);
+
+                myEditor.putStringSet(Constants.PREFERENCES, new HashSet<>(Arrays.asList(Constants.ThingsToDoStrings.HIKING,
+                        Constants.ThingsToDoStrings.BIKING, Constants.ThingsToDoStrings.CAMPING, Constants.ThingsToDoStrings.CANYONEERING,
+                        Constants.ThingsToDoStrings.CLIMBING, Constants.ThingsToDoStrings.CAVING, Constants.ThingsToDoStrings.BOATING,
+                        Constants.ThingsToDoStrings.PADDLING, Constants.ThingsToDoStrings.SURFING, Constants.ThingsToDoStrings.SCUBA_DIVING,
+                        Constants.ThingsToDoStrings.SNORKELING, Constants.ThingsToDoStrings.SKIING, Constants.ThingsToDoStrings.WATER_SKIING,
+                        Constants.ThingsToDoStrings.FISHING)));
                 myEditor.apply();
 
                 dismiss();
+                mListener.showFiltersClicked(false);
             }
         });
 

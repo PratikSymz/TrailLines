@@ -51,7 +51,8 @@ class TrailOverviewFragment(park: Park) : Fragment() {
 
         // Set the description
         mBinding.viewOverviewDescription.text = mPark.description
-
+        mBinding.viewOverviewAddress.text = mPark.addressList.get(0).line1 + " " + mPark.addressList.get(0).line2 + mPark.addressList.get(0).line3 + ", " + mPark.addressList.get(0).city + ", " + mPark.addressList.get(0).stateCode + " " + mPark.addressList.get(0).postalCode + " \n Phone: " + mPark.parkContact.phoneNumbersList.get(0).phoneNumber + " \n Email: " + mPark.parkContact.emailAddressesList.get(0).emailAddress
+        mBinding.viewOverviewWeather.text = mPark.weatherInfo
         // TODO: Set the length and elevation
 
         // TODO: Set the static map

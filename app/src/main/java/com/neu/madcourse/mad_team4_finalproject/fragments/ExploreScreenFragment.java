@@ -53,6 +53,8 @@ import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 import com.neu.madcourse.mad_team4_finalproject.utils.LocationUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -213,24 +215,41 @@ public class ExploreScreenFragment extends Fragment {
         mBinding.filterButton.setOnClickListener(view -> {
             FilterBottomSheetDialog bottomSheet = new FilterBottomSheetDialog(isShowFiltersClicked -> {
                 if (isShowFiltersClicked) {
+                    List<Explore> sortedExploreList = new ArrayList<>(mExploreList);
+                    boolean sorted = false;
                     if (sharedPreferences.getString(Constants.SORT, "").equals(Constants.TOP_RATED)) {
-                        //TODO: Sort based on rating once Pratik's code is done
+                        sorted = true;
+                        Collections.sort(sortedExploreList);
 
                     }
 
-                    //TODO: Filter based on rating range once Pratik's code is done
-
                     List<Explore> filteredExploreList = new ArrayList<>();
+                    Float ratingStartPref = sharedPreferences.getFloat(Constants.RATING_START, 0);
+                    Float ratingEndPref = sharedPreferences.getFloat(Constants.RATING_END, 0);
 
                     Set<String> preferencesPref = sharedPreferences.getStringSet(Constants.PREFERENCES, new HashSet<>());
-                    mExploreList.forEach(explore -> {
-                        for (Activity activity : explore.getPark().getActivityList()) {
-                            if (preferencesPref.contains(activity.getName())) {
-                                filteredExploreList.add(explore);
-                                break;
+                    if (sorted) {
+                        sortedExploreList.forEach(explore -> {
+                            for (Activity activity : explore.getPark().getActivityList()) {
+                                if (preferencesPref.contains(activity.getName())) {
+                                    filteredExploreList.add(explore);
+                                    break;
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        mExploreList.forEach(explore -> {
+                            for (Activity activity : explore.getPark().getActivityList()) {
+                                if (preferencesPref.contains(activity.getName())) {
+                                    filteredExploreList.add(explore);
+                                    break;
+                                }
+                            }
+                        });
+                    }
+
+                    filteredExploreList.removeIf(explore -> explore.getReviewStat().getTotalStars() > ratingEndPref
+                            || explore.getReviewStat().getTotalStars() < ratingStartPref);
 
                     if (filteredExploreList.isEmpty()) {
                         mBaseUtils.showToast("No parks found based on the filters. Enjoy other parks :)", Toast.LENGTH_LONG);
@@ -303,13 +322,9 @@ public class ExploreScreenFragment extends Fragment {
                                         mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
                                     }
                                 });
-//                        mExploreList.add(new Explore(park, null)); //TODO: Update reviewStat based on Pratik's code
-                    }
+                        }
                         mBinding.noResultsFound.setVisibility(View.INVISIBLE);
                         mBinding.verticalTrailRecyclerView.setVisibility(View.VISIBLE);
-
-                        // Update the adapter list
-//                        mParkAdapter.updateDataList(mParkList);
                         mExploreAdapter.updateDataList(mExploreList);
                     }
                     Log.d(TAG, results.getDataCount());
@@ -386,21 +401,7 @@ public class ExploreScreenFragment extends Fragment {
                             // Extract the park list
                             mParkList = results.getParkList();
 
-                            // TODO: How is it being filtered?
-                            List<Park> filteredParkList = new ArrayList<>();
-                            for (Park park : mParkList) {
-                                boolean flag = false;
-                                for (Activity activity : park.getActivityList()) {
-                                    if (ACTIVITY_CODES.contains(activity.getRecordId())) {
-                                        flag = true;
-                                        break;
-                                    }
-                                }
-                                if (flag) {
-                                    filteredParkList.add(park);
-                                }
-                            }
-
+                            mExploreList.clear();
                             // Iterate through the parks list and retrieve Review stats
                             for (Park park : mParkList) {
                                 mReviewsDatabaseRef.child(park.getParkID()).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
@@ -425,9 +426,11 @@ public class ExploreScreenFragment extends Fragment {
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError error) {
                                                 mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
+                                                Log.d(TAG, error.getMessage());
                                             }
                                         });
                             }
+                            mExploreAdapter.updateDataList(mExploreList);
                         } else {
                             mBaseUtils.showToast(
                                     String.format("NPS Parks Response error: %s", response.errorBody()),

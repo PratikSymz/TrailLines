@@ -8,9 +8,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.neu.madcourse.mad_team4_finalproject.R
+import com.neu.madcourse.mad_team4_finalproject.adapters.HikeDetailActivityIconAdapter
 import com.neu.madcourse.mad_team4_finalproject.database.SavedTrailsViewModel
 import com.neu.madcourse.mad_team4_finalproject.database.models.SavedTrail
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivitySavedTrailDetailBinding
@@ -74,6 +77,37 @@ class SavedTrailDetailActivity : AppCompatActivity() {
         mBinding.viewUnsaveDetail.setOnClickListener {
             deleteTrailData(mSavedTrail)
         }
+
+        val layoutManager: RecyclerView.LayoutManager =
+            LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        mBinding.recyclerViewSavedActivities.layoutManager = layoutManager
+        mBinding.recyclerViewSavedActivities.setHasFixedSize(true)
+
+        val activityIconIds = ArrayList<Int>()
+        val activityIconAdapter = HikeDetailActivityIconAdapter(activityIconIds, mContext)
+        mBinding.recyclerViewSavedActivities.adapter = activityIconAdapter
+        val activities = mSavedTrail.activities.split("\\s".toRegex()).toTypedArray()
+        for (activity in activities) {
+            when (activity) {
+                Constants.ThingsToDoCodes.CAMPING_CODE -> activityIconIds.add(R.drawable.ic_camping)
+                Constants.ThingsToDoCodes.CANYONEERING_CODE -> activityIconIds.add(R.drawable.ic_canyon)
+                Constants.ThingsToDoCodes.CAVING_CODE -> activityIconIds.add(R.drawable.ic_cave)
+                Constants.ThingsToDoCodes.CLIMBING_CODE -> activityIconIds.add(R.drawable.ic_climbing)
+                Constants.ThingsToDoCodes.HIKING_CODE -> activityIconIds.add(R.drawable.ic_hiking)
+                Constants.ThingsToDoCodes.SCUBA_DIVING_CODE -> activityIconIds.add(R.drawable.ic_scuba)
+                Constants.ThingsToDoCodes.SNORKELING_CODE -> activityIconIds.add(R.drawable.ic_snorkelling)
+                Constants.ThingsToDoCodes.BIKING_CODE -> activityIconIds.add(R.drawable.ic_biking)
+                Constants.ThingsToDoCodes.BOATING_CODE -> activityIconIds.add(R.drawable.ic_boating)
+                Constants.ThingsToDoCodes.PADDLING_CODE -> activityIconIds.add(R.drawable.ic_kayaking)
+                Constants.ThingsToDoCodes.FISHING_CODE -> activityIconIds.add(R.drawable.ic_fishing)
+                Constants.ThingsToDoCodes.SKIING_CODE -> activityIconIds.add(R.drawable.ic_skiing)
+                Constants.ThingsToDoCodes.SURFING_CODE -> activityIconIds.add(R.drawable.ic_surfing)
+                Constants.ThingsToDoCodes.WATER_SKIING_CODE -> activityIconIds.add(R.drawable.ic_swimming)
+            }
+        }
+
+        activityIconAdapter.updateDataList(activityIconIds)
+
     }
 
     /* Helper method to set the saved trail information on the detail views */
@@ -94,6 +128,11 @@ class SavedTrailDetailActivity : AppCompatActivity() {
 
         // Set the park location
         mBinding.viewSavedDetailLocation.text = savedTrail.address
+
+        // Set the park weather
+        mBinding.segmentSavedOverview.viewOverviewWeather.text = savedTrail.weatherInfo
+
+        mBinding.segmentSavedOverview.viewOverviewAddress.text = savedTrail.address + " \n Phone: " + savedTrail.contact
 
         // Set the review stat information
         if (savedTrail.numReviewers > 0) {

@@ -13,7 +13,7 @@ public class Park implements Serializable {
     @SerializedName("contacts")
     private ParkContact parkContact;
     private String designation;
-    //    @SerializedName("entranceFees")
+//    @SerializedName("entranceFees")
 //    private List<EntranceFee> entranceFeeList;
 //    @SerializedName("entrancePasses")
 //    private List<EntrancePass> entrancePassList;

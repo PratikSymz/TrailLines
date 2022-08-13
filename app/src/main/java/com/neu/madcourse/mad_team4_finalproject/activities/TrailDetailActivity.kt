@@ -131,6 +131,10 @@ class TrailDetailActivity : AppCompatActivity() {
         val reviewStat = mExplore.reviewStat
 
         // Create the saved trail instance
+        var activities = ""
+        for (activity in park.activityList) {
+            activities += (activity.recordId + " ")
+        }
         val savedTrail = SavedTrail(
             EMPTY_KEY,
             park.parkID,
@@ -151,13 +155,15 @@ class TrailDetailActivity : AppCompatActivity() {
             park.latitude,
             park.longitude,
             park.weatherInfo,
-            "",
+            park.parkContact.phoneNumbersList.get(0).phoneNumber,
+            park.parkContact.emailAddressesList.get(0).emailAddress,
             String.format(
                 Constants.MapKeys.FORMAT,
                 park.latitude,
                 park.longitude,
                 Constants.MapKeys.API_KEY
-            )
+            ),
+            activities
         )
 
         /* Set the back button onClick action */

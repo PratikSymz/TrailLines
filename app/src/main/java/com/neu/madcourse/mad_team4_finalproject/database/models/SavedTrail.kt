@@ -2,6 +2,7 @@ package com.neu.madcourse.mad_team4_finalproject.database.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity
 import java.io.Serializable
 
 /**
@@ -23,6 +24,8 @@ data class SavedTrail(
     val latitude: String,
     val longitude: String,
     val weatherInfo: String,
-    val contact: String,   // TODO: Check if allowed [NO]
-    val mapImageUrl: String
+    val contact: String,
+    val email: String,// TODO: Check if allowed [NO]
+    val mapImageUrl: String,
+    val activities : String
 ) : Serializable

@@ -44,4 +44,12 @@ public class ConnectionRequestAdapter extends RecyclerView.Adapter<ConnectionReq
     public int getItemCount() {
         return connectionRequestList.size();
     }
+
+    /* Helper method to update the adapter list */
+    public void updateDataList(List<ConnectionRequest> connectionRequests) {
+        // Update the data list
+        this.connectionRequestList = connectionRequests;
+        // Notify the adapter
+        notifyDataSetChanged();
+    }
 }

@@ -33,7 +33,13 @@
         <!-- 2. Login screen [Tested] -->
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="false"></activity>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!-- 3. SignUp screen [Tested] -->
         <activity
             android:name=".activities.SignUpActivity"
@@ -55,11 +61,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ContactUsPage"

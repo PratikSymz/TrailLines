@@ -37,10 +37,10 @@ class NotificationUtils(context: Context) {
     private val mTokenMap = HashMap<String, String>()
 
     /* The Notification object reference */
-    private lateinit var mNotification: JSONObject
+    private var mNotification: JSONObject = JSONObject()
 
     /* The Notification meta-data object reference */
-    private lateinit var mNotificationData: JSONObject
+    private var mNotificationData: JSONObject = JSONObject()
 
     /* The Base utils reference */
     private val mBaseUtils: BaseUtils = BaseUtils(mContext)

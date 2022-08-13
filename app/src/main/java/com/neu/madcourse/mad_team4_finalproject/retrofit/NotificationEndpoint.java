@@ -13,6 +13,6 @@ public interface NotificationEndpoint {
             "Sender: id=707222154198",
             "Content-Type: application/json"
     })
-    @POST
+    @POST("send")
     Call<JSONObject> sendNotification(@Body JSONObject notification);
 }

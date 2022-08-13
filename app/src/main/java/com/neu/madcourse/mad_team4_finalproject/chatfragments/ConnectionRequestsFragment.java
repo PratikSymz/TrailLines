@@ -23,6 +23,7 @@ import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ConnectionRequestAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentConnectionRequestsBinding;
 import com.neu.madcourse.mad_team4_finalproject.models.ConnectionRequest;
+import com.neu.madcourse.mad_team4_finalproject.models.User;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
@@ -36,8 +37,8 @@ import java.util.Objects;
 public class ConnectionRequestsFragment extends Fragment {
     // creating a binding view variable
     private FragmentConnectionRequestsBinding mBinding;
-    private ConnectionRequestAdapter friendRequestAdapter;
-    private List<ConnectionRequest> friendRequestList;
+    private ConnectionRequestAdapter connectionRequestAdapter;
+    private List<ConnectionRequest> connectionRequestList;
     // creating an object to get user friend request from firebase and profile picture
     private DatabaseReference databaseReferenceRequest, databaseReferenceUsers;
     // created a firebase user object to get the current user
@@ -63,14 +64,14 @@ public class ConnectionRequestsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mBinding.requestRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        friendRequestList = new ArrayList<>();
-        friendRequestAdapter = new ConnectionRequestAdapter(getActivity(), friendRequestList, position -> {
+        connectionRequestList = new ArrayList<>();
+        connectionRequestAdapter = new ConnectionRequestAdapter(getActivity(), connectionRequestList, position -> {
             // Remove item from the friendRequestList and update the adapter
-            friendRequestList.remove(position);
-            friendRequestAdapter.notifyItemRemoved(position);
+            connectionRequestList.remove(position);
+            connectionRequestAdapter.notifyItemRemoved(position);
         });
 
-        mBinding.requestRecyclerview.setAdapter(friendRequestAdapter);
+        mBinding.requestRecyclerview.setAdapter(connectionRequestAdapter);
 
         mBaseUtils = new BaseUtils(requireActivity());
 
@@ -92,7 +93,7 @@ public class ConnectionRequestsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mBinding.progressbar.getRoot().setVisibility(View.INVISIBLE);
-                friendRequestList.clear();
+                connectionRequestList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (dataSnapshot.exists()) {
                         String userID = dataSnapshot.getKey();
@@ -105,19 +106,23 @@ public class ConnectionRequestsFragment extends Fragment {
                             databaseReferenceUsers.child(userID).child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-                                            String currentUserName = datasnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue().toString();
-                                            String profilePicture = datasnapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL).getValue().toString();
-                                            ConnectionRequest friendRequest;
-                                            if (!mBaseUtils.isEmpty(profilePicture)) {
-                                                friendRequest = new ConnectionRequest(userID, currentUserName, profilePicture);
+                                        public void onDataChange(@NonNull DataSnapshot personalInfoSnapshot) {
+                                            // Get the user information
+                                            User user = personalInfoSnapshot.getValue(User.class);
+                                            assert user != null;
+                                            ConnectionRequest connectionRequest;
+
+                                            if (!mBaseUtils.isEmpty(user.getProfilePictureFileName())) {
+                                                connectionRequest = new ConnectionRequest(userID,
+                                                        user.getName(),
+                                                        user.getProfilePictureFileName());
 
                                             } else {
-                                                friendRequest = new ConnectionRequest(userID, currentUserName, "");
+                                                connectionRequest = new ConnectionRequest(userID, user.getName(), "");
                                             }
 
-                                            friendRequestList.add(friendRequest);
-                                            friendRequestAdapter.notifyItemInserted(friendRequestList.size() - 1);
+                                            connectionRequestList.add(connectionRequest);
+                                            connectionRequestAdapter.updateDataList(connectionRequestList);
                                             mBinding.friendRequestAppearenceTextview.setVisibility(View.INVISIBLE);
                                         }
 

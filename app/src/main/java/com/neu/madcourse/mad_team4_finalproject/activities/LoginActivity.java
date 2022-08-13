@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
@@ -91,17 +92,17 @@ public class LoginActivity extends AppCompatActivity {
         // Check if the user is currently logged in to the app
         // This piece of code will not be executed if the user has already logged out
         // TODO: Uncomment
-//        if (mFirebaseUser != null) {
-//            // Instantiate the notification utils reference
-//            mNotificationUtils = new NotificationUtils(mContext);
-//
-//            /* Setting up the cloud messaging */
-//            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(s ->
-//                    mNotificationUtils.updateDeviceToken(mContext, s)
-//            );
-//            startActivity(new Intent(mContext, CommunityScreenActivity.class));
-//            finish();
-//        }
+        if (mFirebaseUser != null) {
+            // Instantiate the notification utils reference
+            mNotificationUtils = new NotificationUtils(mContext);
+
+            /* Setting up the cloud messaging */
+            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(s ->
+                    mNotificationUtils.updateDeviceToken(mContext, s)
+            );
+            startActivity(new Intent(mContext, CommunityScreenActivity.class));
+            finish();
+        }
     }
 
     /**

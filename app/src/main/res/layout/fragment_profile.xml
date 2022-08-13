@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ProfileActivity">
+    tools:context=".ProfileFragment">
 
     <View
         android:id="@+id/holder_profile"
@@ -19,14 +19,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/view_profile_image"
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_arrow_right"
+        app:shapeAppearanceOverlay="@style/image_circular"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.5dp"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
         app:layout_constraintTop_toTopOf="@+id/holder_profile" />
@@ -61,24 +66,12 @@
         app:layout_constraintTop_toBottomOf="@+id/view_profile_fullname" />
 
     <include
-        android:id="@+id/include"
-        layout="@layout/item_profile_tag"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include3"
-        app:layout_constraintEnd_toEndOf="@+id/holder_profile"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
-
-    <include
-        android:id="@+id/include2"
+        android:id="@+id/view_button_settings"
         layout="@layout/item_profile_tag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/include"
+        app:layout_constraintBottom_toTopOf="@+id/view_button_update_password"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
@@ -87,40 +80,27 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <include
-        android:id="@+id/include3"
+        android:id="@+id/view_button_update_password"
         layout="@layout/item_profile_tag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tag_settings"
+        app:layout_constraintBottom_toTopOf="@+id/view_button_contact_us"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/view_button_settings" />
 
     <include
-        android:id="@+id/profile_tag_settings"
+        android:id="@+id/view_button_contact_us"
         layout="@layout/item_profile_tag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include5"
         app:layout_constraintEnd_toEndOf="@+id/holder_profile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toBottomOf="@+id/include3" />
-
-    <include
-        android:id="@+id/include5"
-        layout="@layout/item_profile_tag"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/holder_profile"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/holder_profile"
-        app:layout_constraintTop_toBottomOf="@+id/profile_tag_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/view_button_update_password" />
 
     <Button
         android:id="@+id/view_edit_button"

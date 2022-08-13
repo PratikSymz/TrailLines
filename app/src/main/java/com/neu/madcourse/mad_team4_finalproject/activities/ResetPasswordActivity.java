@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     /* The Activity Log Tag */
-    private final String LOG_TAG = ChangePasswordActivity.class.getSimpleName();
+    private final String LOG_TAG = ResetPasswordActivity.class.getSimpleName();
 
     /* The Activity context */
     private Context mContext;
@@ -128,7 +128,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     private void closeResetScreen() {
-        // TODO: Check if it takes user back to the Login screen
         finish();
     }
 }

@@ -18,6 +18,8 @@
         <entry key="app/src/main/res/drawable/ic_nature.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.241" />
         <entry key="app/src/main/res/drawable/ic_right.xml" value="0.254" />
+        <entry key="app/src/main/res/drawable/ic_send.xml" value="0.1035" />
+        <entry key="app/src/main/res/drawable/ic_send_button.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/image.xml" value="0.23" />
         <entry key="app/src/main/res/drawable/linear_layout_shape.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/message_count_shape.xml" value="0.1755" />
@@ -37,7 +39,7 @@
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/activity_information.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21668701171875002" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_reset_password.xml" value="0.335" />
@@ -60,6 +62,7 @@
         <entry key="app/src/main/res/layout/fragment_find.xml" value="0.2942708333333333" />
         <entry key="app/src/main/res/layout/fragment_find_friends.xml" value="0.27735042735042736" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.27735042735042736" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.29720306396484375" />
         <entry key="app/src/main/res/layout/fragment_requests.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_update.xml" value="0.335" />
         <entry key="app/src/main/res/layout/friend_request_layout_file.xml" value="0.25" />

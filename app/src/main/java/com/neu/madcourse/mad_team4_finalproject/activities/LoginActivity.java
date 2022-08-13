@@ -3,19 +3,19 @@ package com.neu.madcourse.mad_team4_finalproject.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils;
+import com.neu.madcourse.mad_team4_finalproject.utils.NotificationUtils;
 
 import java.util.Objects;
 
@@ -35,12 +35,14 @@ public class LoginActivity extends AppCompatActivity {
     /* The Network utils reference */
     private NetworkUtils mNetworkUtils;
 
+    /* The Notification utils reference */
+    private NotificationUtils mNotificationUtils;
+
     /* The Firebase Auth service reference */
     private FirebaseAuth mFirebaseAuth;
 
     /* The Firebase User reference */
     private FirebaseUser mFirebaseUser;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +68,6 @@ public class LoginActivity extends AppCompatActivity {
         // Get the currently logged in user
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-        /* FACEBOOK Login */
-        // TODO: Initialize the Facebook login button
-
         // Set the login button onClick action
         mBaseUtils.applyListener(mBinding.viewSegmentLogin.viewButtonLogin, childView -> {
             if (mNetworkUtils.isConnected()) {
@@ -89,20 +88,19 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         // Check if the user is currently logged in to the app
         // This piece of code will not be executed if the user has already logged out
-        if (mFirebaseUser != null) {
-            /* Setting up the cloud messaging */
-            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
-                @Override
-                public void onSuccess(String s) {
-                    mNetworkUtils.updateDeviceToken(mContext, s);
-                }
-            });
-            startActivity(new Intent(mContext, CommunityScreenActivity.class));
-            finish();
-        }
+//        if (mFirebaseUser != null) {
+//            // Instantiate the notification utils reference
+//            mNotificationUtils = new NotificationUtils(mContext);
+//
+//            /* Setting up the cloud messaging */
+//            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(s ->
+//                    mNotificationUtils.updateDeviceToken(mContext, s)
+//            );
+//            startActivity(new Intent(mContext, CommunityScreenActivity.class));
+//            finish();
+//        }
     }
 
     /**
@@ -116,27 +114,29 @@ public class LoginActivity extends AppCompatActivity {
         String password = Objects.requireNonNull(mBinding.viewSegmentLogin.viewInputPassword.getText()).toString().trim();
 
         // Connect to the Firebase Auth server
-        if (!mBaseUtils.isEmpty(email) && !mBaseUtils.isEmpty(password)) {
+        if (!mBaseUtils.isEmpty(email) && mBaseUtils.isValidEmail(email) && !mBaseUtils.isEmpty(password)) {
             // Show the progress bar while signing in
             mBinding.viewProgressBar.getRoot().setVisibility(View.VISIBLE);
             // Sign in the user with Firebase auth
             mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    // Hide the progress bar
-                    mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     mBaseUtils.showToast("Login Successful!", Toast.LENGTH_SHORT);
                     // TODO: subject to change to main app screen (explore tab)
                     Intent intent = new Intent(mContext, CommunityScreenActivity.class);
                     startActivity(intent);
                 } else {
+                    Log.d(LOG_TAG, String.format("Login Failed: %s", task.getException()));
                     mBaseUtils.showToast(
-                            String.format("Login Failed: %s", task.getException()),
+                            "Login Failed: Wrong password",
                             Toast.LENGTH_SHORT);
                 }
+
+                // Hide the progress bar while signing in
+                mBinding.viewProgressBar.getRoot().setVisibility(View.INVISIBLE);
             });
         }
 
-        if (email.equals("")) {
+        if (mBaseUtils.isEmpty(email) || !mBaseUtils.isValidEmail(email)) {
             mBinding.viewSegmentLogin.viewInputEmail.setError(getString(R.string.login_empty_email));
         }
 

@@ -172,6 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     .setValue(personalInfoMap).addOnCompleteListener(task2 -> {
                                         mBaseUtils.showToast(getString(R.string.sign_up_success), Toast.LENGTH_SHORT);
                                         startActivity(new Intent(mContext, LoginActivity.class));
+                                        finish();
                                     });
                         } else {
                             mBaseUtils.showToast(

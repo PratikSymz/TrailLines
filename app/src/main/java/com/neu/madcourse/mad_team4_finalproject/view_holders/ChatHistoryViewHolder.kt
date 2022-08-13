@@ -17,6 +17,7 @@ import com.neu.madcourse.mad_team4_finalproject.models.ChatHistory
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
 import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils
+import com.neu.madcourse.mad_team4_finalproject.utils.NotificationUtils
 
 class ChatHistoryViewHolder(
     @NonNull context: Context,
@@ -27,9 +28,10 @@ class ChatHistoryViewHolder(
     private val mContext: Context = context
 
     // Instantiate the Network utils reference
-
-    // Instantiate the Network utils reference
     private val mNetworkUtils: NetworkUtils = NetworkUtils(mContext)
+
+    // Instantiate the Notification utils reference
+    private val mNotificationUtils: NotificationUtils = NotificationUtils(mContext)
 
     /* The Item View binder */
     private val mBinding: ItemChatHistoryAltBinding = itemBinding
@@ -79,7 +81,7 @@ class ChatHistoryViewHolder(
         if (mBaseUtils.isEmpty(chatHistory.lastMessageTimestamp)) {
             mBinding.viewTimeLastSent.text = ""
         } else {
-            mBinding.viewTimeLastSent.text = mNetworkUtils
+            mBinding.viewTimeLastSent.text = mNotificationUtils
                 .getTimeAgo(chatHistory.lastMessageTimestamp.toLong())
 
         }
@@ -107,8 +109,6 @@ class ChatHistoryViewHolder(
             mContext.startActivity(intent)
 
         }
-
-
     }
 
     /* Helper method to convert filename into "images" database reference */

@@ -27,6 +27,7 @@ import com.neu.madcourse.mad_team4_finalproject.models.Conversation;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils;
+import com.neu.madcourse.mad_team4_finalproject.utils.NotificationUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,6 +50,9 @@ public class ChatScreenActivity extends AppCompatActivity {
 
     /* The Network utils reference */
     private NetworkUtils mNetworkUtils;
+
+    // Instantiate the Notification utils reference
+    private NotificationUtils mNotificationUtils;
 
     /* The Firebase Database reference */
     private DatabaseReference mRootDatabaseRef;
@@ -103,6 +107,9 @@ public class ChatScreenActivity extends AppCompatActivity {
 
         // Instantiate the Network utils reference
         mNetworkUtils = new NetworkUtils(mContext);
+
+        // Instantiate the Notification utils reference
+        mNotificationUtils = new NotificationUtils(mContext);
 
         // Instantiate the firebase database reference - "users"
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -245,10 +252,10 @@ public class ChatScreenActivity extends AppCompatActivity {
 
                         // Create a notification
                         String title = "New message";
-                        mNetworkUtils.sendNotification(mContext, title, message, mOtherUserID);
+                        mNotificationUtils.sendNotification(mContext, title, message, mOtherUserID);
                         String lastMessage = !title.equals("New message") ? title : message;
                         /* call the updateChatDetails method here */
-                        mNetworkUtils.updateChatDetails(mContext, mFirebaseUser.getUid(), mOtherUserID, lastMessage);
+                        mNotificationUtils.updateChatDetails(mContext, mFirebaseUser.getUid(), mOtherUserID, lastMessage);
                     }
                 });
             }

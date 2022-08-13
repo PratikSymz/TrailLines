@@ -13,4 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="image_rounded_corners">
+        <item name="cornerSize">5dp</item>
+    </style>
+
+    <style name="image_circular">
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

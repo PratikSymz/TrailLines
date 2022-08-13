@@ -154,7 +154,8 @@ public class ChatHistoryFragment extends Fragment {
         };
 
         // adding the child listener to the query
-        query.addChildEventListener(childEventListener);
+        // TODO: FIX
+        // query.addChildEventListener(childEventListener);
     }
 
     /**

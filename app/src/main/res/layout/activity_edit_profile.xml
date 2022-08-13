@@ -6,13 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.EditProfileActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/view_profile_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="32dp"
         android:clickable="true"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_person"
+        app:shapeAppearanceOverlay="@style/image_circular"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/holder_toolbar_header" />
@@ -25,6 +30,7 @@
         android:elevation="15dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,6 +44,7 @@
             android:text="Edit Profile"
             android:textColor="@color/black"
             android:textSize="18sp"
+
             tools:layout_editor_absoluteX="157dp"
             tools:layout_editor_absoluteY="18dp" />
 

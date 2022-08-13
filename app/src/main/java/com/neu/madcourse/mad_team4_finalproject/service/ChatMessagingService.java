@@ -24,7 +24,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.activities.LoginActivity;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
-import com.neu.madcourse.mad_team4_finalproject.utils.NetworkUtils;
+import com.neu.madcourse.mad_team4_finalproject.utils.NotificationUtils;
 
 import java.util.Objects;
 
@@ -35,8 +35,9 @@ public class ChatMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
-        NetworkUtils mNetworkUtils = new NetworkUtils(this);
-        mNetworkUtils.updateDeviceToken(this, token);
+        /* The Notification utils reference */
+        NotificationUtils mNotificationUtils = new NotificationUtils(this);
+        mNotificationUtils.updateDeviceToken(this, token);
     }
 
     @SuppressLint("ObsoleteSdkInt")

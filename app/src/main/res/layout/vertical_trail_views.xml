@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="12dp">
 
     <!--    <LinearLayout-->
     <!--        android:id="@+id/linear_layout_vertical_trail"-->
@@ -70,18 +70,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trail_activties"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="12dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="6dp"
         android:layout_weight="1"
-        android:maxLines="1"
-        android:padding="2dp"
         android:orientation="horizontal"
-        tools:text="Activities: "
-        app:layout_constraintTop_toBottomOf="@id/view_trail_info"
+        android:padding="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/view_park_rating"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/view_trail_info" />
 
     <ImageView
         android:id="@+id/reviewStar"

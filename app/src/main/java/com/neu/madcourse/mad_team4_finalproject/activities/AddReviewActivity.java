@@ -1,21 +1,27 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,7 +42,11 @@ import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +103,10 @@ public class AddReviewActivity extends AppCompatActivity {
 
     /* The External storage access permission request code */
     private final int REQUEST_CODE_ACCESS_STORAGE = 102;
+    private final int REQUEST_IMAGE_CAPTURE = 103;
+
+    /* name of the file saved by the camera */
+    String currentPhotoPath;
 
 
     @Override
@@ -139,9 +153,33 @@ public class AddReviewActivity extends AppCompatActivity {
         mBinding.recyclerViewSelectedImages.setAdapter(mAdapter);
 
         /* Set the "add images" button onClick action */
+        // Alert Dialogue for the permission for to access Camera and gallery
         mBinding.viewButtonAddImages.setOnClickListener(view -> {
+            AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(
+                    this);
+            myAlertDialog.setTitle("Upload Pictures Option");
+            myAlertDialog.setMessage("How do you want to set your picture?");
+
+            myAlertDialog.setPositiveButton("Gallery",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            openImagePicker();
+
+                        }
+                    });
+
+            myAlertDialog.setNegativeButton("Camera",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+//                            Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                            startActivityForResult(mIntent, REQUEST_IMAGE_CAPTURE);
+                            dispatchTakePictureIntent();
+
+                        }
+                    });
+            myAlertDialog.show();
             // Open the image picker screen
-            openImagePicker();
+            // openImagePicker();
         });
 
         /* Set the park name */
@@ -310,6 +348,7 @@ public class AddReviewActivity extends AppCompatActivity {
         });
     }
 
+
     /**
      * Override method to select multiple images from the user's phone gallery for the trail reviews
      * This method also will ask user permission to access local image storage for multi-image selection
@@ -367,6 +406,9 @@ public class AddReviewActivity extends AppCompatActivity {
 
             // Update the recycler view adapter
             mAdapter.updateDataList(mSelectedImageList);
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE
+                && resultCode == RESULT_OK && data != null) {
+            // Get the single selected image
         }
     }
 
@@ -478,4 +520,67 @@ public class AddReviewActivity extends AppCompatActivity {
         mBinding.viewNotRecommended.labelRecommendStatus.setText(R.string.not_recommended);
         mBinding.viewNotRecommended.iconRecommendStatus.setImageResource(R.drawable.ic_thumb_down);
     }
+
+//    private Uri getImageUri() {
+//        Uri mImgUri = null;
+//        File mFile;
+//        try {
+//            @SuppressLint("SimpleDateFormat") SimpleDateFormat m_sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+//            String mCurrentDateAndTime = m_sdf.format(new Date());
+//            String mImagePath = Environment.getExternalStorageDirectory()
+//                    .getAbsolutePath() + File.separator + mCurrentDateAndTime + ".jpg";
+//            mFile = new File(mImagePath);
+//            mImgUri = Uri.fromFile(mFile);
+//        } catch (Exception p_e) {
+//            p_e.printStackTrace();
+//        }
+//        return mImgUri;
+//    }
+
+    /* take picture from camera */
+
+    @SuppressLint("QueryPermissionsNeeded")
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error handling occurred while creating the File
+                mBaseUtils.showToast("Something went wrong!", Toast.LENGTH_SHORT);
+                ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.neu.madcourse.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                Log.d(LOG_TAG, photoURI.toString());
+                // Add uri to the adapter list
+                mSelectedImageList.add(photoURI);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        // timestamp made to make every file unique and dated
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory of where the file goes */);
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+
 }

@@ -116,7 +116,7 @@ object Constants {
         const val CAVING = R.drawable.caving
         const val CLIMBING = R.drawable.climbing
         const val FISHING = R.drawable.fishing
-        const val HIKING = R.drawable.ic_hiking
+        const val HIKING = R.drawable.hiking
         const val PADDLING = R.drawable.paddling
         const val SCUBA_DIVING = R.drawable.scuba
         const val SNORKELLING = R.drawable.snorkelling
@@ -164,4 +164,14 @@ object Constants {
         const val API_KEY = "gRfVnZYb1bHwKtboVOQUS1kgFpP4243lIiYCY51I"
         const val STATE_MA = "MA"
     }
+    /* JSON object structure for data message notification data */
+    const val NOTIFICATION_TITLE = "title"
+    const val NOTIFICATION_MESSAGE = "message"
+    const val NOTIFICATION_TO = "to"
+    const val NOTIFICATION_DATA = "data"
+
+    /* Notification Channels to group all different chat notifications for the app */
+    const val CHANNEL_ID = "channel_id"
+    const val CHANNEL_NAME = "channel_name"
+    const val CHANNEL_DESCRIPTION = "channel_description"
 }

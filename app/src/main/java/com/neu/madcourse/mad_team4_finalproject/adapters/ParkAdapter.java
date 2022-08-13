@@ -21,10 +21,12 @@ import java.util.List;
 public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
     private List<Park> parkList;
     private Context mContext;
+    private List<Integer> activityIconIds;
 
     public ParkAdapter(List<Park> activityList, Context mContext) {
         this.parkList = activityList;
         this.mContext = mContext;
+        this.activityIconIds = new ArrayList<>();
     }
 
     @NonNull
@@ -38,12 +40,10 @@ public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
     public void onBindViewHolder(@NonNull ParkViewHolder holder, int position) {
         Park park = parkList.get(position);
         holder.bindData(park);
-
+        this.activityIconIds = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         holder.childRecyclerView.setLayoutManager(layoutManager);
         holder.childRecyclerView.setHasFixedSize(true);
-
-        List<Integer> activityIconIds = new ArrayList<>();
 
         for (Activity activity : park.getActivityList()) {
             switch (activity.getRecordId()) {
@@ -53,19 +53,27 @@ public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
                     break;
                 case Constants
                         .ThingsToDoCodes.CANYONEERING_CODE:
+                    activityIconIds.add(R.drawable.ic_canyon);
+                    break;
                 case Constants
                         .ThingsToDoCodes.CAVING_CODE:
+                    activityIconIds.add(R.drawable.ic_cave);
+                    break;
                 case Constants
                         .ThingsToDoCodes.CLIMBING_CODE:
+                    activityIconIds.add(R.drawable.ic_climbing);
+                break;
                 case Constants
                         .ThingsToDoCodes.HIKING_CODE:
                     activityIconIds.add(R.drawable.ic_hiking);
                     break;
                 case Constants
                         .ThingsToDoCodes.SCUBA_DIVING_CODE:
+                    activityIconIds.add(R.drawable.ic_scuba);
+                    break;
                 case Constants
                         .ThingsToDoCodes.SNORKELING_CODE:
-                    activityIconIds.add(R.drawable.ic_scuba);
+                    activityIconIds.add(R.drawable.ic_snorkelling);
                     break;
                 case Constants
                         .ThingsToDoCodes.BIKING_CODE:
@@ -73,9 +81,11 @@ public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
                     break;
                 case Constants
                         .ThingsToDoCodes.BOATING_CODE:
+                    activityIconIds.add(R.drawable.ic_boating);
+                    break;
                 case Constants
                         .ThingsToDoCodes.PADDLING_CODE:
-                    activityIconIds.add(R.drawable.ic_boating);
+                    activityIconIds.add(R.drawable.ic_kayaking);
                     break;
                 case Constants
                         .ThingsToDoCodes.FISHING_CODE:
@@ -87,6 +97,8 @@ public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
                     break;
                 case Constants
                         .ThingsToDoCodes.SURFING_CODE:
+                    activityIconIds.add(R.drawable.ic_surfing);
+                break;
                 case Constants
                         .ThingsToDoCodes.WATER_SKIING_CODE:
                     activityIconIds.add(R.drawable.ic_swimming);
@@ -108,6 +120,6 @@ public class ParkAdapter extends RecyclerView.Adapter<ParkViewHolder> {
         // Update the data list
         this.parkList = parkList;
         // Notify the adapter
-        notifyItemRangeChanged(0, this.parkList.size());
+        notifyDataSetChanged();
     }
 }

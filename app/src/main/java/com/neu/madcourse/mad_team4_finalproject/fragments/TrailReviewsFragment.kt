@@ -58,6 +58,8 @@ class TrailReviewsFragment(park: Park) : Fragment() {
 
     /* The Park ID reference */
     private var mParkID: String = mPark.parkID
+    /* The Trail ID reference */
+    private var mTrailID: String = "102"
 
     /* The selected images list reference */
     // private val mFindFriendsList: List<FindFriend>? = null

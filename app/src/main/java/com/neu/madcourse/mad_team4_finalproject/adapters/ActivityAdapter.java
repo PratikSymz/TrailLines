@@ -49,6 +49,6 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
         // Update the data list
         this.activityList = activityList;
         // Notify the adapter
-        notifyItemRangeChanged(0, this.activityList.size());
+        notifyDataSetChanged();
     }
 }

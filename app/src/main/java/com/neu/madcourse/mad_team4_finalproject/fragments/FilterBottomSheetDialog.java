@@ -49,29 +49,6 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
             default: mBinding.topRated.setChecked(true);
         }
 
-//        mBinding.lengthSlider.setValues(sharedPreferences.getFloat(Constants.LENGTH_START, 0),
-//                sharedPreferences.getFloat(Constants.LENGTH_END, 80));
-//
-//        mBinding.elevationSlider.setValues(sharedPreferences.getFloat(Constants.ELEVATION_START, 0),
-//                sharedPreferences.getFloat(Constants.ELEVATION_END, 1500));
-
-//        Set<String> difficultyPref = sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
-//        if (difficultyPref.isEmpty()) {
-//            mBinding.easyCheckBox.setChecked(true);
-//            mBinding.medCheckBox.setChecked(true);
-//            mBinding.hardCheckBox.setChecked(true);
-//        } else {
-//            if (difficultyPref.contains(Constants.EASY)) {
-//                mBinding.easyCheckBox.setChecked(true);
-//            }
-//            if (difficultyPref.contains(Constants.MEDIUM)) {
-//                mBinding.medCheckBox.setChecked(true);
-//            }
-//            if (difficultyPref.contains(Constants.HARD)) {
-//                mBinding.hardCheckBox.setChecked(true);
-//            }
-//        }
-
         mBinding.ratingSlider.setValues(sharedPreferences.getFloat(Constants.RATING_START, 0),
                 sharedPreferences.getFloat(Constants.RATING_END, 5));
 
@@ -91,9 +68,6 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
             mBinding.waterskiing.setChecked(true);
             mBinding.fishing.setChecked(true);
             mBinding.climbing.setChecked(true);
-
-
-
         } else {
             if (preferencesPref.contains(Constants.ThingsToDoStrings.HIKING)) {
                 mBinding.hiking.setChecked(true);
@@ -151,27 +125,6 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
             RadioButton r = (RadioButton) mBinding.radioGroup.getChildAt(index);
             String sortValue = r.getText().toString();
             myEditor.putString(Constants.SORT, sortValue);
-//            //length
-//            List<Float> lengthSliderValues = mBinding.lengthSlider.getValues();
-//            myEditor.putFloat(Constants.LENGTH_START, lengthSliderValues.get(0));
-//            myEditor.putFloat(Constants.LENGTH_END, lengthSliderValues.get(1));
-//            //elevation
-//            List<Float> elevationSliderValues = mBinding.elevationSlider.getValues();
-//            myEditor.putFloat(Constants.ELEVATION_START, elevationSliderValues.get(0));
-//            myEditor.putFloat(Constants.ELEVATION_END, elevationSliderValues.get(1));
-//            //difficulty
-//            Set<String> selectedDifficulty = new HashSet<>();
-//            if(mBinding.easyCheckBox.isChecked()) {
-//                selectedDifficulty.add(Constants.EASY);
-//            }
-//            if(mBinding.medCheckBox.isChecked()) {
-//                selectedDifficulty.add(Constants.MEDIUM);
-//            }
-//            if(mBinding.hardCheckBox.isChecked()) {
-//                selectedDifficulty.add(Constants.HARD);
-//            }
-//            sharedPreferences.getStringSet(Constants.DIFFICULTY, new HashSet<>());
-//            myEditor.putStringSet(Constants.DIFFICULTY, selectedDifficulty);
             //rating
             List<Float> ratingSliderValues = mBinding.ratingSlider.getValues();
             myEditor.putFloat(Constants.RATING_START, ratingSliderValues.get(0));
@@ -221,7 +174,6 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
                 selectedPreferences.add(Constants.ThingsToDoStrings.WATER_SKIING);
             }
 
-
             myEditor.putStringSet(Constants.PREFERENCES, selectedPreferences);
             myEditor.apply();
             dismiss();
@@ -234,22 +186,8 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
                 SharedPreferences.Editor myEditor = sharedPreferences.edit();
                 //sort
                 mBinding.bestMatched.setChecked(false);
-//                mBinding.closest.setChecked(false);
                 mBinding.topRated.setChecked(true);
                 myEditor.putString(Constants.SORT, Constants.TOP_RATED);
-//                //length
-//                mBinding.lengthSlider.setValues(0f, 80f);
-//                myEditor.putFloat(Constants.LENGTH_START, 0);
-//                myEditor.putFloat(Constants.LENGTH_END, 80);
-//                //elevation
-//                mBinding.lengthSlider.setValues(0f, 1500f);
-//                myEditor.putFloat(Constants.ELEVATION_START, 0);
-//                myEditor.putFloat(Constants.ELEVATION_END, 1500);
-//                //difficulty
-//                mBinding.easyCheckBox.setChecked(true);
-//                mBinding.medCheckBox.setChecked(true);
-//                mBinding.hardCheckBox.setChecked(true);
-//                myEditor.putStringSet(Constants.DIFFICULTY, new HashSet<>(Arrays.asList(Constants.EASY, Constants.MEDIUM, Constants.HARD)));
                 //rating
                 mBinding.ratingSlider.setValues(0f, 5f);
                 myEditor.putFloat(Constants.RATING_START, 0);

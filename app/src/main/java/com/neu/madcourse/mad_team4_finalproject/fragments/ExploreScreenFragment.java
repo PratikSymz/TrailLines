@@ -253,12 +253,6 @@ public class ExploreScreenFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mBaseUtils.showToast("Paused", Toast.LENGTH_SHORT);
-    }
-
     /* Helper method to initiate the "Park list" endpoint callback */
     private void initiateActivityParkCallback(String activityCode) {
             // Extract the state code

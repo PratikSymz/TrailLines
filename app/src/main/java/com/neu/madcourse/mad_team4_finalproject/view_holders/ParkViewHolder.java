@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.activities.TrailDetailActivity;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
-import com.squareup.picasso.Picasso;
 
 public class ParkViewHolder extends RecyclerView.ViewHolder {
     private TextView trailName;
@@ -43,7 +41,6 @@ public class ParkViewHolder extends RecyclerView.ViewHolder {
         trailInfo.setText(park.getAddressList().get(0).getLine1());
         trailRating.setText("0.0");
 
-//        Picasso.get().load(park.getImageList().get(0).getUrl()).into(trailImage);
         Glide.with(mContext)
                 .load(park.getImageList().get(0).getUrl())
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

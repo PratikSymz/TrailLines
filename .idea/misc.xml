@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/layout/fragment_trail_overview.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_explore_activities.xml" value="0.2535271483539974" />
+        <entry key="app/src/main/res/layout/item_hike_detail_activities.xml" value="0.2535271483539974" />
         <entry key="app/src/main/res/layout/item_review.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/item_selected_image.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/segment_actionbar_write_review.xml" value="0.2419837537409149" />

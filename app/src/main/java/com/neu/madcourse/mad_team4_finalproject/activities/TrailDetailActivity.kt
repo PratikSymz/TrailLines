@@ -239,7 +239,7 @@ class TrailDetailActivity : AppCompatActivity() {
         // Add data to the database
         mDBViewModel.saveTrail(savedTrail)
         // Show toast
-        mBaseUtils.showToast("Saved information successfully!", Toast.LENGTH_SHORT)
+        mBaseUtils.showToast("Added " + savedTrail.fullName + " to your saved list!", Toast.LENGTH_LONG)
 
         // Set the bookmark fill icon
         mBinding.viewSaveDetail.setImageDrawable(

@@ -40,7 +40,6 @@ import com.neu.madcourse.mad_team4_finalproject.adapters.ExploreAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentExploreScreenBinding;
 import com.neu.madcourse.mad_team4_finalproject.interfaces.ActivityOnClickListener;
 import com.neu.madcourse.mad_team4_finalproject.interfaces.LocationResultListener;
-import com.neu.madcourse.mad_team4_finalproject.interfaces.ShowFiltersListener;
 import com.neu.madcourse.mad_team4_finalproject.models.Explore;
 import com.neu.madcourse.mad_team4_finalproject.models.ReviewStat;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Activity;
@@ -53,7 +52,6 @@ import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 import com.neu.madcourse.mad_team4_finalproject.utils.LocationUtils;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -217,26 +215,33 @@ public class ExploreScreenFragment extends Fragment {
                 if (isShowFiltersClicked) {
                     if (sharedPreferences.getString(Constants.SORT, "").equals(Constants.TOP_RATED)) {
                         //TODO: Sort based on rating once Pratik's code is done
+
                     }
 
                     //TODO: Filter based on rating range once Pratik's code is done
 
-                    List<Park> filteredParks = new ArrayList<>();
+                    List<Explore> filteredExploreList = new ArrayList<>();
+
                     Set<String> preferencesPref = sharedPreferences.getStringSet(Constants.PREFERENCES, new HashSet<>());
-                    mParkList.forEach(park -> {
-                        for (Activity activity : park.getActivityList()) {
+                    mExploreList.forEach(explore -> {
+                        for (Activity activity : explore.getPark().getActivityList()) {
                             if (preferencesPref.contains(activity.getName())) {
-                                filteredParks.add(park);
+                                filteredExploreList.add(explore);
                                 break;
                             }
                         }
                     });
 
-                    // Update the adapter list
-                    mParkAdapter.updateDataList(filteredParks);
+                    if (filteredExploreList.isEmpty()) {
+                        mBaseUtils.showToast("No parks found based on the filters. Enjoy other parks :)", Toast.LENGTH_LONG);
+                        mExploreAdapter.updateDataList(mExploreList);
+                    } else {
+                        // Update the adapter list
+                        mExploreAdapter.updateDataList(filteredExploreList);
+                    }
                 } else {
                     // Update the adapter list with unfiltered list
-                    mParkAdapter.updateDataList(mParkList);
+                     mExploreAdapter.updateDataList(mExploreList);
                 }
             });
             bottomSheet.show(requireActivity().getSupportFragmentManager(), bottomSheet.getTag());
@@ -268,17 +273,44 @@ public class ExploreScreenFragment extends Fragment {
                     ParkResult results = response.body();
                     // Extract the park list
                     mParkList = results.getParkList();
-
+                    mExploreList.clear();
                     if (mParkList.isEmpty()) {
                         mBinding.noResultsFound.setVisibility(View.VISIBLE);
                         mBinding.verticalTrailRecyclerView.setVisibility(View.INVISIBLE);
                     } else {
+                        for (Park park : mParkList) {
+                            mReviewsDatabaseRef.child(park.getParkID()).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot statSnapshot) {
+                                        // Extract the review stats
+                                        ReviewStat reviewStat = statSnapshot.getValue(ReviewStat.class);
+                                        if (reviewStat == null)
+                                            reviewStat = new ReviewStat();
+                                        // Add to the review stat list
+                                        mReviewStatList.add(reviewStat);
 
+                                        // Build the explore instance
+                                        Explore explore = new Explore(park, reviewStat);
+                                        // Add to the explore list
+                                        mExploreList.add(explore);
+                                        // Update the adapter list
+                                        mExploreAdapter.updateDataList(mExploreList);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
+                                    }
+                                });
+//                        mExploreList.add(new Explore(park, null)); //TODO: Update reviewStat based on Pratik's code
+                    }
                         mBinding.noResultsFound.setVisibility(View.INVISIBLE);
                         mBinding.verticalTrailRecyclerView.setVisibility(View.VISIBLE);
 
                         // Update the adapter list
-                        mParkAdapter.updateDataList(mParkList);
+//                        mParkAdapter.updateDataList(mParkList);
+                        mExploreAdapter.updateDataList(mExploreList);
                     }
                     Log.d(TAG, results.getDataCount());
                 } else {
@@ -335,13 +367,13 @@ public class ExploreScreenFragment extends Fragment {
     }
 
     /* Helper method to initiate the "Park list" endpoint callback */
-    private void initiateParksCallback(@NonNull Location location) {
-        Address currentLocationAddress = mLocationUtils.getLocationFromCoordinates(location);
-        if (currentLocationAddress == null) {
-            mBaseUtils.showToast("Current location not found!", Toast.LENGTH_SHORT);
-        } else {
+    private void initiateParksCallback(String stateCode) {
+//        Address currentLocationAddress = mLocationUtils.getLocationFromCoordinates(location);
+//        if (currentLocationAddress == null) {
+//            mBaseUtils.showToast("Current location not found!", Toast.LENGTH_SHORT);
+//        } else {
             // Extract the state code
-            String stateCode = mBaseUtils.extractStateCode(currentLocationAddress.getAdminArea());
+//            String stateCode = mBaseUtils.extractStateCode(currentLocationAddress.getAdminArea());
             if (stateCode == null) {
                 mBaseUtils.showToast("Invalid location!", Toast.LENGTH_SHORT);
             } else {
@@ -410,7 +442,7 @@ public class ExploreScreenFragment extends Fragment {
                     }
                 });
             }
-        }
+
     }
 
     /* Helper method to initiate the "Park list" endpoint callback */

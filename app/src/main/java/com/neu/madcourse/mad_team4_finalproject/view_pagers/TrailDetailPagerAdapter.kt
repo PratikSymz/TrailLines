@@ -30,5 +30,4 @@ class TrailDetailPagerAdapter(@NonNull fragmentActivity: FragmentActivity, @NonN
     override fun getItemCount(): Int {
         return 2
     }
-
 }

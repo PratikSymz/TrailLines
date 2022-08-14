@@ -3,6 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.neu.madcourse.mad_team4_finalproject">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -23,13 +32,11 @@
         android:theme="@style/Theme.MAD_Team4_FinalProject"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".activities.SavedTrailDetailActivity"
-            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.neu.madcourse.fileprovider"
+            android:enabled="true"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -39,6 +46,23 @@
 
         <activity
             android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
+
+        <activity
+            android:name=".activities.SavedTrailDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AppMainScreen.MainScreen"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.AddReviewActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
@@ -47,24 +71,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AppMainScreen.MainScreen"
-            android:exported="false" />
-        <activity
-            android:name=".activities.AddReviewActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+
         <activity
             android:name=".activities.TrailDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
         <activity
             android:name=".activities.TrailImageActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

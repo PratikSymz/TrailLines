@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
+    android:paddingBottom="16dp"
+    android:visibility="visible">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/view_review_user_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="16dp"
         android:padding="1dp"
         android:scaleType="centerCrop"
@@ -46,7 +47,7 @@
         android:progressTint="#F89E00"
         android:rating="4"
         android:secondaryProgressTint="#F89E00"
-        android:stepSize="1"
+        android:stepSize="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/view_review_user_rating"
@@ -59,7 +60,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/lato"
-        android:text="2 days ago"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/view_review_user_name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,11 +115,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_review_images"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="#EDEDED"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_review_body" />
@@ -136,9 +136,11 @@
         android:textColor="#3C3C3C"
         android:textSize="13sp"
         android:textStyle="italic"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_review_images" />
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_review_images"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

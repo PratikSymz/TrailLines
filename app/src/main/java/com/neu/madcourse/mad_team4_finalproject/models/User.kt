@@ -12,10 +12,10 @@ data class User(
     var emailID: String = "",
     @get:PropertyName(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
     @set:PropertyName(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
-    var isOnline: String = "",
+    var isOnline: Boolean = false,
     @get:PropertyName(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE)
     @set:PropertyName(Constants.UserKeys.PersonalInfoKeys.KEY_PRIVATE_PROFILE)
-    var isPrivateProfile: String = "",
+    var isPrivateProfile: Boolean = false,
     @get:PropertyName(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL)
     @set:PropertyName(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL)
     var profilePictureFileName: String = ""

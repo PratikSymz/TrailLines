@@ -3,6 +3,8 @@ package com.neu.madcourse.mad_team4_finalproject.utils
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -90,21 +92,23 @@ class NotificationUtils(context: Context) {
 
                         }
 
-                        val jsonObjectRequest: JsonObjectRequest = JsonObjectRequest(
+                        val jsonObjectRequest: JsonObjectRequest = object : JsonObjectRequest(
+                            Request.Method.POST,
                             apiUrl,
                             mNotification,
                             successListener,
                             failureListener
-                        )
-                        jsonObjectRequest.headers.put(
-                            "Authorization",
-                            "key=" + Constants.FIREBASE_MESSAGING_KEY
-                        )
-                        jsonObjectRequest.headers.put(
-                            "Sender",
-                            "id=" + Constants.FIREBASE_MESSAGE_SENDER_ID
-                        )
-                        jsonObjectRequest.headers.put("Content-Type", contentType)
+                        ) {
+                            @Throws(AuthFailureError::class)
+                            override fun getHeaders(): Map<String, String> {
+                                var params: MutableMap<String, String>? = super.getHeaders()
+                                if (params == null) params = HashMap()
+                                params["Authorization"] = "key=" + Constants.FIREBASE_MESSAGING_KEY
+                                params["Sender"] = "id=" + Constants.FIREBASE_MESSAGE_SENDER_ID
+                                params["Content-Type"] = contentType
+                                return params
+                            }
+                        }
 
                         val requestQueue: RequestQueue = Volley.newRequestQueue(context)
                         requestQueue.add(jsonObjectRequest)

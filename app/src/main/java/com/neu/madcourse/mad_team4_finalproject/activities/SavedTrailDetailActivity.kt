@@ -63,7 +63,7 @@ class SavedTrailDetailActivity : AppCompatActivity() {
         mSavedTrail = intent.getSerializableExtra("saved_trail_details") as SavedTrail
 
         // Set the park information on the detail layout views
-        setDetailInformation(mSavedTrail);
+        setDetailInformation(mSavedTrail)
 
         /* Set the back button onClick action */
         mBinding.viewCloseDetail.setOnClickListener { finish() }
@@ -152,7 +152,7 @@ class SavedTrailDetailActivity : AppCompatActivity() {
             savedTrail.longitude,
             Constants.MapKeys.API_KEY
         )
-        Log.d(LOG_TAG, mapUrl);
+        Log.d(LOG_TAG, mapUrl)
         Glide.with(mContext)
             .load(mapUrl)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

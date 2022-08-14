@@ -9,8 +9,8 @@ import java.util.Comparator;
 
 public class Explore implements Serializable, Comparable<Explore> {
     @SerializedName("id")
-    private Park park;
-    private ReviewStat reviewStat;
+    private final Park park;
+    private final ReviewStat reviewStat;
 
 
     public Explore(Park park, ReviewStat reviewStat) {

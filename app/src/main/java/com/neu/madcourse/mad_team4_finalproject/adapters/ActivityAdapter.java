@@ -17,8 +17,8 @@ import java.util.List;
 
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
     private List<Activity> activityList;
-    private Context mContext;
-    private ActivityOnClickListener mListener;
+    private final Context mContext;
+    private final ActivityOnClickListener mListener;
 
     public ActivityAdapter(List<Activity> activityList, Context context, ActivityOnClickListener listener) {
         this.activityList = activityList;

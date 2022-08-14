@@ -19,13 +19,13 @@ import com.neu.madcourse.mad_team4_finalproject.models.ReviewStat;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
 
 public class ExploreViewHolder extends RecyclerView.ViewHolder {
-    private TextView trailName;
-    private ShapeableImageView trailImage;
-    private TextView trailInfo;
-    private TextView trailRating;
+    private final TextView trailName;
+    private final ShapeableImageView trailImage;
+    private final TextView trailInfo;
+    private final TextView trailRating;
     public RecyclerView childRecyclerView;
-    private Context mContext;
-    private View mItemView;
+    private final Context mContext;
+    private final View mItemView;
 
     public ExploreViewHolder(@NonNull View itemView, Context context) {
         super(itemView);

@@ -30,12 +30,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityViewHolder extends RecyclerView.ViewHolder implements ActivityOnClickListener {
-    private TextView nameText;
-    private ShapeableImageView imageView;
-    private Context mContext;
-    private View mItemView;
-    private List<Park> mParkList = new ArrayList<>();
-    private ActivityOnClickListener mListener;
+    private final TextView nameText;
+    private final ShapeableImageView imageView;
+    private final Context mContext;
+    private final View mItemView;
+    private final List<Park> mParkList = new ArrayList<>();
+    private final ActivityOnClickListener mListener;
 
     public ActivityViewHolder(@NonNull View itemView, Context context, ActivityOnClickListener listener) {
         super(itemView);

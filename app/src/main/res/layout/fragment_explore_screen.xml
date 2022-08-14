@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/lato"
-        android:text="@string/loading"
+        android:text="Loading current location.."
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/view_progress_bar"

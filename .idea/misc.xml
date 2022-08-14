@@ -27,16 +27,20 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main_screen.xml" value="0.2543822146216332" />
         <entry key="app/src/main/res/layout/activity_saved_trail_detail.xml" value="0.12740487387772553" />
-        <entry key="app/src/main/res/layout/activity_trail_detail.xml" value="0.2419837537409149" />
+        <entry key="app/src/main/res/layout/activity_trail_detail.xml" value="0.19157088122605365" />
+        <entry key="app/src/main/res/layout/activity_trail_image.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_sheet_filter_screen.xml" value="0.577423095703125" />
+        <entry key="app/src/main/res/layout/explore_image_grid_view.xml" value="0.16953762466001812" />
         <entry key="app/src/main/res/layout/filter_screen.xml" value="0.21190338134765627" />
-        <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_explore_screen.xml" value="0.33325653076171874" />
         <entry key="app/src/main/res/layout/fragment_filter_screen_dialog_list_dialog.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_filter_screen_dialog_list_dialog_item.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/layout/fragment_saved_trails.xml" value="0.12740487387772553" />
         <entry key="app/src/main/res/layout/fragment_trail_overview.xml" value="0.2419837537409149" />
+        <entry key="app/src/main/res/layout/fragment_trail_reviews.xml" value="0.13852073535699017" />
         <entry key="app/src/main/res/layout/horizontal_trail_views.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_explore_activities.xml" value="0.2535271483539974" />
+        <entry key="app/src/main/res/layout/item_explore_image.xml" value="0.19607843137254902" />
         <entry key="app/src/main/res/layout/item_hike_detail_activities.xml" value="0.2535271483539974" />
         <entry key="app/src/main/res/layout/item_review.xml" value="0.2419837537409149" />
         <entry key="app/src/main/res/layout/item_selected_image.xml" value="0.2419837537409149" />

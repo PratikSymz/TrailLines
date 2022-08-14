@@ -85,13 +85,13 @@ public class ExploreScreenFragment extends Fragment {
     private ExploreAdapter mExploreAdapter;
 
     /* The Explore list reference */
-    private List<Explore> mExploreList = new ArrayList<>();
+    private final List<Explore> mExploreList = new ArrayList<>();
 
     /* The Park list reference */
     private List<Park> mParkList = new ArrayList<>();
 
     /* The Review Stat list reference */
-    private List<ReviewStat> mReviewStatList = new ArrayList<>();
+    private final List<ReviewStat> mReviewStatList = new ArrayList<>();
 
     /* The Base Utils reference */
     private BaseUtils mBaseUtils;
@@ -179,6 +179,9 @@ public class ExploreScreenFragment extends Fragment {
 
         // Instantiate the location utils reference
         mLocationUtils = new LocationUtils(mActivityContext);
+
+        //Loading default data for Massachusetts
+//        initiateParksCallback("MA");
 
         // Instantiate the location request
         mLocationRequest = LocationRequest.create();

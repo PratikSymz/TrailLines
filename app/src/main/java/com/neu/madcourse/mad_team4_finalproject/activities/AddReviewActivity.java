@@ -81,16 +81,16 @@ public class AddReviewActivity extends AppCompatActivity {
     private GenericAdapter<Uri> mAdapter;
 
     /* The Review images selected list reference */
-    private List<Uri> mSelectedImageList = new ArrayList<>();
+    private final List<Uri> mSelectedImageList = new ArrayList<>();
 
     /* The Review images selected url list reference */
-    private List<String> mSelectedImageUrlList = new ArrayList<>();
+    private final List<String> mSelectedImageUrlList = new ArrayList<>();
 
     /* The Intent Park model reference */
     private Park mPark;
 
     /* The Trail ID reference */
-    private String mTrailID = "101";
+    private final String mTrailID = "101";
 
     /* The Recommendation status boolean reference */
     private Boolean mRecommendationStatus = false;

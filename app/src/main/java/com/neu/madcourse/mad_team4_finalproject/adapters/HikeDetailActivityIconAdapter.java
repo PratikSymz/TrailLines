@@ -15,7 +15,7 @@ import java.util.List;
 
 public class HikeDetailActivityIconAdapter extends RecyclerView.Adapter<HikeDetailActivityIconViewHolder> {
     private List<Integer> iconIdList;
-    private Context mContext;
+    private final Context mContext;
 
 
     public HikeDetailActivityIconAdapter(List<Integer> iconIdList, Context mContext) {

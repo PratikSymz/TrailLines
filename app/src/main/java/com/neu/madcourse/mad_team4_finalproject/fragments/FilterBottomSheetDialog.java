@@ -25,7 +25,7 @@ public class FilterBottomSheetDialog extends BottomSheetDialogFragment {
     BottomSheetBehavior bottomSheetBehavior;
     FilterScreenBinding mBinding;
     SharedPreferences sharedPreferences;
-    private ShowFiltersListener mListener;
+    private final ShowFiltersListener mListener;
 
     public FilterBottomSheetDialog(ShowFiltersListener listener) {
         mListener = listener;

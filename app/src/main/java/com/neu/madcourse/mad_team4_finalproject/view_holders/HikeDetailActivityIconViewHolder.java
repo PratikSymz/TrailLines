@@ -13,8 +13,8 @@ import com.neu.madcourse.mad_team4_finalproject.R;
 import com.squareup.picasso.Picasso;
 
 public class HikeDetailActivityIconViewHolder extends RecyclerView.ViewHolder {
-    private ImageView imageView;
-    private Context mContext;
+    private final ImageView imageView;
+    private final Context mContext;
 
     public HikeDetailActivityIconViewHolder(@NonNull View itemView, Context mContext) {
         super(itemView);

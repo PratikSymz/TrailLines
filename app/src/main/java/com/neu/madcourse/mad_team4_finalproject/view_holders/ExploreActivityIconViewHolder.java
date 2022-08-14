@@ -18,8 +18,8 @@ import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 public class ExploreActivityIconViewHolder extends RecyclerView.ViewHolder {
-    private ImageView imageView;
-    private Context mContext;
+    private final ImageView imageView;
+    private final Context mContext;
 
     public ExploreActivityIconViewHolder(@NonNull View itemView, Context mContext) {
         super(itemView);

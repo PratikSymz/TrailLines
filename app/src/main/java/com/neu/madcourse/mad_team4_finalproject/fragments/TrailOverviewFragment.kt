@@ -57,7 +57,7 @@ class TrailOverviewFragment(park: Park) : Fragment() {
 
         // TODO: Set the static map
         val mapUrl: String = "https://maps.googleapis.com/maps/api/staticmap?center=" + mPark.latitude + "," + mPark.longitude + "&zoom=14&scale=2&size=400x400&maptype=roadmap&key=AIzaSyBG6sBP1e1UXr-PIY06i7PLV9jmdLy8cIg"
-        Log.d(LOG_TAG, mapUrl);
+        Log.d(LOG_TAG, mapUrl)
         Glide.with(mActivityContext)
             .load(mapUrl)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

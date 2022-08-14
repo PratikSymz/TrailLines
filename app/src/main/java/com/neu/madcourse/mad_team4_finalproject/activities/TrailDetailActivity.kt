@@ -1,7 +1,9 @@
 package com.neu.madcourse.mad_team4_finalproject.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -79,7 +81,7 @@ class TrailDetailActivity : AppCompatActivity() {
         mExplore = intent.getSerializableExtra("explore_details") as Explore
 
         // Set the park information on the detail layout views
-        setDetailInformation(mExplore);
+        setDetailInformation(mExplore)
 
         // Instantiate the view pager
         mPagerAdapter = TrailDetailPagerAdapter(mContext as TrailDetailActivity, mExplore.park)
@@ -188,6 +190,14 @@ class TrailDetailActivity : AppCompatActivity() {
             }
         }
 
+
+        /* Set the onClick action for trail image view on the parks list */
+        mBinding.viewDetailImage.setOnClickListener {
+            val imageIntent = Intent(mContext, TrailImageActivity::class.java)
+            imageIntent.putExtra("park_details", mExplore.park)
+            mContext.startActivity(imageIntent)
+        }
+
         /* Set the save button onClick action [DATABASE] */
         mBinding.viewSaveDetail.setOnClickListener {
             if (!mSaved) {
@@ -245,7 +255,10 @@ class TrailDetailActivity : AppCompatActivity() {
         // Add data to the database
         mDBViewModel.saveTrail(savedTrail)
         // Show toast
-        mBaseUtils.showToast("Added " + savedTrail.fullName + " to your saved list!", Toast.LENGTH_LONG)
+        mBaseUtils.showToast(
+            "Added " + savedTrail.fullName + " to your saved list!",
+            Toast.LENGTH_LONG
+        )
 
         // Set the bookmark fill icon
         mBinding.viewSaveDetail.setImageDrawable(

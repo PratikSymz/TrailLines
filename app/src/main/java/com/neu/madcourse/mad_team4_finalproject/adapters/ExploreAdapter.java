@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreViewHolder> {
     List<Explore> exploreList;
-    private Context mContext;
+    private final Context mContext;
     private List<Integer> activityIconIds;
 
     public ExploreAdapter(List<Explore> exploreList, Context mContext) {

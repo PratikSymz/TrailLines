@@ -15,8 +15,8 @@ import com.neu.madcourse.mad_team4_finalproject.view_holders.ExploreActivityIcon
 import java.util.List;
 
 public class ExploreActivityIconAdapter extends RecyclerView.Adapter<ExploreActivityIconViewHolder> {
-    private List<Integer> iconIdList;
-    private Context mContext;
+    private final List<Integer> iconIdList;
+    private final Context mContext;
 
 
     public ExploreActivityIconAdapter(List<Integer> iconIdList, Context mContext) {

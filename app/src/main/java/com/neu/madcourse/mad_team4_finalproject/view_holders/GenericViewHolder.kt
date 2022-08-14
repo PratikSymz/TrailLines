@@ -32,7 +32,7 @@ import java.util.*
 class GenericViewHolder<T>(
     @NonNull context: Context,
     @NonNull itemBinding: ViewBinding
-) : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
+) : RecyclerView.ViewHolder(itemBinding.root) {
 
     /* The Log tag */
     private val LOG_TAG = GenericViewHolder::class.java.simpleName
@@ -56,11 +56,11 @@ class GenericViewHolder<T>(
     private val mFirebaseStorage: StorageReference = FirebaseStorage.getInstance().reference
 
     /* The Review images list reference */
-    private val mReviewImageList = mutableListOf<Uri>()
+    private val mReviewImageList = HashSet<Uri>()
 
     /* The Review images recycler view reference */
     private val mAdapter: GenericAdapter<Uri> = GenericAdapter(
-        mContext, mReviewImageList,
+        mContext, mReviewImageList.toList(),
         ItemSelectedImageBinding.inflate(LayoutInflater.from(mContext))
     )
 
@@ -114,7 +114,12 @@ class GenericViewHolder<T>(
             mBinding.viewReviewTitle.text = String.format("\"%s\"", review.reviewTitle)
 
             // Load the review message
-            mBinding.viewReviewBody.text = review.reviewMessage
+            if (!mBaseUtils.isEmpty(review.reviewMessage)) {
+                mBinding.viewReviewBody.text = review.reviewMessage
+                mBinding.viewReviewBody.visibility = View.VISIBLE
+            } else {
+                mBinding.viewReviewBody.visibility = View.GONE
+            }
 
             // Set the layout manager
             val layoutManager = LinearLayoutManager(mContext)
@@ -126,13 +131,16 @@ class GenericViewHolder<T>(
 
             // Load the review images
             if (review.reviewImages != null && review.reviewImages!!.isNotEmpty()) {
+                mBinding.recyclerViewReviewImages.visibility = View.VISIBLE
                 // Convert the list of "URI Paths" to URIs
                 review.reviewImages!!.forEach {
                     mReviewImageList.add(Uri.parse(it))
                 }
 
                 // Update the adapter
-                mAdapter.updateDataList(mReviewImageList)
+                mAdapter.updateDataList(mReviewImageList.toList())
+            } else {
+                mBinding.recyclerViewReviewImages.visibility = View.GONE
             }
 
             // Load the recommendation status
@@ -151,6 +159,7 @@ class GenericViewHolder<T>(
                             review.user!!.name
                         )
                     )
+
                     rSpannable.setSpan(
                         ForegroundColorSpan(mContext.getColor(R.color.blue)),
                         review.user!!.name.length + 1,
@@ -167,6 +176,7 @@ class GenericViewHolder<T>(
                                 review.user!!.name
                             )
                         )
+
                     nrSpannable.setSpan(
                         ForegroundColorSpan(mContext.getColor(R.color.red)),
                         review.user!!.name.length + 1,
@@ -178,9 +188,6 @@ class GenericViewHolder<T>(
                 }
             }
         }
-
-        // Set the onClick action
-        // mBinding.root.setOnClickListener(this)
     }
 
     /* Helper method to format timestamp in "ago" format */
@@ -205,9 +212,5 @@ class GenericViewHolder<T>(
         return String.format(
             "%s/%s", Constants.FirebaseStorageKeys.KEY_IMAGES, fileName
         )
-    }
-
-    override fun onClick(view: View?) {
-        TODO()
     }
 }

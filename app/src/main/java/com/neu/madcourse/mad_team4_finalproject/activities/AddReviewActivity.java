@@ -1,6 +1,7 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,14 +9,18 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,10 +40,15 @@ import com.neu.madcourse.mad_team4_finalproject.adapters.GenericAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityAddReviewBinding;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemSelectedImageBinding;
 import com.neu.madcourse.mad_team4_finalproject.models.ReviewStat;
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +57,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class AddReviewActivity extends AppCompatActivity {
-    /* The Fragment Log Tag */
+    /* The Activity Log Tag */
     private final String LOG_TAG = AddReviewActivity.class.getSimpleName();
 
     /* The Activity context */
@@ -80,8 +90,11 @@ public class AddReviewActivity extends AppCompatActivity {
     /* The Review images selected url list reference */
     private Set<String> mSelectedImageUrlList = new HashSet<>();
 
-    /* TODO: Retrieve The Trail ID reference */
-    private final String mTrailID = "102";
+    /* The Intent Park model reference */
+    private Park mPark;
+
+    /* The Trail ID reference */
+    private String mTrailID = "102";
 
     /* The Recommendation status boolean reference */
     private Boolean mRecommendationStatus = false;
@@ -95,6 +108,10 @@ public class AddReviewActivity extends AppCompatActivity {
     /* The External storage access permission request code */
     private final int REQUEST_CODE_ACCESS_STORAGE = 102;
 
+    private final int REQUEST_IMAGE_CAPTURE = 103;
+
+    /* name of the file saved by the camera */
+    String currentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +124,9 @@ public class AddReviewActivity extends AppCompatActivity {
         mBinding = ActivityAddReviewBinding.inflate(getLayoutInflater());
         // Set the root view
         setContentView(mBinding.getRoot());
+
+        // Retrieve the Park information from the intent
+        mPark = (Park) getIntent().getSerializableExtra("park_details");
 
         // Instantiate the Base utils reference
         mBaseUtils = new BaseUtils(mContext);
@@ -131,16 +151,37 @@ public class AddReviewActivity extends AppCompatActivity {
         mBinding.recyclerViewSelectedImages.setLayoutManager(layoutManager);
 
         // Instantiate the adapter class
-        mAdapter = new GenericAdapter<>(mContext, new ArrayList<>(mSelectedImageList), ItemSelectedImageBinding.inflate(getLayoutInflater()));
+        mAdapter = new GenericAdapter<>(mContext, new ArrayList<>(mSelectedImageList),
+                ItemSelectedImageBinding.inflate(getLayoutInflater()));
 
         // Set the adapter on the recycler view
         mBinding.recyclerViewSelectedImages.setAdapter(mAdapter);
 
         /* Set the "add images" button onClick action */
+        // Alert Dialog for the permission for to access Camera and gallery
         mBinding.viewButtonAddImages.setOnClickListener(view -> {
-            // Open the image picker screen
-            openImagePicker();
+            AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(mContext);
+            myAlertDialog.setTitle("Upload Pictures Option");
+            myAlertDialog.setMessage("How do you want to set your picture?");
+            myAlertDialog.setPositiveButton("Gallery",
+                    (dialogInterface, position) -> {
+                        // Open the image picker screen
+                        openImagePicker();
+                    });
+
+            myAlertDialog.setNegativeButton("Camera",
+                    (dialogInterface, position) -> {
+//                        Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                        startActivityForResult(mIntent, REQUEST_IMAGE_CAPTURE);
+                        // Open the camera app and extract image uri
+                        dispatchTakePictureIntent();
+                    });
+
+            myAlertDialog.show();
         });
+
+        /* Set the park name */
+        // mBinding.viewReviewTrailName.setText(mPark.getFullName());
 
         /* Setup the "Not recommended" button */
         setupNotRecommendedButton();
@@ -228,7 +269,7 @@ public class AddReviewActivity extends AppCompatActivity {
             // Verify information as non-null
             if (rating > 0 && !mBaseUtils.isEmpty(title)) {
                 // Iterate through the image URI's and add them to the Firebase Storage
-                if (!mSelectedImageList.isEmpty()) {    // TODO: Remove
+                if (!mSelectedImageList.isEmpty()) {
                     StorageReference reviewImageRef = mFirebaseStorage.child(String.format("images/%s/reviews", mFirebaseUser.getUid()));
                     // Clear the selected image url list
                     mSelectedImageUrlList.clear();
@@ -284,12 +325,13 @@ public class AddReviewActivity extends AppCompatActivity {
         // Add the review recommend status
         dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_RECOMMEND_STATUS, recommendationStatus);
         // Add the review trail ID
-        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TRAIL_ID, mTrailID);
+        dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_TRAIL_ID, mPark.getParkID());
         // Add the review image IDs
         dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_IMAGES, selectedImageUrlList);
 
         // Update the "reviews" messages reference for the given Trail ID
-        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewMessages.KEY_TLO)
+        mReviewsDatabaseRef.child(mTrailID)
+                .child(Constants.ReviewKeys.ReviewMessages.KEY_TLO)
                 // for the logged in user
                 .child(mFirebaseUser.getUid())
                 .setValue(dataMap)
@@ -303,7 +345,8 @@ public class AddReviewActivity extends AppCompatActivity {
                 });
 
         /* Load the "reviews" stats reference for the given Trail ID */
-        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+        mReviewsDatabaseRef.child(mTrailID)
+                .child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot statsSnapshot) {
@@ -354,7 +397,8 @@ public class AddReviewActivity extends AppCompatActivity {
                         }
 
                         // Update the "reviews" stats reference for the given Trail ID
-                        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+                        mReviewsDatabaseRef.child(mTrailID)
+                                .child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
                                 .setValue(statsMap)
                                 .addOnCompleteListener(statsTask -> {
                                     if (statsTask.isSuccessful()) {
@@ -410,7 +454,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
         // Check the intent request code
         if (requestCode == REQUEST_CODE_SELECT_MULTIPLE && resultCode == RESULT_OK && data != null) {
-            // Clear the selected image list
+            // Clear the selected image list TODO: Check
             mSelectedImageList.clear();
 
             if (data.getClipData() != null) {
@@ -430,6 +474,10 @@ public class AddReviewActivity extends AppCompatActivity {
 
             // Update the recycler view adapter
             mAdapter.updateDataList(new ArrayList<>(mSelectedImageList));
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
+            // Get the single selected image
+            // Update the recycler view adapter
+            mAdapter.updateDataList(new ArrayList<>(mSelectedImageList));
         }
     }
 
@@ -443,6 +491,58 @@ public class AddReviewActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, REQUEST_CODE_SELECT_MULTIPLE);
+    }
+
+    /* Helper method to launch camera intent */
+    @SuppressLint("QueryPermissionsNeeded")
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error handling occurred while creating the File
+                mBaseUtils.showToast("Something went wrong!", Toast.LENGTH_SHORT);
+                ex.printStackTrace();
+            }
+
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(mContext,
+                        "com.neu.madcourse.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+                Log.d(LOG_TAG, photoURI.toString());
+                // Add uri to the adapter list
+                mSelectedImageList.add(photoURI);
+            }
+        }
+    }
+
+    /* Helper method to save image from the camera on the device */
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        // timestamp made to make every file unique and dated
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",   /* suffix */
+                storageDir      /* directory of where the file goes */
+        );
+
+        // Save file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     /**

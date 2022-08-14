@@ -237,10 +237,10 @@ class TrailReviewsFragment : Fragment() {
             val averageRating: Double = (reviewStats.totalStars!! / reviewStats.totalReviewers!!)
 
             // Set total rating
-            mBinding.viewReviewCard.viewReviewsAverage.text = averageRating.toString()
+            mBinding.viewReviewCard.viewReviewsAverage.text = round(averageRating, 1).toString()
 
             // Set average stars
-            mBinding.viewReviewsRating.rating = averageRating.toFloat()
+            mBinding.viewReviewsRating.rating = round(averageRating, 1).toFloat()
 
             // Set the "Excellent" progress and number of reviews
             mBinding.viewProgressExcellent.progress =
@@ -267,5 +267,11 @@ class TrailReviewsFragment : Fragment() {
                 ((reviewStats.numTerrible!! * 100) / reviewStats.totalReviewers!!).toInt()
             mBinding.viewNumRatingTerrible.text = reviewStats.numTerrible!!.toString()
         }
+    }
+
+    /* Reference: https://stackoverflow.com/questions/22186778/using-math-round-to-round-to-one-decimal-place */
+    private fun round(value: Double, precision: Int): Double {
+        val scale = Math.pow(10.0, precision.toDouble()).toInt()
+        return Math.round(value * scale).toDouble() / scale
     }
 }

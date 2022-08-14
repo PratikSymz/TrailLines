@@ -55,6 +55,6 @@ class GenericAdapter<T>(
         // Update the data list
         mDataModelList = dataModelList
         // Notify the adapter
-        notifyItemRangeChanged(0, mDataModelList.size)
+        notifyDataSetChanged()
     }
 }

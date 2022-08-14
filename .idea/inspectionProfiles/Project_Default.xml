@@ -1,6 +1,11 @@
 <component name="InspectionProjectProfileManager">
-  <profile version="1.0">
-    <option name="myName" value="Project Default" />
-    <inspection_tool class="Deprecation" enabled="false" level="WARNING" enabled_by_default="false" />
-  </profile>
+    <profile version="1.0">
+        <option name="myName" value="Project Default" />
+        <inspection_tool class="AndroidElementNotAllowed" enabled="false" enabled_by_default="false"
+            level="WARNING" />
+        <inspection_tool class="DeprecatedClassUsageInspection" enabled="false"
+            enabled_by_default="false" level="WARNING" />
+        <inspection_tool class="Deprecation" enabled="false" enabled_by_default="false"
+            level="WARNING" />
+    </profile>
 </component>

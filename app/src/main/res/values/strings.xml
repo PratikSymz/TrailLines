@@ -1,5 +1,28 @@
 <resources>
     <string name="app_name">MAD_Team4_FinalProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi_where_to_next">Hi! Where to next?</string>
+    <string name="explore"><b>Explore</b></string>
+    <string name="community"><b>Community</b></string>
+    <string name="Community"><b>Community</b></string>
+    <string name="add_post"><b>Add Post</b></string>
+    <string name="saved_trails"><b>Saved</b></string>
+    <string name="profile"><b>Profile</b></string>
+    <string name="write_review">Write a Review</string>
+    <string name="trailines">TrailLines</string>
+    <string name="discover_trail">Discover outdoor experiences with TrailLines</string>
+    <string name="get_started">Get Started</string>
+    <string name="thank_you_review">Thank you for writing a review for</string>
+    <string name="your_rating">Your Rating</string>
+    <string name="share_experience">Share your experience</string>
+    <string name="share_in_detail">Share in detail</string>
+    <string name="add_image">Add Images</string>
+    <string name="add_symbol">+</string>
+    <string name="would_you_recommend">Would you recommend?</string>
+    <string name="submit">Submit</string>
+    <string name="recommended">Recommended</string>
+    <string name="not_recommended">Not recommended</string>
 
     <!-- LoginActivity resources -->
     <string name="hint_login_email">Enter Email</string>
@@ -30,8 +53,6 @@
     <string name="password_change_successful">Password changed successfully!</string>
     <string name="something_wrong">Something went wrong!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="chat_appear">Chats will appear here</string>
     <string name="friend_requests">Friend Requests</string>
     <string name="request_list">Connections requests</string>
@@ -50,11 +71,6 @@
     <string name="email_sent_failed">Failed to send to email: %1$s</string>
     <string name="resend_timer">Resend in: %1$s</string>
     <string name="retry">Retry</string>
-    <string name="failed_chat_list">"Chat List Failed : %1$s "</string>
-    <string name="request_sent_successfully">Request sent successfully</string>
-    <string name="failed_to_send_request">Failed to send friend request: %1$s</string>
-    <string name="request_cancelled_successfully">Request cancelled successfully</string>
-    <string name="failed_to_cancel_request">Failed to cancel request: %1$s</string>
     <string name="change_units">Change units</string>
     <string name="private_profile">Private Profile</string>
     <string name="dark_light">Dark/Light</string>
@@ -62,6 +78,11 @@
     <string name="support_contact">Contact Us</string>
     <string name="log_out">Log Out</string>
     <string name="submit_text">Submit</string>
+    <string name="failed_chat_list">"Chat List Failed : %1$s "</string>
+    <string name="request_sent_successfully">Request sent successfully</string>
+    <string name="failed_to_send_request">Failed to send friend request: %1$s</string>
+    <string name="request_cancelled_successfully">Request cancelled successfully</string>
+    <string name="failed_to_cancel_request">Failed to cancel request: %1$s</string>
     <string name="failed_to_send_message">Failed to send message: %1$s</string>
     <string name="message_sent_successfully">Message sent successfully</string>
     <string name="no_internet">No internet connection</string>

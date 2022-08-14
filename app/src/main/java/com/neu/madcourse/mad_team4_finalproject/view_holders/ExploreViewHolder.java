@@ -2,7 +2,6 @@ package com.neu.madcourse.mad_team4_finalproject.view_holders;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -63,7 +62,6 @@ public class ExploreViewHolder extends RecyclerView.ViewHolder {
                 .error(R.drawable.ic_error)
                 .into(trailImage);
 
-        Log.d("pvh", park.getImageList().get(0).getUrl());
         /* Set the onClick action for every item view on the parks list */
         mItemView.setOnClickListener(view -> {
             Intent detailIntent = new Intent(mContext, TrailDetailActivity.class);

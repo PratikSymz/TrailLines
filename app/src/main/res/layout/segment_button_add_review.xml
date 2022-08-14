@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/linear_layout_shape"
     android:backgroundTint="@color/hike_green"
     android:elevation="5dp">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_add_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/holder_add_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,4 +38,5 @@
         app:layout_constraintStart_toEndOf="@+id/label_add_review"
         app:layout_constraintTop_toTopOf="@+id/label_add_review"
         app:srcCompat="@drawable/ic_add_circle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -94,7 +94,7 @@ public class AddReviewActivity extends AppCompatActivity {
     private Park mPark;
 
     /* The Trail ID reference */
-    private final String mTrailID = "102";
+    // private final String mTrailID = "102";
 
     /* The Recommendation status boolean reference */
     private Boolean mRecommendationStatus = false;
@@ -179,7 +179,6 @@ public class AddReviewActivity extends AppCompatActivity {
         });
 
         /* Set the park name */
-        // TODO
         mBinding.viewReviewTrailName.setText(mPark.getFullName());
 
         /* Setup the "Not recommended" button */
@@ -329,7 +328,7 @@ public class AddReviewActivity extends AppCompatActivity {
         dataMap.put(Constants.ReviewKeys.ReviewMessages.KEY_IMAGES, selectedImageUrlList);
 
         // Update the "reviews" messages reference for the given Trail ID
-        mReviewsDatabaseRef.child(mTrailID)
+        mReviewsDatabaseRef.child(mPark.getParkID())
                 .child(Constants.ReviewKeys.ReviewMessages.KEY_TLO)
                 // for the logged in user
                 .child(mFirebaseUser.getUid())
@@ -344,7 +343,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 });
 
         /* Load the "reviews" stats reference for the given Trail ID */
-        mReviewsDatabaseRef.child(mTrailID)
+        mReviewsDatabaseRef.child(mPark.getParkID())
                 .child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -396,7 +395,7 @@ public class AddReviewActivity extends AppCompatActivity {
                         }
 
                         // Update the "reviews" stats reference for the given Trail ID
-                        mReviewsDatabaseRef.child(mTrailID)
+                        mReviewsDatabaseRef.child(mPark.getParkID())
                                 .child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
                                 .setValue(statsMap)
                                 .addOnCompleteListener(statsTask -> {
@@ -453,8 +452,8 @@ public class AddReviewActivity extends AppCompatActivity {
 
         // Check the intent request code
         if (requestCode == REQUEST_CODE_SELECT_MULTIPLE && resultCode == RESULT_OK && data != null) {
-            // Clear the selected image list TODO: Check
-            mSelectedImageList.clear();
+            // Clear the selected image list
+            // mSelectedImageList.clear();
 
             if (data.getClipData() != null) {
                 // Iterate and extract the images from the "data"
@@ -475,8 +474,6 @@ public class AddReviewActivity extends AppCompatActivity {
             mAdapter.updateDataList(new ArrayList<>(mSelectedImageList));
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             // Get the single selected image
-            // Update the recycler view adapter
-            mAdapter.updateDataList(new ArrayList<>(mSelectedImageList));
         }
     }
 
@@ -517,9 +514,10 @@ public class AddReviewActivity extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 
-                Log.d(LOG_TAG, photoURI.toString());
                 // Add uri to the adapter list
                 mSelectedImageList.add(photoURI);
+                // Update the recycler view adapter
+                mAdapter.updateDataList(new ArrayList<>(mSelectedImageList));
             }
         }
     }

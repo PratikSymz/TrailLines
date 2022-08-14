@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.neu.madcourse.mad_team4_finalproject.database.models.SavedTrail;
 
-@Database(entities = {SavedTrail.class}, version = 1)
+@Database(entities = {SavedTrail.class}, version = 2)
 public abstract class SavedTrailsDatabase extends RoomDatabase {
     /* The Database class instance */
     private static SavedTrailsDatabase INSTANCE;

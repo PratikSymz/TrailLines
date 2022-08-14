@@ -48,8 +48,6 @@ public class ExploreViewHolder extends RecyclerView.ViewHolder {
         trailInfo.setText(park.getAddressList().get(0).getLine1());
         trailRating.setText("0.0");
 
-//        Picasso.get().load(park.getImageList().get(0).getUrl()).into(trailImage);
-
         if (reviewStat.getTotalReviewers() > 0) {
             Double avgRating = round((reviewStat.getTotalStars() / reviewStat.getTotalReviewers()), 1);
             trailRating.setText(String.valueOf(avgRating));

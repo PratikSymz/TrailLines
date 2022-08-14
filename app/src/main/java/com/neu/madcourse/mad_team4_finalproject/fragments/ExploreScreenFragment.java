@@ -263,7 +263,7 @@ public class ExploreScreenFragment extends Fragment {
                     }
                 } else {
                     // Update the adapter list with unfiltered list
-                     mExploreAdapter.updateDataList(mExploreList);
+                    mExploreAdapter.updateDataList(mExploreList);
                 }
             });
             bottomSheet.show(requireActivity().getSupportFragmentManager(), bottomSheet.getTag());
@@ -289,7 +289,7 @@ public class ExploreScreenFragment extends Fragment {
         // Extract the state code
         mEndpoints.getActivityParkResults(Constants.Retrofit.API_KEY, mStateCode, activityCode).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ParkResult> call, Response<ParkResult> response) {
+            public void onResponse(@NonNull Call<ParkResult> call, @NonNull Response<ParkResult> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     // Extract the Park results
                     ParkResult results = response.body();
@@ -301,30 +301,31 @@ public class ExploreScreenFragment extends Fragment {
                         mBinding.verticalTrailRecyclerView.setVisibility(View.INVISIBLE);
                     } else {
                         for (Park park : mParkList) {
-                            mReviewsDatabaseRef.child(park.getParkID()).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot statSnapshot) {
-                                        // Extract the review stats
-                                        ReviewStat reviewStat = statSnapshot.getValue(ReviewStat.class);
-                                        if (reviewStat == null)
-                                            reviewStat = new ReviewStat();
-                                        // Add to the review stat list
-                                        mReviewStatList.add(reviewStat);
+                            mReviewsDatabaseRef.child(park.getParkID())
+                                    .child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot statSnapshot) {
+                                            // Extract the review stats
+                                            ReviewStat reviewStat = statSnapshot.getValue(ReviewStat.class);
+                                            if (reviewStat == null)
+                                                reviewStat = new ReviewStat();
+                                            // Add to the review stat list
+                                            mReviewStatList.add(reviewStat);
 
-                                        // Build the explore instance
-                                        Explore explore = new Explore(park, reviewStat);
-                                        // Add to the explore list
-                                        mExploreList.add(explore);
-                                        // Update the adapter list
-                                        mExploreAdapter.updateDataList(mExploreList);
-                                    }
+                                            // Build the explore instance
+                                            Explore explore = new Explore(park, reviewStat);
+                                            // Add to the explore list
+                                            mExploreList.add(explore);
+                                            // Update the adapter list
+                                            mExploreAdapter.updateDataList(mExploreList);
+                                        }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                        mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
-                                    }
-                                });
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
+                                        }
+                                    });
                         }
                         mBinding.noResultsFound.setVisibility(View.INVISIBLE);
                         mBinding.verticalTrailRecyclerView.setVisibility(View.VISIBLE);
@@ -360,7 +361,6 @@ public class ExploreScreenFragment extends Fragment {
                     // Extract the activity list data from the response
                     mActivityList = results.getActivityList();
 
-                    // TODO: HOW TO? Filter the list of activities
                     List<Activity> filteredActivityList = mActivityList.stream()
                             .filter(activity -> ACTIVITY_CODES.contains(activity.getRecordId())).collect(Collectors.toList());
 
@@ -390,64 +390,66 @@ public class ExploreScreenFragment extends Fragment {
 //        if (currentLocationAddress == null) {
 //            mBaseUtils.showToast("Current location not found!", Toast.LENGTH_SHORT);
 //        } else {
-            // Extract the state code
+        // Extract the state code
 //            String stateCode = mBaseUtils.extractStateCode(currentLocationAddress.getAdminArea());
-            if (stateCode == null) {
-                mBaseUtils.showToast("Invalid location!", Toast.LENGTH_SHORT);
-            } else {
-                mEndpoints.getParkResults(Constants.Retrofit.API_KEY, stateCode).enqueue(new Callback<>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ParkResult> call, @NonNull Response<ParkResult> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            // Extract the Park results
-                            ParkResult results = response.body();
-                            // Extract the park list
-                            mParkList = results.getParkList();
 
-                            mExploreList.clear();
-                            // Iterate through the parks list and retrieve Review stats
-                            for (Park park : mParkList) {
-                                mReviewsDatabaseRef.child(park.getParkID()).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
-                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot statSnapshot) {
-                                                // Extract the review stats
-                                                ReviewStat reviewStat = statSnapshot.getValue(ReviewStat.class);
-                                                if (reviewStat == null)
-                                                    reviewStat = new ReviewStat();
-                                                // Add to the review stat list
-                                                mReviewStatList.add(reviewStat);
+        if (stateCode == null) {
+            mBaseUtils.showToast("Invalid location!", Toast.LENGTH_SHORT);
+        } else {
+            mEndpoints.getParkResults(Constants.Retrofit.API_KEY, stateCode).enqueue(new Callback<>() {
+                @Override
+                public void onResponse(@NonNull Call<ParkResult> call, @NonNull Response<ParkResult> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        // Extract the Park results
+                        ParkResult results = response.body();
+                        // Extract the park list
+                        mParkList = results.getParkList();
 
-                                                // Build the explore instance
-                                                Explore explore = new Explore(park, reviewStat);
-                                                // Add to the explore list
-                                                mExploreList.add(explore);
-                                                // Update the adapter list
-                                                mExploreAdapter.updateDataList(mExploreList);
-                                            }
+                        mExploreList.clear();
+                        // Iterate through the parks list and retrieve Review stats
+                        for (Park park : mParkList) {
+                            mReviewsDatabaseRef.child(park.getParkID())
+                                    .child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot statSnapshot) {
+                                            // Extract the review stats
+                                            ReviewStat reviewStat = statSnapshot.getValue(ReviewStat.class);
+                                            if (reviewStat == null)
+                                                reviewStat = new ReviewStat();
+                                            // Add to the review stat list
+                                            mReviewStatList.add(reviewStat);
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-                                                mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
-                                                Log.d(TAG, error.getMessage());
-                                            }
-                                        });
-                            }
-                            mExploreAdapter.updateDataList(mExploreList);
-                        } else {
-                            mBaseUtils.showToast(
-                                    String.format("NPS Parks Response error: %s", response.errorBody()),
-                                    Toast.LENGTH_SHORT
-                            );
+                                            // Build the explore instance
+                                            Explore explore = new Explore(park, reviewStat);
+                                            // Add to the explore list
+                                            mExploreList.add(explore);
+                                            // Update the adapter list
+                                            mExploreAdapter.updateDataList(mExploreList);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            mBaseUtils.showToast("Failed loading review stats!", Toast.LENGTH_SHORT);
+                                            Log.d(TAG, error.getMessage());
+                                        }
+                                    });
                         }
+                        mExploreAdapter.updateDataList(mExploreList);
+                    } else {
+                        mBaseUtils.showToast(
+                                String.format("NPS Parks Response error: %s", response.errorBody()),
+                                Toast.LENGTH_SHORT
+                        );
                     }
+                }
 
-                    @Override
-                    public void onFailure(@NonNull Call<ParkResult> call, @NonNull Throwable throwable) {
-                        Log.e(TAG, throwable.getMessage());
-                    }
-                });
-            }
+                @Override
+                public void onFailure(@NonNull Call<ParkResult> call, @NonNull Throwable throwable) {
+                    Log.e(TAG, throwable.getMessage());
+                }
+            });
+        }
 
     }
 

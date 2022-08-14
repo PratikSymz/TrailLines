@@ -3,7 +3,6 @@ package com.neu.madcourse.mad_team4_finalproject.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -137,6 +136,7 @@ class TrailDetailActivity : AppCompatActivity() {
         for (activity in park.activityList) {
             activities += (activity.recordId + " ")
         }
+
         val savedTrail = SavedTrail(
             EMPTY_KEY,
             park.parkID,

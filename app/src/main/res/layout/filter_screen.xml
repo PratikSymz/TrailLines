@@ -7,9 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-
-
-    <com.google.android.material.button.MaterialButton            android:id="@+id/filterClose"
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/filterClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -81,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:buttonTint="#ADABAB"
+                    android:buttonTint="@drawable/button_selector"
                     android:checked="false"
                     android:layoutDirection="rtl"
                     android:text="Best Matched"
@@ -93,115 +92,115 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:buttonTint="#ADABAB"
+                    android:buttonTint="@drawable/button_selector"
                     android:checked="false"
                     android:layoutDirection="rtl"
                     android:text="Top Rated"
                     android:textAlignment="textStart"
                     android:textSize="18sp" />
 
-                <RadioButton
-                    android:id="@+id/closest"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:buttonTint="#159440"
-                    android:checked="true"
-                    android:layoutDirection="rtl"
-                    android:text="Closest"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp" />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/closest"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="start"-->
+<!--                    android:buttonTint="@drawable/button_selector"-->
+<!--                    android:checked="true"-->
+<!--                    android:layoutDirection="rtl"-->
+<!--                    android:text="Closest"-->
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:textSize="18sp" />-->
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/length"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:text="Length"
-                android:textColor="#050505"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+<!--            <TextView-->
+<!--                android:id="@+id/length"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:text="Length"-->
+<!--                android:textColor="#050505"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />-->
 
-            <com.google.android.material.slider.RangeSlider
-                android:id="@+id/length_slider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="24dp"
-                android:contentDescription="length"
-                android:valueFrom="0"
-                android:valueTo="80"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/length"
-                app:thumbColor="#FFFFFF"
-                app:thumbRadius="10dp"
-                app:thumbStrokeColor="#159440"
-                app:thumbStrokeWidth="3dp"
-                app:trackColorActive="#159440"
-                app:trackColorInactive="#ADABAB"
-                app:trackHeight="3dp"
-                app:values="@array/initial_length_values" />
+<!--            <com.google.android.material.slider.RangeSlider-->
+<!--                android:id="@+id/length_slider"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:contentDescription="length"-->
+<!--                android:valueFrom="0"-->
+<!--                android:valueTo="80"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/length"-->
+<!--                app:thumbColor="#FFFFFF"-->
+<!--                app:thumbRadius="10dp"-->
+<!--                app:thumbStrokeColor="#159440"-->
+<!--                app:thumbStrokeWidth="3dp"-->
+<!--                app:trackColorActive="#159440"-->
+<!--                app:trackColorInactive="#ADABAB"-->
+<!--                app:trackHeight="3dp"-->
+<!--                app:values="@array/initial_length_values" />-->
 
-            <TextView
-                android:id="@+id/elevation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:text="Elevation"
-                android:textColor="#050505"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/length_slider" />
+<!--            <TextView-->
+<!--                android:id="@+id/elevation"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:text="Elevation"-->
+<!--                android:textColor="#050505"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/length_slider" />-->
 
-            <com.google.android.material.slider.RangeSlider
-                android:id="@+id/elevation_slider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="24dp"
-                android:contentDescription="elevation"
-                android:valueFrom="0"
-                android:valueTo="1500"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/elevation"
-                app:thumbColor="#FFFFFF"
-                app:thumbRadius="10dp"
-                app:thumbStrokeColor="#159440"
-                app:thumbStrokeWidth="3dp"
-                app:trackColorActive="#159440"
-                app:trackColorInactive="#ADABAB"
-                app:trackHeight="3dp"
-                app:values="@array/initial_elevation_values" />
+<!--            <com.google.android.material.slider.RangeSlider-->
+<!--                android:id="@+id/elevation_slider"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:contentDescription="elevation"-->
+<!--                android:valueFrom="0"-->
+<!--                android:valueTo="1500"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/elevation"-->
+<!--                app:thumbColor="#FFFFFF"-->
+<!--                app:thumbRadius="10dp"-->
+<!--                app:thumbStrokeColor="#159440"-->
+<!--                app:thumbStrokeWidth="3dp"-->
+<!--                app:trackColorActive="#159440"-->
+<!--                app:trackColorInactive="#ADABAB"-->
+<!--                app:trackHeight="3dp"-->
+<!--                app:values="@array/initial_elevation_values" />-->
 
-            <TextView
-                android:id="@+id/lengthInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:text="0 - 80 miles+"
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+<!--            <TextView-->
+<!--                android:id="@+id/lengthInfo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:text="0 - 80 miles+"-->
+<!--                android:textColor="#000000"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />-->
 
-            <TextView
-                android:id="@+id/elevationInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:text="0m - 1500m+"
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/length_slider" />
+<!--            <TextView-->
+<!--                android:id="@+id/elevationInfo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:text="0m - 1500m+"-->
+<!--                android:textColor="#000000"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/length_slider" />-->
 
             <TextView
                 android:id="@+id/elevationInfo2"
@@ -270,67 +269,66 @@
                 app:layout_constraintStart_toEndOf="@+id/threeStar"
                 app:layout_constraintTop_toBottomOf="@+id/ratingSlider" />
 
-            <TextView
-                android:id="@+id/difficulty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:text="Difficulty"
-                android:textColor="#050505"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/elevation_slider" />
+<!--            <TextView-->
+<!--                android:id="@+id/difficulty"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:text="Difficulty"-->
+<!--                android:textColor="#050505"-->
+<!--                android:textSize="22sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/elevation_slider" />-->
 
-            <CheckBox
-                android:id="@+id/easyCheckBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:buttonTint="#ADABAB"
-                android:layoutDirection="rtl"
-                android:text="Easy"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/difficulty" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/easyCheckBox"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="start"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:buttonTint="@drawable/button_selector"-->
+<!--                android:layoutDirection="rtl"-->
+<!--                android:text="Easy"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/difficulty" />-->
 
-            <CheckBox
-                android:id="@+id/medCheckBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:buttonTint="#ADABAB"
-                android:layoutDirection="rtl"
-                android:text="Medium"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/easyCheckBox" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/medCheckBox"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="start"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:buttonTint="@drawable/button_selector"-->
+<!--                android:layoutDirection="rtl"-->
+<!--                android:text="Medium"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/easyCheckBox" />-->
 
-            <CheckBox
-                android:id="@+id/hardCheckBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:buttonTint="#159440"
-                android:checked="true"
-                android:layoutDirection="rtl"
-                android:text="Hard"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/medCheckBox" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/hardCheckBox"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="start"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:buttonTint="@drawable/button_selector"-->
+<!--                android:layoutDirection="rtl"-->
+<!--                android:text="Hard"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/medCheckBox" />-->
 
             <TextView
                 android:id="@+id/rating"
@@ -343,7 +341,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hardCheckBox" />
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
             <com.google.android.material.slider.RangeSlider
                 android:id="@+id/ratingSlider"
@@ -439,7 +437,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="Preferences"
+                android:text="Things to do"
                 android:textColor="#050505"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -447,53 +445,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/fourStar" />
 
             <CheckBox
-                android:id="@+id/dog"
+                android:id="@+id/hiking"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:buttonTint="#ADABAB"
+                android:buttonTint="@drawable/button_selector"
                 android:layoutDirection="rtl"
-                android:text="Dog Friendly"
+                android:text="Hiking"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/preferences" />
-
-            <CheckBox
-                android:id="@+id/kid"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:buttonTint="#ADABAB"
-                android:layoutDirection="rtl"
-                android:text="Kid Friendly"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dog" />
-
-            <CheckBox
-                android:id="@+id/camping"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:buttonTint="#159440"
-                android:checked="true"
-                android:layoutDirection="rtl"
-                android:text="Camping Allowed"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/kid" />
 
             <CheckBox
                 android:id="@+id/biking"
@@ -502,10 +467,41 @@
                 android:layout_gravity="start"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:buttonTint="#159440"
-                android:checked="true"
+                android:buttonTint="@drawable/button_selector"
                 android:layoutDirection="rtl"
-                android:text="Biking Allowed"
+                android:text="Biking"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hiking" />
+
+            <CheckBox
+                android:id="@+id/camping"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Camping Allowed"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/biking" />
+
+            <CheckBox
+                android:id="@+id/canyoneering"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Canyoneering"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -513,21 +509,168 @@
                 app:layout_constraintTop_toBottomOf="@id/camping" />
 
             <CheckBox
-                android:id="@+id/wheelchair"
+                android:id="@+id/climbing"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:buttonTint="#159440"
-                android:checked="true"
+                android:buttonTint="@drawable/button_selector"
                 android:layoutDirection="rtl"
-                android:text="Wheelchair Accessible"
+                android:text="Climbing"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/biking" />
+                app:layout_constraintTop_toBottomOf="@id/canyoneering" />
+
+            <CheckBox
+                android:id="@+id/caving"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Caving"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/climbing" />
+
+            <CheckBox
+                android:id="@+id/boating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Boating"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/caving" />
+
+            <CheckBox
+                android:id="@+id/paddling"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Paddling"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/boating" />
+
+            <CheckBox
+                android:id="@+id/surfing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Surfing"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/paddling" />
+
+            <CheckBox
+                android:id="@+id/scuba"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Scuba Diving"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/surfing" />
+
+            <CheckBox
+                android:id="@+id/snorkeling"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Snorkeling"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scuba" />
+
+            <CheckBox
+                android:id="@+id/skiing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Skiing"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/snorkeling" />
+
+            <CheckBox
+                android:id="@+id/waterskiing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Water Skiing"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/skiing" />
+
+            <CheckBox
+                android:id="@+id/fishing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="@drawable/button_selector"
+                android:layoutDirection="rtl"
+                android:text="Fishing"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/waterskiing" />
+
+
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

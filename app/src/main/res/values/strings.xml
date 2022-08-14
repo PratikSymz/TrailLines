@@ -1,3 +1,91 @@
 <resources>
     <string name="app_name">MAD_Team4_FinalProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hi_where_to_next">Hi! Where to next?</string>
+    <string name="explore"><b>Explore</b></string>
+    <string name="community"><b>Community</b></string>
+    <string name="Community"><b>Community</b></string>
+    <string name="add_post"><b>Add Post</b></string>
+    <string name="saved_trails"><b>Saved</b></string>
+    <string name="profile"><b>Profile</b></string>
+    <string name="write_review">Write a Review</string>
+    <string name="trailines">TrailLines</string>
+    <string name="discover_trail">Discover outdoor experiences with TrailLines</string>
+    <string name="get_started">Get Started</string>
+    <string name="thank_you_review">Thank you for writing a review for</string>
+    <string name="your_rating">Your Rating</string>
+    <string name="share_experience">Share your experience</string>
+    <string name="share_in_detail">Share in detail</string>
+    <string name="add_image">Add Images</string>
+    <string name="add_symbol">+</string>
+    <string name="would_you_recommend">Would you recommend?</string>
+    <string name="submit">Submit</string>
+    <string name="recommended">Recommended</string>
+    <string name="not_recommended">Not recommended</string>
+
+    <!-- LoginActivity resources -->
+    <string name="hint_login_email">Enter Email</string>
+    <string name="hint_login_password">Enter Password</string>
+    <string name="login_empty_email">Invalid Email</string>
+    <string name="login_empty_password">Invalid Password</string>
+    <string name="login_button_text">Login</string>
+
+    <!-- SignUpActivity resources -->
+    <string name="hint_signup_name">Enter Name</string>
+    <string name="hint_signup_email">Enter Email</string>
+    <string name="hint_signup_password">Enter Password</string>
+    <string name="hint_signup_confirm_password">Confirm Password</string>
+    <string name="signup_empty_email">Invalid Email</string>
+    <string name="signup_empty_password">Invalid Password</string>
+    <string name="signup_button_text">Sign up</string>
+    <string name="invalid_name">Invalid Name</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="password_not_match">Passwords do not match!</string>
+    <string name="sign_up_success">Sign Up Successful!</string>
+    <string name="signup_fail">Sign Up Failed: %1$s</string>
+    <string name="sign_up"><u>Sign up</u></string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="update_failed">Failed to update profile</string>
+    <string name="permission_required">Permission Required!</string>
+    <string name="traillines_messenger">TrailLines Messenger</string>
+    <string name="password_change_successful">Password changed successfully!</string>
+    <string name="something_wrong">Something went wrong!</string>
+
+    <string name="chat_appear">Chats will appear here</string>
+    <string name="friend_requests">Friend Requests</string>
+    <string name="request_list">Connections requests</string>
+    <string name="find_friends">Friends list</string>
+    <string name="change_picture">Change picture</string>
+    <string name="remove_picture">Remove picture</string>
+    <string name="remove_picture_successful">Profile picture removed successfully</string>
+    <string name="press_again_exit">Press the back button again to exit</string>
+    <string name="loading">Loading...</string>
+    <string name="accept_request">Accept</string>
+    <string name="deny">Deny</string>
+    <string name="failed_friend_request">No Friend Request Found %1$s</string>
+    <string name="deny_request">Request Deny Failed : %1$s</string>
+    <string name="not_accepted">Failed to accept request</string>
+    <string name="reset_instructions">Reset password instructions have been sent on email: %1$s</string>
+    <string name="email_sent_failed">Failed to send to email: %1$s</string>
+    <string name="resend_timer">Resend in: %1$s</string>
+    <string name="retry">Retry</string>
+    <string name="change_units">Change units</string>
+    <string name="private_profile">Private Profile</string>
+    <string name="dark_light">Dark/Light</string>
+    <string name="current_version">Current Version: v1.0</string>
+    <string name="support_contact">Contact Us</string>
+    <string name="log_out">Log Out</string>
+    <string name="submit_text">Submit</string>
+    <string name="failed_chat_list">"Chat List Failed : %1$s "</string>
+    <string name="request_sent_successfully">Request sent successfully</string>
+    <string name="failed_to_send_request">Failed to send friend request: %1$s</string>
+    <string name="request_cancelled_successfully">Request cancelled successfully</string>
+    <string name="failed_to_cancel_request">Failed to cancel request: %1$s</string>
+    <string name="failed_to_send_message">Failed to send message: %1$s</string>
+    <string name="message_sent_successfully">Message sent successfully</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
 </resources>

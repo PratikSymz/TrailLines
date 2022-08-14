@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chatfragments.ChatHistoryFragment">
+
+    <TextView
+        android:id="@+id/label_history_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="Online"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_history_online"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/round_corner_background"
+        android:backgroundTint="#D9D9D9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_history_online"
+        app:layout_constraintTop_toBottomOf="@+id/label_history_online" />
+
+    <TextView
+        android:id="@+id/label_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="History"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_history_online" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_history"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/round_corner_background"
+        android:backgroundTint="#D9D9D9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_history"
+        app:layout_constraintTop_toBottomOf="@+id/label_history" />
+
+    <TextView
+        android:id="@+id/label_none_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="No one online"
+        android:textColor="@color/hike_dark_green"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_history_online"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_history_online"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view_history_online"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view_history_online" />
+
+    <TextView
+        android:id="@+id/label_no_chats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="No chats here"
+        android:textColor="@color/hike_dark_green"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_history"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_history"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view_history"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view_history" />
+
+    <include
+        android:id="@+id/chat_progress_bar"
+        layout="@layout/layout_progress_bar"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

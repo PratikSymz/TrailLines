@@ -228,7 +228,7 @@ public class ExploreScreenFragment extends Fragment {
 
                     List<Explore> filteredExploreList = new ArrayList<>();
                     Float ratingStartPref = sharedPreferences.getFloat(Constants.RATING_START, 0);
-                    Float ratingEndPref = sharedPreferences.getFloat(Constants.RATING_END, 0);
+                    Float ratingEndPref = sharedPreferences.getFloat(Constants.RATING_END, 5);
 
                     Set<String> preferencesPref = sharedPreferences.getStringSet(Constants.PREFERENCES, new HashSet<>());
                     if (sorted) {
@@ -251,8 +251,9 @@ public class ExploreScreenFragment extends Fragment {
                         });
                     }
 
-                    filteredExploreList.removeIf(explore -> explore.getReviewStat().getTotalStars() > ratingEndPref
-                            || explore.getReviewStat().getTotalStars() < ratingStartPref);
+
+                    filteredExploreList.removeIf(explore -> (explore.getReviewStat().getTotalStars() / explore.getReviewStat().getTotalReviewers()) > ratingEndPref
+                            || (explore.getReviewStat().getTotalStars() / explore.getReviewStat().getTotalReviewers()) < ratingStartPref);
 
                     if (filteredExploreList.isEmpty()) {
                         mBaseUtils.showToast("No parks found based on the filters. Enjoy other parks :)", Toast.LENGTH_LONG);

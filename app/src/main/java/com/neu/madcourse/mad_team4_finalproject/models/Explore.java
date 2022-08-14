@@ -26,16 +26,15 @@ public class Explore implements Serializable, Comparable<Explore> {
         return reviewStat;
     }
 
-//
-//    @Override
-//    public int compare(Explore o1, Explore o2) {
-//        return Double.compare(o1.getReviewStat().getTotalStars(),
-//                o2.getReviewStat().getTotalStars());
-//    }
-
     @Override
     public int compareTo(Explore o) {
-        return Double.compare(reviewStat.getTotalStars(),
-                o.getReviewStat().getTotalStars());
+        return -Double.compare(round(reviewStat.getTotalStars()/reviewStat.getTotalReviewers(), 1),
+                round(o.getReviewStat().getTotalStars()/o.getReviewStat().getTotalReviewers(), 1));
+    }
+
+    /* Reference: https://stackoverflow.com/questions/22186778/using-math-round-to-round-to-one-decimal-place */
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 }

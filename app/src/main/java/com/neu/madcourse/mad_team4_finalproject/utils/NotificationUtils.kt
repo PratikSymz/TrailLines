@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.android.volley.AuthFailureError
-import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -89,11 +88,9 @@ class NotificationUtils(context: Context) {
                         }
                         val failureListener = Response.ErrorListener { _ ->
                             mBaseUtils.showToast("Failed to send notification", Toast.LENGTH_SHORT)
-
                         }
 
                         val jsonObjectRequest: JsonObjectRequest = object : JsonObjectRequest(
-                            Request.Method.POST,
                             apiUrl,
                             mNotification,
                             successListener,
@@ -101,8 +98,7 @@ class NotificationUtils(context: Context) {
                         ) {
                             @Throws(AuthFailureError::class)
                             override fun getHeaders(): Map<String, String> {
-                                var params: MutableMap<String, String>? = super.getHeaders()
-                                if (params == null) params = HashMap()
+                                val params: MutableMap<String, String> = HashMap()
                                 params["Authorization"] = "key=" + Constants.FIREBASE_MESSAGING_KEY
                                 params["Sender"] = "id=" + Constants.FIREBASE_MESSAGE_SENDER_ID
                                 params["Content-Type"] = contentType
@@ -139,7 +135,7 @@ class NotificationUtils(context: Context) {
 //                            })
                     } catch (e: JSONException) {
                         mBaseUtils.showToast(
-                            "Failed to send notification" + e.message,
+                            "Notification error" + e.message,
                             Toast.LENGTH_SHORT
                         )
                     }

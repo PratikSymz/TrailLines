@@ -245,9 +245,17 @@ public class ChatHistoryFragment extends Fragment {
                             }
                         } else {
                             if (user.isOnline()) {
-                                if (onlineChatHistoryList.size() > 0) onlineChatHistoryList.set(onlineUserIDList.indexOf(userID), chatHistory);
+                                if (onlineChatHistoryList.size() > 0){
+                                    if (onlineUserIDList.contains(userID)) {
+                                        onlineChatHistoryList.set(onlineUserIDList.indexOf(userID), chatHistory);
+                                    }
+                                }
                             } else {
-                                if (chatHistoryList.size() > 0) chatHistoryList.set(userIDList.indexOf(userID), chatHistory);
+                                if (chatHistoryList.size() > 0) {
+                                    if (userIDList.contains(userID)) {
+                                        chatHistoryList.set(userIDList.indexOf(userID), chatHistory);
+                                    }
+                                }
                             }
                         }
 

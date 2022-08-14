@@ -2,7 +2,9 @@ package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
     public String line1;
     public String line2;
     public String line3;

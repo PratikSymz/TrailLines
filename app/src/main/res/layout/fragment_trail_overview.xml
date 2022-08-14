@@ -32,6 +32,8 @@
             android:breakStrategy="high_quality"
             android:ellipsize="end"
             android:fontFamily="@font/lato"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="4sp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
             android:text="A permit is required for this hike. To attain the permit you must win it through the permit lottery. There is a maximum fine of $100,000 and/or jail time if you enter the permit area without a valid permit which is by lottery only. While dogs are currently allowed in this permit area, this is a harsh environment with no water and extreme heat"
@@ -52,27 +54,85 @@
             app:layout_constraintStart_toStartOf="@+id/view_overview_description"
             app:layout_constraintTop_toBottomOf="@+id/view_overview_description" />
 
-        <include
-            android:id="@+id/segment_overview_length"
-            layout="@layout/segment_overview_metric"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_overview_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/segment_overview_elevation"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/placeholder_divider"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Weather"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/placeholder_divider" />
 
-        <include
-            android:id="@+id/segment_overview_elevation"
-            layout="@layout/segment_overview_metric"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/view_overview_weather"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:breakStrategy="high_quality"
+            android:ellipsize="end"
+            android:fontFamily="@font/lato"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="4sp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:text="weather"
+            android:textColor="#575757"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_overview_weather" />
+
+        <View
+            android:id="@+id/placeholder_divider2"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="16dp"
+            android:background="#D9D9D9"
+            app:layout_constraintEnd_toEndOf="@+id/view_overview_description"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/view_overview_description"
+            app:layout_constraintTop_toBottomOf="@+id/view_overview_weather" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/label_overview_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/segment_overview_length"
-            app:layout_constraintEnd_toEndOf="@+id/placeholder_divider"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/segment_overview_length"
-            app:layout_constraintTop_toTopOf="@+id/segment_overview_length" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Contact"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder_divider2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/view_overview_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:breakStrategy="high_quality"
+            android:ellipsize="end"
+            android:fontFamily="@font/lato"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="4sp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:text="Address"
+            android:textColor="#575757"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_overview_address" />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label_overview_map"
@@ -87,16 +147,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/placeholder_divider"
-            app:layout_constraintTop_toBottomOf="@+id/segment_overview_length" />
+            app:layout_constraintTop_toBottomOf="@+id/view_overview_address" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/view_overview_map"
             android:layout_width="0dp"
             android:layout_height="220dp"
             android:layout_marginTop="16dp"
-            android:elevation="10dp"
+            android:layout_marginBottom="24dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_nature"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/placeholder_divider"
             app:layout_constraintStart_toStartOf="@+id/label_overview_map"
             app:layout_constraintTop_toBottomOf="@+id/label_overview_map"

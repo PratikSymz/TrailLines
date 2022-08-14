@@ -2,9 +2,10 @@ package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Park {
+public class Park implements Serializable {
     @SerializedName("activities")
     private List<Activity> activityList;
     @SerializedName("addresses")
@@ -12,10 +13,11 @@ public class Park {
     @SerializedName("contacts")
     private ParkContact parkContact;
     private String designation;
-    @SerializedName("entranceFees")
-    private List<EntranceFee> entranceFeeList;
-    @SerializedName("entrancePasses")
-    private List<EntrancePass> entrancePassList;
+//    @SerializedName("entranceFees")
+//    private List<EntranceFee> entranceFeeList;
+//    @SerializedName("entrancePasses")
+//    private List<EntrancePass> entrancePassList;
+    @SerializedName("fullName")
     private String fullName;
     @SerializedName("id")
     private String parkID;
@@ -25,19 +27,20 @@ public class Park {
     private List<Image> imageList;
     @SerializedName("name")
     private String shortName;
-    @SerializedName("operatingHours")
-    private List<ParkOperationsHours> parkOperationsHoursList;
+    //    @SerializedName("operatingHours")
+//    private List<ParkOperationsHours> parkOperationsHoursList;
     private String states;
     private String url;
     private String weatherInfo;
+    private String description;
 
     public List<Activity> getActivityList() {
         return activityList;
     }
 
-    public List<Address> getAddressList() {
-        return addressList;
-    }
+//    public List<Address> getAddressList() {
+//        return addressList;
+//    }
 
     public ParkContact getParkContact() {
         return parkContact;
@@ -46,14 +49,14 @@ public class Park {
     public String getDesignation() {
         return designation;
     }
-
-    public List<EntranceFee> getEntranceFeeList() {
-        return entranceFeeList;
-    }
-
-    public List<EntrancePass> getEntrancePassList() {
-        return entrancePassList;
-    }
+//
+//    public List<EntranceFee> getEntranceFeeList() {
+//        return entranceFeeList;
+//    }
+//
+//    public List<EntrancePass> getEntrancePassList() {
+//        return entrancePassList;
+//    }
 
     public String getFullName() {
         return fullName;
@@ -61,6 +64,10 @@ public class Park {
 
     public String getParkID() {
         return parkID;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
     }
 
     public String getLatitude() {
@@ -79,9 +86,9 @@ public class Park {
         return shortName;
     }
 
-    public List<ParkOperationsHours> getParkOperationsHoursList() {
-        return parkOperationsHoursList;
-    }
+//    public List<ParkOperationsHours> getParkOperationsHoursList() {
+//        return parkOperationsHoursList;
+//    }
 
     public String getStates() {
         return states;
@@ -93,5 +100,9 @@ public class Park {
 
     public String getWeatherInfo() {
         return weatherInfo;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

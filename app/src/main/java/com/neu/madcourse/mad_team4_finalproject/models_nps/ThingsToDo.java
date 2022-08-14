@@ -2,9 +2,10 @@ package com.neu.madcourse.mad_team4_finalproject.models_nps;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ThingsToDo {
+public class ThingsToDo implements Serializable {
     @SerializedName("title")
     public String activityTitle;
     public String location;

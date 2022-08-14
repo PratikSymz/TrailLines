@@ -21,11 +21,12 @@ import com.neu.madcourse.mad_team4_finalproject.databinding.ItemReviewBinding
 import com.neu.madcourse.mad_team4_finalproject.models.ReviewMessage
 import com.neu.madcourse.mad_team4_finalproject.models.ReviewStat
 import com.neu.madcourse.mad_team4_finalproject.models.User
+import com.neu.madcourse.mad_team4_finalproject.models_nps.Park
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
 
 
-class TrailReviewsFragment : Fragment() {
+class TrailReviewsFragment(park: Park) : Fragment() {
     /* The Fragment Log Tag */
     private val LOG_TAG: String = TrailReviewsFragment::class.java.simpleName
 
@@ -59,16 +60,20 @@ class TrailReviewsFragment : Fragment() {
     /* The Review instance set reference */
     private var mReviewsList = HashSet<ReviewMessage>()
 
+    /* The Park model reference */
+    private val mPark = park
+
+    /* The Park ID reference */
+    private var mParkID: String = mPark.parkID
+
     /* The Trail ID reference */
     private var mTrailID: String = "102"
 
     /* The selected images list reference */
     // private val mFindFriendsList: List<FindFriend>? = null
 
-    override fun onCreateView(
-        @NonNull inflater: LayoutInflater, @Nullable container: ViewGroup?,
-        @Nullable savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(@NonNull inflater: LayoutInflater, @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState: Bundle?): View {
 
         // Set the activity context
         mContext = requireActivity()
@@ -98,9 +103,10 @@ class TrailReviewsFragment : Fragment() {
         mUsersDatabaseRef = FirebaseDatabase.getInstance().reference
             .child(Constants.UserKeys.KEY_TLO)
 
-        // Instantiate the firebase database reference -> "reviews"/trailID
+        // Instantiate the firebase database reference -> "reviews"/parkID
         mReviewsDatabaseRef = FirebaseDatabase.getInstance().reference
             .child(Constants.ReviewKeys.KEY_TLO)
+            .child(mTrailID)    // TODO: Check
 
         /* Set the selected images recycler view parameters */
         // Set the layout manager
@@ -119,6 +125,7 @@ class TrailReviewsFragment : Fragment() {
         // Add the onClick action for the "Add review button"
         mBaseUtils.applyListener(mBinding.viewAddReview.root) {
             val intent: Intent = Intent(mContext, AddReviewActivity::class.java)
+            intent.putExtra("park_details", mPark)
             startActivity(intent)
         }
 

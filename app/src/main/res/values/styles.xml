@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="custom_rating_bar_style" parent="Widget.AppCompat.RatingBar.Small">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:progressDrawable">@drawable/custom_rating_bar</item>
     </style>
+
 </resources>

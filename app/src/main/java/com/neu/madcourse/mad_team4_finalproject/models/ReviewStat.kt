@@ -2,6 +2,7 @@ package com.neu.madcourse.mad_team4_finalproject.models
 
 import com.google.firebase.database.PropertyName
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
+import java.io.Serializable
 
 data class ReviewStat(
     @get:PropertyName(Constants.ReviewKeys.ReviewStats.KEY_TOTAL_REVIEWERS)
@@ -25,4 +26,4 @@ data class ReviewStat(
     @get:PropertyName(Constants.ReviewKeys.ReviewStats.KEY_NUM_TERRIBLE)
     @set:PropertyName(Constants.ReviewKeys.ReviewStats.KEY_NUM_TERRIBLE)
     var numTerrible: Long? = 0,
-)
+) : Serializable

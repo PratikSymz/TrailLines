@@ -15,7 +15,7 @@
         android:id="@+id/saved_trails"
         android:title="@string/saved_trails"
         android:titleCondensed="Saved"
-        android:icon="@drawable/ic_bookmark"/>
+        android:icon="@drawable/ic_bookmark_empty"/>
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_person"

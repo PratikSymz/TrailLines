@@ -30,6 +30,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MAD_Team4_FinalProject"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <provider
@@ -45,6 +46,11 @@
 
         <activity
             android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
+
+        <activity
+            android:name=".activities.SavedTrailDetailActivity"
             android:exported="false" />
 
         <activity
@@ -57,19 +63,24 @@
 
         <activity
             android:name=".activities.AddReviewActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".activities.TrailDetailActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.TrailDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
+        <activity
+            android:name=".activities.TrailImageActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"

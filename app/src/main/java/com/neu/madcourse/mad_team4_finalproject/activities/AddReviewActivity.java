@@ -94,7 +94,7 @@ public class AddReviewActivity extends AppCompatActivity {
     private Park mPark;
 
     /* The Trail ID reference */
-    private String mTrailID = "102";
+    private final String mTrailID = "102";
 
     /* The Recommendation status boolean reference */
     private Boolean mRecommendationStatus = false;
@@ -171,8 +171,6 @@ public class AddReviewActivity extends AppCompatActivity {
 
             myAlertDialog.setNegativeButton("Camera",
                     (dialogInterface, position) -> {
-//                        Intent mIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                        startActivityForResult(mIntent, REQUEST_IMAGE_CAPTURE);
                         // Open the camera app and extract image uri
                         dispatchTakePictureIntent();
                     });
@@ -181,7 +179,8 @@ public class AddReviewActivity extends AppCompatActivity {
         });
 
         /* Set the park name */
-        // mBinding.viewReviewTrailName.setText(mPark.getFullName());
+        // TODO
+        mBinding.viewReviewTrailName.setText(mPark.getFullName());
 
         /* Setup the "Not recommended" button */
         setupNotRecommendedButton();

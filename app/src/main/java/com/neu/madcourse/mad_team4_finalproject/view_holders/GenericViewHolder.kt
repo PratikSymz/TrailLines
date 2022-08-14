@@ -2,6 +2,7 @@ package com.neu.madcourse.mad_team4_finalproject.view_holders
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableString
@@ -13,13 +14,17 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.neu.madcourse.mad_team4_finalproject.R
+import com.neu.madcourse.mad_team4_finalproject.activities.SavedTrailDetailActivity
+import com.neu.madcourse.mad_team4_finalproject.database.models.SavedTrail
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.neu.madcourse.mad_team4_finalproject.R
 import com.neu.madcourse.mad_team4_finalproject.adapters.GenericAdapter
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemReviewBinding
 import com.neu.madcourse.mad_team4_finalproject.databinding.ItemSelectedImageBinding
+import com.neu.madcourse.mad_team4_finalproject.databinding.VerticalTrailViewsBinding
 import com.neu.madcourse.mad_team4_finalproject.models.ReviewMessage
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants
@@ -72,6 +77,7 @@ class GenericViewHolder<T>(
         // Set the data model instance
         mDataModel = dataModel
 
+        /* Check the instance of the data model and bind data to the views accordingly */
         // IF data model class is URI -> review "selected images" list
         if (Uri::class.java.isAssignableFrom(mDataModel!!::class.java)) {
             // Instantiate the binding
@@ -82,10 +88,8 @@ class GenericViewHolder<T>(
                 .placeholder(R.drawable.ic_error)
                 .error(R.drawable.ic_error)
                 .into(binding.viewSelectedImage)
-        }
-
-        // IF data model class is REVIEW -> list of reviews
-        if (ReviewMessage::class.java.isAssignableFrom(mDataModel!!::class.java)) {
+        } else if (ReviewMessage::class.java.isAssignableFrom(mDataModel!!::class.java)) {
+            // IF data model class is REVIEW -> list of reviews
             // Instantiate the binding
             val binding: ItemReviewBinding = mBinding as ItemReviewBinding
             // Set the view information
@@ -187,6 +191,38 @@ class GenericViewHolder<T>(
                     mBinding.viewReviewRecommendationLabel.text = nrSpannable
                 }
             }
+        } else if (SavedTrail::class.java.isAssignableFrom(mDataModel!!::class.java)) { // IF data model class is SavedTrail -> saved trails list in DB
+            val binding: VerticalTrailViewsBinding = mBinding as VerticalTrailViewsBinding
+
+            // The data model
+            val savedTrail = mDataModel as SavedTrail
+
+            // Set the view information
+            binding.viewTrailName.text = savedTrail.fullName
+            binding.viewTrailInfo.text = savedTrail.address
+
+            if (savedTrail.numReviewers > 0) {
+                val avgRating =
+                    round(savedTrail.totalRatings / savedTrail.numReviewers, 1)
+                binding.viewParkRating.text = avgRating.toString()
+            } else {
+                binding.viewParkRating.text = "0.0"
+            }
+
+            Glide.with(mContext)
+                .load(savedTrail.imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .override(350, 200)
+                .placeholder(R.drawable.ic_downloading)
+                .error(R.drawable.ic_error)
+                .into(binding.viewTrailImage)
+
+            /* Set the onClick action for every item view on the parks list */
+            binding.root.setOnClickListener {
+                val savedDetailIntent = Intent(mContext, SavedTrailDetailActivity::class.java)
+                savedDetailIntent.putExtra("saved_trail_details", savedTrail)
+                mContext.startActivity(savedDetailIntent)
+            }
         }
     }
 
@@ -205,6 +241,12 @@ class GenericViewHolder<T>(
         }
 
         return null
+    }
+
+    /* Reference: https://stackoverflow.com/questions/22186778/using-math-round-to-round-to-one-decimal-place */
+    private fun round(value: Double, precision: Int): Double {
+        val scale = Math.pow(10.0, precision.toDouble()).toInt()
+        return Math.round(value * scale).toDouble() / scale
     }
 
     /* Helper method to convert filename into "images" database reference */

@@ -5,6 +5,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
 class NetworkUtils(context: Context) {
+    /* The Log tag */
+    private val LOG_TAG = NetworkUtils::class.java.simpleName
+
     /* The Activity context using the utilities */
     private val mContext: Context = context
 

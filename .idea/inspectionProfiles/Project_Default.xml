@@ -3,8 +3,8 @@
         <option name="myName" value="Project Default" />
         <inspection_tool class="AndroidElementNotAllowed" enabled="false" enabled_by_default="false"
             level="WARNING" />
-        <inspection_tool class="DeprecatedClassUsageInspection" enabled="false" enabled_by_default="false"
-            level="WARNING" />
+        <inspection_tool class="DeprecatedClassUsageInspection" enabled="false"
+            enabled_by_default="false" level="WARNING" />
         <inspection_tool class="Deprecation" enabled="false" enabled_by_default="false"
             level="WARNING" />
     </profile>

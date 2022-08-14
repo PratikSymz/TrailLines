@@ -16,9 +16,11 @@ object Constants {
             const val KEY_ONLINE_STATUS = "online_status"
             const val KEY_PROFILE_URL = "profile_picture_url"
             const val KEY_PRIVATE_PROFILE = "private_profile"
+            const val KEY_ONLINE = "online"
+            const val KEY_OFFLINE = "offline"
         }
 
-        /* The Friend Requests sub-directory keys -> "users/friend_requests" */
+        /* The Friend Requests sub-directory keys -> "users" */
         object FriendRequestKeys {
             const val KEY_TLO = "friend_requests"
 
@@ -31,6 +33,7 @@ object Constants {
             const val REQUEST_STATUS_DENIED = "denied"
         }
     }
+
 
     /* The Reviews directory keys -> "reviews" */
     object ReviewKeys {
@@ -79,6 +82,10 @@ object Constants {
             const val KEY_TIMESTAMP = "timestamp"
             const val KEY_DATA_TYPE = "data_type"
 
+            const val UNREAD_COUNT = "unread_message_count"
+            const val LAST_MESSAGE = "last_message"
+            const val LAST_MESSAGE_TIME = "last_message_time"
+
             // The data types
             const val DATA_TYPE_TEXT = "text"
         }
@@ -86,6 +93,13 @@ object Constants {
 
     object FirebaseStorageKeys {
         const val KEY_IMAGES = "images"
+    }
+
+    // Notification tokens
+    object Tokens {
+        const val KEY_TLO = "tokens"
+
+        const val DEVICE_TOKEN = "device_token"
     }
 
     /* The ProfileActivity tags */
@@ -99,7 +113,7 @@ object Constants {
     const val ACTIVITY_ACCOUNT = "AccountActivity"
     const val ACTIVITY_MY_TRIPS = "MyTripsActivity"
     const val ACTIVITY_SAVED_PLACES = "SavedPlacesActivity"
-    const val ACTIVITY_SETTINGS = "SettingsActivity"
+    const val ACTIVITY_SETTINGS = "AppSettingsPage"
     const val ACTIVITY_COMPLIANCE = "ComplianceActivity"
 
     /* Filter screen constants */
@@ -202,4 +216,9 @@ object Constants {
     const val CHANNEL_ID = "channel_id"
     const val CHANNEL_NAME = "channel_name"
     const val CHANNEL_DESCRIPTION = "channel_description"
+
+    // firebase cloud messaging key and sender id
+    const val FIREBASE_MESSAGING_KEY =
+        "BG1_DKwTp7UBPrpSADz7M5mEx9Ra3kYs84X0lZ94wOcgDqWlVOi3VYWOGXZoAXSLF4_C-78kI0YcelSjvK9h6Vk"
+    const val FIREBASE_MESSAGE_SENDER_ID = "707222154198"
 }

@@ -30,4 +30,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/explore_screen_bottom_navigation" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

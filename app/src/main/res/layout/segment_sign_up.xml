@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/view_input_signup_profile_picture"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
+        android:elevation="15dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blank_profile_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/image_circular"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.8dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_signup_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="Name"
+        android:textColor="@color/hike_dark_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_input_signup_profile_picture" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/holder_input_signup_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:counterEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/label_signup_name"
+        app:layout_constraintTop_toBottomOf="@+id/label_signup_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/view_input_signup_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:inputType="textPersonName"
+            android:textColor="@color/hike_dark_green" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_signup_email_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="Email address"
+        android:textColor="@color/hike_dark_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_signup_name"
+        app:layout_constraintTop_toBottomOf="@+id/holder_input_signup_name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/holder_input_signup_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:counterEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/holder_input_signup_name"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_signup_email_address"
+        app:layout_constraintTop_toBottomOf="@+id/label_signup_email_address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/view_input_signup_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/hike_dark_green" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_signup_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="Password"
+        android:textColor="@color/hike_dark_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/holder_input_signup_email"
+        app:layout_constraintTop_toBottomOf="@+id/holder_input_signup_email" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/holder_input_signup_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:counterEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/holder_input_signup_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_signup_password"
+        app:layout_constraintTop_toBottomOf="@+id/label_signup_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/hike_dark_green">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/view_input_signup_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_signup_confirm_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
+        android:text="Confirm Password"
+        android:textColor="@color/hike_dark_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_signup_password"
+        app:layout_constraintTop_toBottomOf="@+id/holder_input_signup_password" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/holder_input_signup_confirm_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:counterEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/holder_input_signup_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/label_signup_confirm_password"
+        app:layout_constraintTop_toBottomOf="@+id/label_signup_confirm_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/hike_dark_green">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/view_input_signup_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="358dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/view_button_signup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/round_corner_background"
+        android:backgroundTint="@color/hike_dark_green"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/signup_button_text"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/holder_input_signup_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/holder_input_signup_password"
+        app:layout_constraintTop_toBottomOf="@+id/holder_input_signup_confirm_password" />
+
+    <ImageView
+        android:id="@+id/holder_add_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/view_input_signup_profile_picture"
+        app:layout_constraintEnd_toEndOf="@+id/view_input_signup_profile_picture"
+        app:srcCompat="@drawable/ic_add" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

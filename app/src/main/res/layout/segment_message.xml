@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_stroke_corner_background"
+    android:padding="2dp">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/view_button_attach"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        android:tint="#5A5A5A"
+        app:layout_constraintBottom_toBottomOf="@+id/holder_message"
+        app:layout_constraintEnd_toStartOf="@+id/holder_message"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/holder_message"
+        app:srcCompat="@drawable/ic_attachment" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/holder_message"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view_button_send"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view_button_attach"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/view_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:lineSpacingExtra="1dp"
+            android:fontFamily="@font/lato"
+            android:inputType="textMultiLine"
+            android:nestedScrollingEnabled="true"
+            android:textColor="@color/hike_dark_green" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/view_button_send"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/white"
+        android:tint="#5A5A5A"
+        app:layout_constraintBottom_toBottomOf="@+id/holder_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/holder_message"
+        app:layout_constraintTop_toTopOf="@+id/holder_message"
+        app:srcCompat="@drawable/ic_send" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,8 @@ import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.neu.madcourse.mad_team4_finalproject.R
+import com.neu.madcourse.mad_team4_finalproject.models.ProfileTag
 
 class BaseUtils(context: Context) {
     companion object {

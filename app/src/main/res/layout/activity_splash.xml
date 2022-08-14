@@ -48,13 +48,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/holder_trail_lines" />
 
-    <include
-        android:id="@+id/holder_get_started"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        layout="@layout/segment_get_started"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/holder_discover_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

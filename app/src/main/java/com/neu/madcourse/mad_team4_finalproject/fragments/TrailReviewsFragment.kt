@@ -66,14 +66,13 @@ class TrailReviewsFragment(park: Park) : Fragment() {
     /* The Park ID reference */
     private var mParkID: String = mPark.parkID
 
-    /* The Trail ID reference */
-    private var mTrailID: String = "102"
-
     /* The selected images list reference */
     // private val mFindFriendsList: List<FindFriend>? = null
 
-    override fun onCreateView(@NonNull inflater: LayoutInflater, @Nullable container: ViewGroup?,
-        @Nullable savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        @NonNull inflater: LayoutInflater, @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState: Bundle?
+    ): View {
 
         // Set the activity context
         mContext = requireActivity()
@@ -103,10 +102,9 @@ class TrailReviewsFragment(park: Park) : Fragment() {
         mUsersDatabaseRef = FirebaseDatabase.getInstance().reference
             .child(Constants.UserKeys.KEY_TLO)
 
-        // Instantiate the firebase database reference -> "reviews"/parkID
+        // Instantiate the firebase database reference -> "reviews"
         mReviewsDatabaseRef = FirebaseDatabase.getInstance().reference
             .child(Constants.ReviewKeys.KEY_TLO)
-            .child(mTrailID)    // TODO: Check
 
         /* Set the selected images recycler view parameters */
         // Set the layout manager
@@ -143,7 +141,8 @@ class TrailReviewsFragment(park: Park) : Fragment() {
     /* Helper method to load the stats and reviews corresponding to the given trail ID */
     private fun loadStatsAndReviews() {
         /* Load the "reviews" stats reference for the given Trail ID */
-        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
+        mReviewsDatabaseRef.child(mParkID)
+            .child(Constants.ReviewKeys.ReviewStats.KEY_TLO)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(statsSnapshot: DataSnapshot) {
                     // Extract the review stats
@@ -158,7 +157,7 @@ class TrailReviewsFragment(park: Park) : Fragment() {
             })
 
         /* Load the "reviews" messages reference for the given Trail ID */
-        mReviewsDatabaseRef.child(mTrailID).child(Constants.ReviewKeys.ReviewMessages.KEY_TLO)
+        mReviewsDatabaseRef.child(mParkID).child(Constants.ReviewKeys.ReviewMessages.KEY_TLO)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(reviewsSnapshot: DataSnapshot) {
                     // Clear the adapter

@@ -32,7 +32,7 @@ class NotificationUtils(context: Context) {
     private var mRootRef: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     /* The Firebase Token database reference */
-    private lateinit var databaseReference: DatabaseReference
+    private var databaseReference: DatabaseReference = mRootRef.child(Constants.Tokens.KEY_TLO)
 
     /* The Token map reference */
     private val mTokenMap = HashMap<String, String>()
@@ -50,9 +50,9 @@ class NotificationUtils(context: Context) {
     private val mEndpoint: NotificationEndpoint = NotificationInterceptor().interceptor
 
     /* Method to update device token when user sign in or sign out */
-    fun updateDeviceToken(context: Context, token: String) {
+    fun updateDeviceToken(context: Context, token: String, userId: String) {
         mTokenMap[Constants.Tokens.DEVICE_TOKEN] = token
-        databaseReference.setValue(mTokenMap).addOnCompleteListener { task ->
+        databaseReference.child(userId).setValue(mTokenMap).addOnCompleteListener { task ->
             if (!task.isSuccessful) {
                 mBaseUtils.showToast("Failed to save device token!", Toast.LENGTH_SHORT)
             }
@@ -62,8 +62,7 @@ class NotificationUtils(context: Context) {
     /* Method to send notifications whenever a message or friend request is sent from the chat */
     fun sendNotification(context: Context, title: String, message: String, userId: String) {
         // Get the new token database reference
-        databaseReference = mRootRef.child(Constants.Tokens.KEY_TLO).child(userId)
-        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        databaseReference.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.child(Constants.Tokens.DEVICE_TOKEN).value != null) {
                     val deviceToken: String =
@@ -107,7 +106,7 @@ class NotificationUtils(context: Context) {
                         )
                         jsonObjectRequest.headers.put("Content-Type", contentType)
 
-                        val requestQueue:RequestQueue = Volley.newRequestQueue(context)
+                        val requestQueue: RequestQueue = Volley.newRequestQueue(context)
                         requestQueue.add(jsonObjectRequest)
 
 

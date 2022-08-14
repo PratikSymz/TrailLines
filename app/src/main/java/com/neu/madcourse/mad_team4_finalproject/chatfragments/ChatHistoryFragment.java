@@ -245,9 +245,9 @@ public class ChatHistoryFragment extends Fragment {
                             }
                         } else {
                             if (user.isOnline()) {
-                                onlineChatHistoryList.set(onlineUserIDList.indexOf(userID), chatHistory);
+                                if (onlineChatHistoryList.size() > 0) onlineChatHistoryList.set(onlineUserIDList.indexOf(userID), chatHistory);
                             } else {
-                                chatHistoryList.set(userIDList.indexOf(userID), chatHistory);
+                                if (chatHistoryList.size() > 0) chatHistoryList.set(userIDList.indexOf(userID), chatHistory);
                             }
                         }
 

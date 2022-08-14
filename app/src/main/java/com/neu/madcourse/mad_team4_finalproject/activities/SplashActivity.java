@@ -1,12 +1,14 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.neu.madcourse.mad_team4_finalproject.MainActivity;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivitySplashBinding;
-import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 
 public class SplashActivity extends AppCompatActivity {
     /* The Activity Log Tag */
@@ -18,13 +20,11 @@ public class SplashActivity extends AppCompatActivity {
     /* The Activity layout view binding reference */
     private ActivitySplashBinding mBinding;
 
-    /* The Base utils reference */
-    private BaseUtils mBaseUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
         // Set the activity context
         mContext = this;
 
@@ -33,13 +33,13 @@ public class SplashActivity extends AppCompatActivity {
         // Set the layout root view
         setContentView(mBinding.getRoot());
 
-        // Instantiate the Base utils reference
-        mBaseUtils = new BaseUtils(mContext);
-
-        mBaseUtils.applyListener(mBinding.holderGetStarted.getRoot(), view -> {
-            //TODO add shared preference
-        });
+        new Handler().postDelayed(() -> {
+            //This method will be executed once the timer is over
+            // Start your app main activity
+            Intent i = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(i);
+            // close this activity
+            finish();
+        }, 1500);
     }
-
-
 }

@@ -19,6 +19,8 @@ import androidx.core.app.NotificationCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.neu.madcourse.mad_team4_finalproject.R;
@@ -32,12 +34,14 @@ import java.util.Objects;
 public class ChatMessagingService extends FirebaseMessagingService {
     private NotificationCompat.Builder notificationBuilder;
 
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
         /* The Notification utils reference */
         NotificationUtils mNotificationUtils = new NotificationUtils(this);
-        mNotificationUtils.updateDeviceToken(this, token);
+        mNotificationUtils.updateDeviceToken(this, token, firebaseUser.getUid());
     }
 
     @SuppressLint("ObsoleteSdkInt")

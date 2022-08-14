@@ -56,8 +56,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- 1. Splash screen -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,21 +67,21 @@
             </intent-filter>
         </activity>
 
-        <!-- 1. Splash screen [Nishtha] -->
-        <!-- 2. Login screen [Tested] -->
-
+        <!-- 2. Login, Signup and Reset pass screen [Tested] -->
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="true">
-        </activity>
-        <!-- 3. SignUp screen [Tested] -->
+            android:exported="true" />
         <activity
             android:name=".activities.SignUpActivity"
             android:exported="false" />
-        <!-- 4. Reset password screen [Tested] -->
         <activity
             android:name=".activities.ResetPasswordActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"></activity>
+
 
         <!-- 5. Tab Screen [Explore, Community, Saved, Profile] -->
 
@@ -93,15 +94,6 @@
             android:exported="false" />
 
         <!-- 5.2 Community tab screen tested -->
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
         <activity
             android:name=".activities.ContactUsPage"
             android:exported="false" />
@@ -130,10 +122,6 @@
             android:exported="false" />
 
         <activity
-            android:name=".activities.SplashActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".AppMainScreen.MainScreen"
             android:exported="false" />
 
@@ -147,7 +135,7 @@
 
         <activity
             android:name=".activities.TrailImageActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

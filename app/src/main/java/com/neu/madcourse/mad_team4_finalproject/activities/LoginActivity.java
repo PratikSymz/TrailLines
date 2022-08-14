@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.neu.madcourse.mad_team4_finalproject.MainActivity;
 import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityLoginBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
@@ -91,16 +92,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if the user is currently logged in to the app
         // This piece of code will not be executed if the user has already logged out
-        // TODO: Uncomment
         if (mFirebaseUser != null) {
             // Instantiate the notification utils reference
             mNotificationUtils = new NotificationUtils(mContext);
 
             /* Setting up the cloud messaging */
             FirebaseMessaging.getInstance().getToken().addOnSuccessListener(s ->
-                    mNotificationUtils.updateDeviceToken(mContext, s)
+                    mNotificationUtils.updateDeviceToken(mContext, s, mFirebaseUser.getUid())
             );
-            startActivity(new Intent(mContext, CommunityScreenActivity.class));
+            startActivity(new Intent(mContext, MainActivity.class));
             finish();
         }
     }
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     mBaseUtils.showToast("Login Successful!", Toast.LENGTH_SHORT);
                     // TODO: subject to change to main app screen (explore tab)
-                    Intent intent = new Intent(mContext, CommunityScreenActivity.class);
+                    Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Log.d(LOG_TAG, String.format("Login Failed: %s", task.getException()));

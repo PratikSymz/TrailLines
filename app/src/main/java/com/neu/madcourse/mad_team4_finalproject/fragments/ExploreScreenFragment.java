@@ -10,6 +10,7 @@ import android.location.Address;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +54,6 @@ import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 import com.neu.madcourse.mad_team4_finalproject.utils.LocationUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -276,12 +276,22 @@ public class ExploreScreenFragment extends Fragment {
         getCurrentLocation(location -> {
             // Extract the location
             mLocation = location;
-            // Load the park information
-            initiateParksCallback(mLocation);
+        });
+
+        new Handler().postDelayed(() -> {
+            // If location retrieved after 5 secs
+            if (mLocation != null) {
+                // Load the park information
+                initiateParksCallback(mLocation);
+            } else {
+                mBaseUtils.showToast("Couldn't find current location", Toast.LENGTH_LONG);
+                initiateParksCallback("");
+            }
+
             // Hide the park list progress bar
             mBinding.verticalTrailRecyclerView.setVisibility(View.VISIBLE);
             mBinding.groupParkProgress.setVisibility(View.INVISIBLE);
-        });
+        }, 5000);
     }
 
     /* Helper method to initiate the "Park list" endpoint callback */

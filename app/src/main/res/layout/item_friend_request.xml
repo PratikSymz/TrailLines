@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/view_request_profile_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -13,7 +13,10 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/blank_profile_picture"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/image_circular"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.8dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/view_request_user_name"

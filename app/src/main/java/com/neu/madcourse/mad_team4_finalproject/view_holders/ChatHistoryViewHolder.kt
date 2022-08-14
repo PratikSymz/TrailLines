@@ -74,7 +74,8 @@ class ChatHistoryViewHolder(
             mBinding.viewUnreadCount.visibility = View.VISIBLE
             mBinding.viewUnreadCount.text = chatHistory.unreadCount
         } else {
-            mBinding.viewUnreadCount.visibility = View.INVISIBLE
+            mBinding.viewUnreadCount.visibility = View.VISIBLE
+            mBinding.viewUnreadCount.text = "0"
         }
 
         // Set the last message timestamp

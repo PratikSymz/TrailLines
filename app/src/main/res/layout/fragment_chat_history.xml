@@ -61,13 +61,40 @@
         app:layout_constraintStart_toStartOf="@+id/label_history"
         app:layout_constraintTop_toBottomOf="@+id/label_history" />
 
+    <TextView
+        android:id="@+id/label_none_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="No one online"
+        android:textColor="@color/hike_dark_green"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_history_online"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_history_online"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view_history_online"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view_history_online" />
+
+    <TextView
+        android:id="@+id/label_no_chats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="No chats here"
+        android:textColor="@color/hike_dark_green"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_history"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_history"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view_history"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view_history" />
+
     <include
         android:id="@+id/chat_progress_bar"
         layout="@layout/layout_progress_bar"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

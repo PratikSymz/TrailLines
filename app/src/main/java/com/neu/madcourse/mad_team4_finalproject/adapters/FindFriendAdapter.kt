@@ -44,7 +44,7 @@ class FindFriendAdapter(
     }
 
     /* Helper method to update the adapter list */
-    fun updateDataList(friendsList: MutableList<FindFriend>) {
+    fun updateDataList(friendsList: List<FindFriend>) {
         // Update the data list
         mFriendsList = friendsList
         // Notify the adapter

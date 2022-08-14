@@ -180,15 +180,14 @@ public class ChatScreenActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String onlineStatus = "";
-                if (snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
-                        .getValue() != null)
-                    onlineStatus = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
-                            .getValue()).toString();
-                if(onlineStatus.equals("true"));
-                    //TODO do something
-                else;
-                    //TODO do something
+                Boolean onlineStatus = snapshot
+                        .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO)
+                        .child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
+                        .getValue(Boolean.class);
+
+                if (onlineStatus != null) {
+                    // TODO: True and False value handling
+                }
 
             }
 

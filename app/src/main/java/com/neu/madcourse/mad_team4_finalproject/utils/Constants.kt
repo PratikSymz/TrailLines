@@ -45,6 +45,7 @@ object Constants {
             const val KEY_MESSAGE_ID = "message_id"
             const val KEY_TIMESTAMP = "timestamp"
             const val KEY_DATA_TYPE = "data_type"
+
             const val UNREAD_COUNT = "unread_message_count"
             const val LAST_MESSAGE = "last_message"
             const val LAST_MESSAGE_TIME = "last_message_time"
@@ -76,7 +77,7 @@ object Constants {
     const val ACTIVITY_ACCOUNT = "AccountActivity"
     const val ACTIVITY_MY_TRIPS = "MyTripsActivity"
     const val ACTIVITY_SAVED_PLACES = "SavedPlacesActivity"
-    const val ACTIVITY_SETTINGS = "SettingsActivity"
+    const val ACTIVITY_SETTINGS = "AppSettingsPage"
     const val ACTIVITY_COMPLIANCE = "ComplianceActivity"
 
     /* JSON object structure for data message notification data */

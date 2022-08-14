@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.neu.madcourse.mad_team4_finalproject.R;
@@ -17,8 +18,6 @@ import com.neu.madcourse.mad_team4_finalproject.adapters.CommunitiesPagerAdapter
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityCommunityScreenBinding;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
-
-import java.util.Objects;
 
 public class CommunityScreenActivity extends AppCompatActivity {
     /* The Activity layout view binding reference */
@@ -29,6 +28,7 @@ public class CommunityScreenActivity extends AppCompatActivity {
     private boolean pressAgain = false;
     private BaseUtils mBaseUtils;
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     private DatabaseReference mDatabaseReference;
 
     @Override
@@ -37,6 +37,7 @@ public class CommunityScreenActivity extends AppCompatActivity {
         // Instantiate the activity layout view binding
         mBinding = ActivityCommunityScreenBinding.inflate(getLayoutInflater());
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         // Set the layout root view
         setContentView(mBinding.getRoot());
         tabLayout = mBinding.viewChatTabs;
@@ -47,20 +48,26 @@ public class CommunityScreenActivity extends AppCompatActivity {
         /* code for updating user online status */
         mDatabaseReference = FirebaseDatabase.getInstance().getReference()
                 .child(Constants.UserKeys.KEY_TLO)
-                .child(Objects.requireNonNull(firebaseAuth.getUid()));
+                .child(firebaseUser.getUid())
+                .child(Constants.UserKeys.PersonalInfoKeys.KEY_TLO);
+
         // if the user is online and then show online
-        mDatabaseReference.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
+        mDatabaseReference
+                .child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
                 .setValue(true);
+
         // if the user is offline or disconnected from the server then show offline
-        mDatabaseReference.child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
-                .onDisconnect().setValue(false);
+        mDatabaseReference
+                .child(Constants.UserKeys.PersonalInfoKeys.KEY_ONLINE_STATUS)
+                .onDisconnect()
+                .setValue(false);
     }
 
     /**
      * This method is to add the tabs in the layout and set it to the chat adapter
      * When the tab is clicked or highlighted it will show the respective recycler view
      */
-    private void setViewPage(){
+    private void setViewPage() {
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.chat_tab));
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.request_tab));
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.find_tab));
@@ -95,10 +102,10 @@ public class CommunityScreenActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        if (tabLayout.getSelectedTabPosition() > 0){
+        if (tabLayout.getSelectedTabPosition() > 0) {
             tabLayout.selectTab(tabLayout.getTabAt(0));
         } else {
-            if (pressAgain){
+            if (pressAgain) {
                 // TODO this needs to be updated once the explore screen is done
                 finish();
             } else {

@@ -17,6 +17,7 @@
         android:orientation="horizontal"
         android:padding="8dp"
         android:visibility="visible"
+        app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,9 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|top"
             android:ellipsize="end"
-            android:fontFamily="@font/lato"
             android:padding="10dp"
-            android:text="Sup'! How you doin'? kjbfv fv kkjbjkvbk"
+            android:maxLines="4"
+            android:fontFamily="@font/lato"
+            android:includeFontPadding="false"
+            android:text="Sup'! How you doin'? kjininfdffdvdfsknfdvfs"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
@@ -50,7 +53,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/holder_receiver"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -60,6 +63,7 @@
         android:orientation="horizontal"
         android:padding="8dp"
         android:visibility="gone"
+        app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

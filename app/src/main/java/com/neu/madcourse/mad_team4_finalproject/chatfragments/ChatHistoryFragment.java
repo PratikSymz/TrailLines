@@ -25,6 +25,7 @@ import com.neu.madcourse.mad_team4_finalproject.R;
 import com.neu.madcourse.mad_team4_finalproject.adapters.ChatHistoryAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.FragmentChatHistoryBinding;
 import com.neu.madcourse.mad_team4_finalproject.models.ChatHistory;
+import com.neu.madcourse.mad_team4_finalproject.models.User;
 import com.neu.madcourse.mad_team4_finalproject.utils.BaseUtils;
 import com.neu.madcourse.mad_team4_finalproject.utils.Constants;
 
@@ -43,9 +44,11 @@ public class ChatHistoryFragment extends Fragment {
 
     // declaring chatListAdapter class
     private ChatHistoryAdapter chatHistoryAdapter;
+    private ChatHistoryAdapter onlineChatHistoryAdapter;
 
     // declaring List of chatModel
     private List<ChatHistory> chatHistoryList = new ArrayList<>();
+    private List<ChatHistory> onlineChatHistoryList = new ArrayList<>();
 
     // creating a database reference object for chats and users
     private DatabaseReference chatDatabaseReference, userDatabaseReference;
@@ -60,7 +63,8 @@ public class ChatHistoryFragment extends Fragment {
     private Query query;
 
     // Creating a list of all userId
-    List<String> userIDList;
+    List<String> userIDList = new ArrayList<>();
+    List<String> onlineUserIDList = new ArrayList<>();
 
     public ChatHistoryFragment() {
         // Required empty public constructor
@@ -79,7 +83,8 @@ public class ChatHistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Instantiate the adapter
-        chatHistoryAdapter = new ChatHistoryAdapter(requireActivity(), new ArrayList<>(chatHistoryList));
+        chatHistoryAdapter = new ChatHistoryAdapter(requireActivity(), chatHistoryList);
+        onlineChatHistoryAdapter = new ChatHistoryAdapter(requireActivity(), onlineChatHistoryList);
         // Show the progress view while loading data
         mBinding.chatProgressBar.getRoot().setVisibility(View.VISIBLE);
 
@@ -91,34 +96,59 @@ public class ChatHistoryFragment extends Fragment {
         // setting the stack from end as true
         linearLayoutManager.setStackFromEnd(true);
 
-        //Initiating the userIDList
-        userIDList = new ArrayList<>();
+        // creating a new linear layout manager and reversing the layout
+        // Reversing the layout so that the last message sent will be the first message seen in the view
+        LinearLayoutManager linearLayoutManagerOnline = new LinearLayoutManager(getActivity());
+        // reversing the layout so that last message sent will be seen as first
+        linearLayoutManagerOnline.setReverseLayout(true);
+        // setting the stack from end as true
+        linearLayoutManagerOnline.setStackFromEnd(true);
 
         // Set the adapter and the layout manager
         mBinding.recyclerViewHistory.setLayoutManager(linearLayoutManager);
         mBinding.recyclerViewHistory.setAdapter(chatHistoryAdapter);
 
+        mBinding.recyclerViewHistoryOnline.setLayoutManager(linearLayoutManagerOnline);
+        mBinding.recyclerViewHistoryOnline.setAdapter(onlineChatHistoryAdapter);
+
         // connecting firebase
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        userDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.UserKeys.KEY_TLO);
-        chatDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.ChatKeys.KEY_TLO).child(currentUser.getUid());
-        // query = chatDatabaseReference.orderByChild(Constants.ChatKeys.MessageKeys.KEY_TIMESTAMP); // TODO: Check if it works
+        userDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.UserKeys.KEY_TLO);
+        chatDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.ChatKeys.KEY_TLO)
+                .child(currentUser.getUid());
+
+        query = chatDatabaseReference.orderByChild(Constants.ChatKeys.MessageKeys.KEY_TIMESTAMP); // TODO: Check if it works
         chatDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getChildrenCount() == 0) {
-                    // Hide the progress bar
-                    mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
+                    mBinding.recyclerViewHistoryOnline.setVisibility(View.INVISIBLE);
+                    mBinding.labelNoneOnline.setVisibility(View.VISIBLE);
+
+                    mBinding.recyclerViewHistory.setVisibility(View.INVISIBLE);
+                    mBinding.labelNoChats.setVisibility(View.VISIBLE);
+                } else {
+                    mBinding.recyclerViewHistoryOnline.setVisibility(View.VISIBLE);
+                    mBinding.labelNoneOnline.setVisibility(View.INVISIBLE);
+
+                    mBinding.recyclerViewHistory.setVisibility(View.VISIBLE);
+                    mBinding.labelNoChats.setVisibility(View.INVISIBLE);
                 }
 
+                // Hide the progress bar
+                mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
+
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    updateChatList(snapshot, true, child.getKey());
+                    updateChatList(snapshot, false, child.getKey());
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                mBaseUtils.showToast("Cannot load chats at the moment!", Toast.LENGTH_SHORT);
             }
         });
 
@@ -154,8 +184,7 @@ public class ChatHistoryFragment extends Fragment {
         };
 
         // adding the child listener to the query
-        // TODO: FIX
-        // query.addChildEventListener(childEventListener);
+        query.addChildEventListener(childEventListener);
     }
 
     /**
@@ -173,11 +202,12 @@ public class ChatHistoryFragment extends Fragment {
         final String lastMessage, lastMessageTime, unreadMessageCount;
         // TODO: these strings data structures are updated later
         // updating the last message - if its not null get the value or else set to null
-        if (dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE).getValue() != null) {
+        if (dataSnapshot.child(userID).child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE).getValue() != null) {
             lastMessage = Objects.requireNonNull(dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE).getValue()).toString();
         } else {
             lastMessage = "";
         }
+
         // same thing for this one as well
         if (dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE_TIME).getValue() != null) {
             lastMessageTime = Objects.requireNonNull(dataSnapshot.child(Constants.ChatKeys.MessageKeys.LAST_MESSAGE_TIME).getValue()).toString();
@@ -194,23 +224,52 @@ public class ChatHistoryFragment extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String name = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_NAME).getValue()).toString();
-                        String photo = Objects.requireNonNull(snapshot.child(Constants.UserKeys.PersonalInfoKeys.KEY_PROFILE_URL)
-                                .getValue()).toString();
+                        // Get the user information
+                        User user = snapshot.getValue(User.class);
+                        assert user != null;
 
                         // adding these data to the chatModelList
-                        ChatHistory chatHistory = new ChatHistory(userID, name, photo, unreadMessageCount, lastMessage, lastMessageTime);
+                        ChatHistory chatHistory = new ChatHistory(userID, user.getName(), user.getProfilePictureFileName(), unreadMessageCount, lastMessage, lastMessageTime);
                         /* wrote a conditional statement to update list only its isNew record then add directly */
                         if (isNewRecord) {
-                            chatHistoryList.add(chatHistory);
-                            userIDList.add(userID);
+                            if (user.isOnline()) {
+                                if (!onlineChatHistoryList.contains(chatHistory)) {
+                                    onlineChatHistoryList.add(chatHistory);
+                                    onlineUserIDList.add(userID);
+                                }
+                            } else {
+                                if (!chatHistoryList.contains(chatHistory)) {
+                                    chatHistoryList.add(chatHistory);
+                                    userIDList.add(userID);
+                                }
+                            }
                         } else {
-                            //TODO ask Pratik about this!
-                            int clickedUser = userIDList.indexOf(userID);
-                            chatHistoryList.set(clickedUser, chatHistory);
+                            if (user.isOnline()) {
+                                onlineChatHistoryList.set(onlineUserIDList.indexOf(userID), chatHistory);
+                            } else {
+                                chatHistoryList.set(userIDList.indexOf(userID), chatHistory);
+                            }
                         }
+
+                        if (chatHistoryList.size() > 0) {
+                            mBinding.recyclerViewHistory.setVisibility(View.VISIBLE);
+                            mBinding.labelNoChats.setVisibility(View.INVISIBLE);
+                        } else {
+                            mBinding.recyclerViewHistory.setVisibility(View.INVISIBLE);
+                            mBinding.labelNoChats.setVisibility(View.VISIBLE);
+                        }
+
+                        if (onlineChatHistoryList.size() > 0) {
+                            mBinding.recyclerViewHistoryOnline.setVisibility(View.VISIBLE);
+                            mBinding.labelNoneOnline.setVisibility(View.INVISIBLE);
+                        } else {
+                            mBinding.recyclerViewHistoryOnline.setVisibility(View.INVISIBLE);
+                            mBinding.labelNoneOnline.setVisibility(View.VISIBLE);
+                        }
+
                         chatHistoryAdapter.updateDataList(chatHistoryList);
-                        chatHistoryAdapter.notifyDataSetChanged();
+                        onlineChatHistoryAdapter.updateDataList(onlineChatHistoryList);
+
                         mBinding.chatProgressBar.getRoot().setVisibility(View.INVISIBLE);
                     }
 

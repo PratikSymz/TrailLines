@@ -164,7 +164,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                     .child(userID)
                     .child(Constants.ChatKeys.MessageKeys.KEY_TLO)
                     .child(pushID)
-                        .updateChildren(getDataMap(pushID, mFirebaseUser.getUid(), "", ""))     // TODO: Check this
+                    .updateChildren(getDataMap(pushID, mFirebaseUser.getUid()))     // TODO: Check this
                     .addOnCompleteListener(taskChat -> {
                         if (taskChat.isSuccessful()) {
                             // [REVERSE]
@@ -173,7 +173,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                                     .child(mFirebaseUser.getUid())
                                     .child(Constants.ChatKeys.MessageKeys.KEY_TLO)
                                     .child(pushID)
-                                        .updateChildren(getDataMap(pushID, mFirebaseUser.getUid(), "", ""))     // TODO: Check this
+                                    .updateChildren(getDataMap(pushID, mFirebaseUser.getUid()))     // TODO: Check this
                                     .addOnCompleteListener(reverseTaskChat -> {
                                         if (reverseTaskChat.isSuccessful()) {
                                             // Now, set the request status of the requester and requestee
@@ -184,7 +184,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                                                     .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                                                     .child(userID)
                                                     .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                                                        .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_ACCEPTED)
+                                                    .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_ACCEPTED)
                                                     .addOnCompleteListener(taskFriendRequest -> {
                                                         if (taskFriendRequest.isSuccessful()) {
                                                             // [REVERSE]
@@ -193,7 +193,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                                                                     .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                                                                     .child(mFirebaseUser.getUid())
                                                                     .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                                                                        .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_ACCEPTED)
+                                                                    .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_ACCEPTED)
                                                                     .addOnCompleteListener(reverseTaskFriendRequest -> {
                                                                         if (reverseTaskFriendRequest.isSuccessful()) {
                                                                             // Hide the progress bar
@@ -245,7 +245,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                     .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                     .child(userID)
                     .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                        .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_DENIED)
+                    .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_DENIED)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // Update the request status in the REVERSE direction inside the other user's
@@ -255,7 +255,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
                                     .child(Constants.UserKeys.FriendRequestKeys.KEY_TLO)
                                     .child(mFirebaseUser.getUid())
                                     .child(Constants.UserKeys.FriendRequestKeys.KEY_REQUEST_STATUS)
-                                        .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_DENIED)
+                                    .setValue(Constants.UserKeys.FriendRequestKeys.REQUEST_STATUS_DENIED)
                                     .addOnCompleteListener(reverseTask -> {
                                         if (reverseTask.isSuccessful()) {
                                             mBaseUtils.showToast("Request denied successfully!", Toast.LENGTH_SHORT);
@@ -313,7 +313,7 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
     }
 
     /* Helper method to generate an empty message data map */
-    private Map<String, Object> getDataMap(String pushID, String from, String content, String dataType) {
+    private Map<String, Object> getDataMap(String pushID, String from) {
         // Create a hash map of data
         Map<String, Object> dataMap = new HashMap<>();
         // Add the message ID
@@ -321,9 +321,9 @@ public class ConnectionRequestViewHolder extends RecyclerView.ViewHolder {
         // Add the message "from" user ID
         dataMap.put(Constants.ChatKeys.MessageKeys.KEY_FROM, from);
         // Add the message content
-        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_CONTENT, content);
+        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_CONTENT, "Let's begin messaging!");
         // Add the message data type
-        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_DATA_TYPE, dataType);
+        dataMap.put(Constants.ChatKeys.MessageKeys.KEY_DATA_TYPE, Constants.ChatKeys.MessageKeys.DATA_TYPE_TEXT);
         // Add the message timestamp
         dataMap.put(Constants.ChatKeys.MessageKeys.KEY_TIMESTAMP, ServerValue.TIMESTAMP);
 

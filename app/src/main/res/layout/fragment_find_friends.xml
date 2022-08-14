@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.neu.madcourse.mad_team4_finalproject.utils.RecyclerViewEmptySupport
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/view_request_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -42,6 +42,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

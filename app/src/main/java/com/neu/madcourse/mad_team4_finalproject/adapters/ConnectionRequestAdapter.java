@@ -20,9 +20,9 @@ public class ConnectionRequestAdapter extends RecyclerView.Adapter<ConnectionReq
     /* The Recycler view item remove listener interface instance */
     private ItemRemoveListener mListener;
 
-    public ConnectionRequestAdapter(Context mContext, List<ConnectionRequest> friendRequestList, ItemRemoveListener listener) {
+    public ConnectionRequestAdapter(Context mContext, List<ConnectionRequest> connectionRequests, ItemRemoveListener listener) {
         this.mContext = mContext;
-        this.connectionRequestList = friendRequestList;
+        this.connectionRequestList = connectionRequests;
         this.mListener = listener;
     }
 

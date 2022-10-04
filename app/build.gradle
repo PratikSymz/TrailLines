@@ -43,6 +43,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    aaptOptions {
+        cruncherEnabled = false
+    }
 }
 
 dependencies {

@@ -1,17 +1,16 @@
 package com.neu.madcourse.mad_team4_finalproject.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.GridView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.neu.madcourse.mad_team4_finalproject.adapters.TrailImageAdapter;
 import com.neu.madcourse.mad_team4_finalproject.databinding.ActivityTrailImageBinding;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Image;
 import com.neu.madcourse.mad_team4_finalproject.models_nps.Park;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +27,11 @@ public class TrailImageActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
         mPark = (Park) getIntent().getSerializableExtra("park_details");
 
-        List<String> IMAGE_IDS = mPark.getImageList().stream().map(Image::getUrl).collect(Collectors.toList());
+        List<String> IMAGE_IDS = new ArrayList<>();
+        if (mPark.getImageList() != null || !mPark.getImageList().isEmpty()) {
+            IMAGE_IDS = mPark.getImageList().stream().map(Image::getUrl).collect(Collectors.toList());
+        }
+
         // Extract the grid view
         String parkName = mPark.getFullName();
         GridView gridView = mBinding.gridview;
